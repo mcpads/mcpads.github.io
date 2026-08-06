@@ -7,8 +7,15 @@
       name="description"
       content="mcpads는 잊힌 코드의 의미를 되찾아, 오래된 게임이 다시 읽히고 고쳐지고 이어질 수 있게 합니다."
     />
+    <meta name="author" content="mcpads" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
     <meta name="theme-color" content="#080b12" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:site_name" content="mcpads" />
     <meta property="og:title" content="mcpads — Reconstruct the past" />
     <meta
@@ -16,8 +23,27 @@
       content="오래된 게임을 고치는 데서, 다시 컴파일하는 데까지."
     />
     <meta property="og:url" content="https://mcpads.dev/" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content="https://mcpads.dev/og.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="mcpads 로고 아래 ROM, IR, GAME 패널이 연결된 레트로 도트 그래픽."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="mcpads — Reconstruct the past" />
+    <meta
+      name="twitter:description"
+      content="오래된 게임을 고치는 데서, 다시 컴파일하는 데까지."
+    />
+    <meta name="twitter:image" content="https://mcpads.dev/og.png" />
+    <meta
+      name="twitter:image:alt"
+      content="mcpads 로고 아래 ROM, IR, GAME 패널이 연결된 레트로 도트 그래픽."
+    />
     <link rel="canonical" href="https://mcpads.dev/" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link
       rel="preload"
@@ -27,6 +53,31 @@
       crossorigin
     />
     <title>mcpads — Reconstruct the past</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfilePage",
+        "@id": "https://mcpads.dev/#profile",
+        "url": "https://mcpads.dev/",
+        "name": "mcpads — Reconstruct the past",
+        "description": "잊힌 코드의 의미를 되찾아, 오래된 게임이 다시 읽히고 고쳐지고 이어질 수 있게 합니다.",
+        "inLanguage": ["ko", "en"],
+        "mainEntity": {
+          "@type": "Person",
+          "@id": "https://mcpads.dev/#mcpads",
+          "name": "mcpads",
+          "url": "https://mcpads.dev/",
+          "sameAs": ["https://github.com/mcpads"],
+          "knowsAbout": [
+            "Retro game localization",
+            "Reverse engineering",
+            "Emulator tooling",
+            "Model Context Protocol",
+            "Compiler intermediate representations"
+          ]
+        }
+      }
+    </script>
     <link rel="stylesheet" href="/src/styles.css" />
     <script type="module" src="/src/main.ts"></script>
   </head>
