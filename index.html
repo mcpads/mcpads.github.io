@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="mcpads는 잊힌 코드의 의미를 되찾아, 오래된 게임이 다시 읽히고 고쳐지고 이어질 수 있게 합니다."
+    />
+    <meta name="theme-color" content="#080b12" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="mcpads" />
+    <meta property="og:title" content="mcpads — Reconstruct the past" />
+    <meta
+      property="og:description"
+      content="오래된 게임을 고치는 데서, 다시 컴파일하는 데까지."
+    />
+    <meta property="og:url" content="https://mcpads.dev/" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="canonical" href="https://mcpads.dev/" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="preload"
+      href="https://cdn.jsdelivr.net/npm/galmuri@2.40.3/dist/Galmuri11-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <title>mcpads — Reconstruct the past</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">
+      <span data-copy="ko">본문으로 건너뛰기</span>
+      <span data-copy="en" lang="en" hidden>Skip to content</span>
+    </a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a
+          class="wordmark"
+          href="#top"
+          aria-label="mcpads 홈"
+          data-aria-label-ko="mcpads 홈"
+          data-aria-label-en="mcpads home"
+        >
+          <span class="wordmark-mark" aria-hidden="true"></span>
+          <span>mcpads</span>
+        </a>
+
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-navigation"
+        >
+          <span class="sr-only">메뉴 열기</span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+
+        <nav
+          id="site-navigation"
+          class="site-navigation"
+          aria-label="주요 섹션"
+          data-aria-label-ko="주요 섹션"
+          data-aria-label-en="Primary sections"
+        >
+          <a href="#journey" data-section-link="journey">Journey</a>
+          <a href="#retroir" data-section-link="retroir">RetroIR</a>
+          <a href="#work" data-section-link="work">Work</a>
+          <a href="#about" data-section-link="about">About</a>
+          <div class="mobile-navigation-actions">
+            <div
+              class="language-switch"
+              role="group"
+              aria-label="언어 선택"
+              data-aria-label-ko="언어 선택"
+              data-aria-label-en="Choose language"
+            >
+              <button type="button" data-language="ko" aria-pressed="true">KO</button>
+              <button type="button" data-language="en" aria-pressed="false">EN</button>
+            </div>
+            <a
+              class="github-link"
+              href="https://github.com/mcpads"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="mcpads GitHub 프로필, 새 탭"
+              data-aria-label-ko="mcpads GitHub 프로필, 새 탭"
+              data-aria-label-en="mcpads GitHub profile, opens in a new tab"
+            >GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </nav>
+
+        <div class="header-actions">
+          <div
+            class="language-switch"
+            role="group"
+            aria-label="언어 선택"
+            data-aria-label-ko="언어 선택"
+            data-aria-label-en="Choose language"
+          >
+            <button type="button" data-language="ko" aria-pressed="true">KO</button>
+            <button type="button" data-language="en" aria-pressed="false">EN</button>
+          </div>
+          <a
+            class="github-link"
+            href="https://github.com/mcpads"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="mcpads GitHub 프로필, 새 탭"
+            data-aria-label-ko="mcpads GitHub 프로필, 새 탭"
+            data-aria-label-en="mcpads GitHub profile, opens in a new tab"
+          >GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section
+        id="top"
+        class="hero"
+        aria-label="오래된 게임을 고치는 데서, 다시 컴파일하는 데까지."
+        data-aria-label-ko="오래된 게임을 고치는 데서, 다시 컴파일하는 데까지."
+        data-aria-label-en="Reconstruct the past. Compile what comes next."
+      >
+        <div class="page-shell hero-layout">
+          <div class="hero-copy">
+            <p class="eyebrow">AI · REVERSE ENGINEERING · COMPILERS</p>
+            <h1 id="hero-heading" data-copy="ko">
+              오래된 게임을 고치는 데서,<br />다시 컴파일하는 데까지.
+            </h1>
+            <h1 data-copy="en" lang="en" hidden>
+              Reconstruct the past.<br />Compile what comes next.
+            </h1>
+            <p class="hero-description" data-copy="ko">
+              게임의 영혼은 ROM의 바이트에만 남아 있지 않습니다. 누군가 다시
+              읽고, 고치고, 이어 만들 수 있을 때 비로소 살아 있습니다. mcpads는
+              오래된 코드에 묻힌 의미를 되찾아, 과거가 끝이 아니라 시작이 되게 합니다.
+            </p>
+            <p class="hero-description" data-copy="en" lang="en" hidden>
+              The soul of a game does not live in ROM bytes alone. It lives when
+              someone can read it again, change it, and carry it forward. mcpads
+              recovers the meaning buried in old code—so the past can become a
+              beginning, not an ending.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#journey">
+                Explore the journey <span aria-hidden="true">→</span>
+              </a>
+              <a
+                class="button button-secondary"
+                href="https://github.com/mcpads"
+                target="_blank"
+                rel="noopener noreferrer"
+              >GitHub <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+
+          <div class="transform-console" aria-hidden="true">
+            <div class="console-header">
+              <span>0x0000 · ROM</span>
+              <span class="console-status"><i></i> READING</span>
+            </div>
+            <div class="transform-flow">
+              <div class="pixel-block pixel-block-source">
+                <i></i><i></i><i></i><i></i><i></i><i></i>
+                <i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <span class="flow-line flow-line-to-ir"></span>
+              <div class="pixel-block pixel-block-ir">
+                <i></i><i></i><i></i><i></i><i></i><i></i>
+                <i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <span class="flow-line flow-line-to-game"></span>
+              <div class="pixel-block pixel-block-game">
+                <i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+            </div>
+            <div class="transform-labels">
+              <span>ROM</span><span></span><span>IR</span><span></span><span>GAME</span>
+            </div>
+            <p data-copy="ko">기존 ROM을 중간 표현으로 올리고, 같은 체계에서 다시 내려보낸다.</p>
+            <p data-copy="en" lang="en" hidden>
+              Lift an existing ROM into an intermediate representation, then rebuild it in the same system.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="journey"
+        class="section journey-section"
+        data-navigation-section="journey"
+        aria-label="이전 단계가 다음을 만들었다"
+        data-aria-label-ko="이전 단계가 다음을 만들었다"
+        data-aria-label-en="Each step shaped the next"
+      >
+        <div class="page-shell">
+          <div class="section-kicker">
+            <span>§ JOURNEY</span>
+            <i></i>
+            <span>PATCH → METHOD → OBSERVE → RECONSTRUCT</span>
+          </div>
+          <h2 id="journey-heading" data-copy="ko">이전 단계가 다음을 만들었다</h2>
+          <h2 data-copy="en" lang="en" hidden>Each step shaped the next</h2>
+          <p class="section-intro" data-copy="ko">
+            연표가 아니라 인과관계입니다. 각 단계에서 드러난 문제와 만든 것,
+            그리고 남은 문제가 다음 작업을 결정했습니다.
+          </p>
+          <p class="section-intro" data-copy="en" lang="en" hidden>
+            Not a timeline, but a chain of cause: what surfaced, what was built,
+            and what remained.
+          </p>
+
+          <ol class="journey-stages">
+            <li class="journey-stage">
+              <article>
+                <div class="stage-heading"><strong>01</strong><span>PATCH</span></div>
+                <h3 data-copy="ko">AI가 ROM을 읽기 시작했다</h3>
+                <h3 data-copy="en" lang="en" hidden>AI started reading ROMs</h3>
+                <dl data-copy="ko">
+                  <div><dt>문제</dt><dd>텍스트가 코드와 압축 안에 섞여 있어 손으로 찾고 고치기 어려웠다.</dd></div>
+                  <div><dt>만든 것</dt><dd>마도물어, 뿌요뿌요, 파로디우스 시리즈의 실제 한글 패치.</dd></div>
+                  <div><dt>남은 문제</dt><dd>성공은 게임마다 처음부터 다시였다.</dd></div>
+                </dl>
+                <dl data-copy="en" lang="en" hidden>
+                  <div><dt>Problem</dt><dd>Text was tangled inside code and compression.</dd></div>
+                  <div><dt>Built</dt><dd>Shipped Korean patches for three retro-game series.</dd></div>
+                  <div><dt>Next</dt><dd>Every game still started from zero.</dd></div>
+                </dl>
+                <a href="#patches">
+                  <span data-copy="ko">패치 결과 보기</span>
+                  <span data-copy="en" lang="en" hidden>See the patches</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </article>
+            </li>
+
+            <li class="journey-stage">
+              <article>
+                <div class="stage-heading"><strong>02</strong><span>METHOD</span></div>
+                <h3 data-copy="ko">성공을 반복 가능한 방법으로 바꿨다</h3>
+                <h3 data-copy="en" lang="en" hidden>Turned success into a repeatable method</h3>
+                <dl data-copy="ko">
+                  <div><dt>문제</dt><dd>판단 기준이 사람의 머릿속에만 남아 있었다.</dd></div>
+                  <div><dt>만든 것</dt><dd>한글화 방법을 일반화한 Agent Skill과 안전한 프로젝트 시작점.</dd></div>
+                  <div><dt>남은 문제</dt><dd>빌드가 끝난 것과 게임이 실제로 동작하는 것은 다르다.</dd></div>
+                </dl>
+                <dl data-copy="en" lang="en" hidden>
+                  <div><dt>Problem</dt><dd>The judgement lived only in one person's head.</dd></div>
+                  <div><dt>Built</dt><dd>An Agent Skill and a safe, repeatable project template.</dd></div>
+                  <div><dt>Next</dt><dd>A finished build did not prove a running game.</dd></div>
+                </dl>
+                <a href="#tools">
+                  <span data-copy="ko">공개 도구 보기</span>
+                  <span data-copy="en" lang="en" hidden>See the open tools</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </article>
+            </li>
+
+            <li class="journey-stage journey-stage-observe">
+              <article>
+                <div class="stage-heading"><strong>03</strong><span>OBSERVE</span></div>
+                <h3 data-copy="ko">AI에게 실행 중인 게임을 보여줬다</h3>
+                <h3 data-copy="en" lang="en" hidden>Gave AI eyes and hands inside emulators</h3>
+                <dl data-copy="ko">
+                  <div><dt>문제</dt><dd>에이전트는 실행 결과를 사람의 설명에 의존했다.</dd></div>
+                  <div><dt>만든 것</dt><dd>화면, 메모리와 상태를 읽고 제어하는 에뮬레이터 MCP, emucap.</dd></div>
+                  <div><dt>남은 문제</dt><dd>국소 패치만으로는 게임 전체의 의미를 설명할 수 없다.</dd></div>
+                </dl>
+                <dl data-copy="en" lang="en" hidden>
+                  <div><dt>Problem</dt><dd>Agents relied on human reports about runtime behavior.</dd></div>
+                  <div><dt>Built</dt><dd>emucap, an emulator MCP for screen, memory and state.</dd></div>
+                  <div><dt>Next</dt><dd>Local patches could not explain a whole game's meaning.</dd></div>
+                </dl>
+                <a href="https://github.com/mcpads/emucap" target="_blank" rel="noopener noreferrer">
+                  <span data-copy="ko">emucap 보기</span>
+                  <span data-copy="en" lang="en" hidden>See emucap</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </article>
+            </li>
+
+            <li class="journey-stage journey-stage-current">
+              <article>
+                <div class="stage-heading"><strong>04</strong><span>RECONSTRUCT</span></div>
+                <h3 data-copy="ko">패치를 넘어 게임을 재구성한다</h3>
+                <h3 data-copy="en" lang="en" hidden>Beyond patching: reconstructing games</h3>
+                <dl data-copy="ko">
+                  <div><dt>문제</dt><dd>바이트를 고치는 것과 게임을 설명하고 다시 만드는 것은 다르다.</dd></div>
+                  <div><dt>만드는 것</dt><dd>ROM과 Source를 중간 표현으로 연결하는 RetroIR.</dd></div>
+                  <div><dt>향하는 곳</dt><dd>오래된 게임을 다시 읽는 일과 새로운 게임을 만드는 일을 하나의 언어로 잇는다.</dd></div>
+                </dl>
+                <dl data-copy="en" lang="en" hidden>
+                  <div><dt>Problem</dt><dd>Editing bytes is not the same as explaining and rebuilding a game.</dd></div>
+                  <div><dt>Building</dt><dd>RetroIR, connecting existing ROMs and new source through IR.</dd></div>
+                  <div><dt>Goal</dt><dd>One language for understanding old games and building new ones.</dd></div>
+                </dl>
+                <a href="#retroir">
+                  <span data-copy="ko">현재 목표 보기</span>
+                  <span data-copy="en" lang="en" hidden>See the current mission</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </article>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section
+        id="retroir"
+        class="section retroir-section"
+        data-navigation-section="retroir"
+        aria-labelledby="retroir-heading"
+      >
+        <div class="page-shell retroir-layout">
+          <div>
+            <div class="status-badge status-development"><i></i> IN DEVELOPMENT</div>
+            <p class="section-label">§ CURRENT MISSION</p>
+            <h2 id="retroir-heading">RetroIR</h2>
+            <p class="retroir-lead" data-copy="ko">
+              레트로 게임 영역의 LLVM과 같은 기반을 향합니다. 기존 ROM을 실행 의미로
+              재구성하고, 같은 체계에서 새로운 Source를 실제 기기의 ROM으로 내리는
+              양방향 툴체인을 만들고 있습니다.
+            </p>
+            <p class="retroir-lead" data-copy="en" lang="en" hidden>
+              Building toward LLVM-like infrastructure for retro games: reconstructing
+              existing ROMs as executable meaning, while lowering new source back to real hardware.
+            </p>
+          </div>
+
+          <div class="pipeline-console" aria-label="RetroIR 양방향 파이프라인">
+            <div class="pipeline-header"><span>BIDIRECTIONAL PIPELINE</span><span>02 PASSES</span></div>
+            <div class="pipeline-group">
+              <p>REVERSE · EXISTING ROM TO IR</p>
+              <div class="pipeline-row">
+                <span>ROM</span><i>→</i><span>ISA</span><i>→</i><span class="pipeline-node-ir">IR</span><i>→</i><span>GAME</span>
+              </div>
+            </div>
+            <div class="pipeline-divider"></div>
+            <div class="pipeline-group pipeline-group-forward">
+              <p>FORWARD · SOURCE TO ROM</p>
+              <div class="pipeline-row">
+                <span>SOURCE</span><i>→</i><span class="pipeline-node-ir">IR</span><i>→</i><span>ISA</span><i>→</i><span>ROM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="work"
+        class="section work-section"
+        data-navigation-section="work"
+        aria-label="실제로 배포된 한글 패치"
+        data-aria-label-ko="실제로 배포된 한글 패치"
+        data-aria-label-en="Korean patches that actually shipped"
+      >
+        <div id="patches" class="page-shell content-group">
+          <div class="section-kicker compact">
+            <span>§ SHIPPED PATCHES</span><i></i><span>03 SERIES</span>
+          </div>
+          <h2 id="patches-heading" data-copy="ko">실제로 배포된 한글 패치</h2>
+          <h2 data-copy="en" lang="en" hidden>Korean patches that actually shipped</h2>
+
+          <div class="card-grid patch-grid">
+            <article class="project-card">
+              <div class="project-art project-art-madou" aria-hidden="true">
+                <span class="project-art-grid">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </span>
+              </div>
+              <div class="card-content">
+                <span class="status-badge">RELEASED</span>
+                <h3 data-copy="ko">마도물어 시리즈</h3>
+                <h3 data-copy="en" lang="en" hidden>Madou Monogatari series</h3>
+                <p data-copy="ko">여러 세대의 콘솔과 PC에서 이어진 마도물어를 한글로 복원한 패치 모음입니다.</p>
+                <p data-copy="en" lang="en" hidden>Korean patches restoring Madou Monogatari across consoles and PCs.</p>
+                <a href="https://github.com/mcpads/madou-monogatari-kr-patch" target="_blank" rel="noopener noreferrer">madou-monogatari-kr-patch <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-art project-art-puyo" aria-hidden="true">
+                <span class="project-art-grid">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </span>
+              </div>
+              <div class="card-content">
+                <span class="status-badge">RELEASED</span>
+                <h3 data-copy="ko">뿌요뿌요 시리즈</h3>
+                <h3 data-copy="en" lang="en" hidden>Puyo Puyo series</h3>
+                <p data-copy="ko">퍼즐 진행과 스토리 모드 텍스트를 함께 한글화한 패치 모음입니다.</p>
+                <p data-copy="en" lang="en" hidden>Patches translating puzzle flow and story-mode text together.</p>
+                <a href="https://github.com/mcpads/puyo-puyo-kr-patch" target="_blank" rel="noopener noreferrer">puyo-puyo-kr-patch <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-art project-art-parodius" aria-hidden="true">
+                <span class="project-art-grid">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </span>
+              </div>
+              <div class="card-content">
+                <span class="status-badge">RELEASED</span>
+                <h3 data-copy="ko">파로디우스 시리즈</h3>
+                <h3 data-copy="en" lang="en" hidden>Parodius series</h3>
+                <p data-copy="ko">짧게 지나가는 화면 텍스트까지 게임 안의 맥락으로 복원한 한글 패치입니다.</p>
+                <p data-copy="en" lang="en" hidden>A Korean patch that restores even fleeting on-screen text in context.</p>
+                <a href="https://github.com/mcpads/parodius-kr-patch" target="_blank" rel="noopener noreferrer">parodius-kr-patch <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+          </div>
+          <p class="legal-note" data-copy="ko">
+            개별 게임 저장소는 각 시리즈 저장소에서 찾을 수 있습니다. 패치의 저작권과 원작의 저작권은 서로 다릅니다.
+          </p>
+          <p class="legal-note" data-copy="en" lang="en" hidden>
+            Individual game repositories are linked from each series. Patch and original-game copyrights remain separate.
+          </p>
+        </div>
+      </section>
+
+      <section
+        id="tools"
+        class="section tools-section"
+        data-navigation-section="work"
+        aria-label="경험을 일반화한 도구"
+        data-aria-label-ko="경험을 일반화한 도구"
+        data-aria-label-en="Tools that generalise the experience"
+      >
+        <div class="page-shell content-group">
+          <div class="section-kicker compact"><span>§ OPEN TOOLS</span><i></i></div>
+          <h2 id="tools-heading" data-copy="ko">경험을 일반화한 도구</h2>
+          <h2 data-copy="en" lang="en" hidden>Tools that generalise the experience</h2>
+
+          <div class="card-grid tool-grid">
+            <article class="tool-card">
+              <div class="tool-card-heading">
+                <span>
+                  <span data-copy="ko">방법</span>
+                  <span data-copy="en" lang="en" hidden>METHOD</span>
+                </span>
+                <span class="status-badge status-open">OPEN SOURCE</span>
+              </div>
+              <h3>create-retro-game-kr-patch</h3>
+              <p data-copy="ko">게임마다 다시 시작하던 한글화 판단을 ROM 분석부터 에뮬레이터 검증까지 하나의 절차로 정리합니다.</p>
+              <p data-copy="en" lang="en" hidden>Turns per-game guesswork into one procedure, from ROM analysis to emulator verification.</p>
+              <a href="https://github.com/mcpads/create-retro-game-kr-patch" target="_blank" rel="noopener noreferrer">
+                <span data-copy="ko">저장소 보기</span>
+                <span data-copy="en" lang="en" hidden>View repository</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </article>
+
+            <article class="tool-card">
+              <div class="tool-card-heading">
+                <span>
+                  <span data-copy="ko">시작점</span>
+                  <span data-copy="en" lang="en" hidden>STARTER</span>
+                </span>
+                <span class="status-badge status-open">OPEN SOURCE</span>
+              </div>
+              <h3>create-kr-patch-template</h3>
+              <p data-copy="ko">저작 자산을 포함하지 않으면서 반복 빌드와 안전한 이진 변경을 시작할 수 있는 구조를 제공합니다.</p>
+              <p data-copy="en" lang="en" hidden>A starting structure for repeatable builds and safe binary edits without copyrighted assets.</p>
+              <a href="https://github.com/mcpads/create-kr-patch-template" target="_blank" rel="noopener noreferrer">
+                <span data-copy="ko">저장소 보기</span>
+                <span data-copy="en" lang="en" hidden>View repository</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </article>
+
+            <article class="tool-card tool-card-beta tool-card-observe">
+              <div class="tool-card-heading">
+                <span>
+                  <span data-copy="ko">관측</span>
+                  <span data-copy="en" lang="en" hidden>OBSERVE</span>
+                </span>
+                <span class="status-badge status-beta">BETA</span>
+              </div>
+              <h3>emucap</h3>
+              <p data-copy="ko">AI가 실행 중인 에뮬레이터의 화면, 메모리와 상태를 읽고 제어해 결과를 실행 증거로 판정하게 합니다.</p>
+              <p data-copy="en" lang="en" hidden>Lets AI read and drive a running emulator, judging results by execution evidence.</p>
+              <a href="https://github.com/mcpads/emucap" target="_blank" rel="noopener noreferrer">
+                <span data-copy="ko">저장소 보기</span>
+                <span data-copy="en" lang="en" hidden>View repository</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="about"
+        class="section about-section"
+        data-navigation-section="about"
+        aria-labelledby="about-heading"
+      >
+        <div class="page-shell about-layout">
+          <div>
+            <p class="section-label">§ ABOUT</p>
+            <h2 id="about-heading">mcpads</h2>
+            <p data-copy="ko">
+              오래된 게임을 아무도 이해할 수 없는 유물로 남겨두고 싶지 않습니다.
+              만든 사람과 도구가 사라진 뒤에도 코드의 의도는 다시 읽힐 수 있어야 하고,
+              한 번 끝난 세계도 다시 이어질 수 있어야 합니다. 그래서 번역하고,
+              관측하고, 재구성합니다. 과거를 흉내 내기 위해서가 아니라, 그 가능성을
+              미래로 넘기기 위해.
+            </p>
+            <p data-copy="en" lang="en" hidden>
+              I do not want old games preserved as artifacts no one can understand.
+              Their intent should remain readable after the original people and tools
+              are gone; worlds that once ended should be able to continue. That is why
+              I translate, observe, and reconstruct—not to imitate the past, but to carry
+              its possibilities forward.
+            </p>
+          </div>
+          <div class="contact-panel">
+            <span>CONTACT</span>
+            <p data-copy="ko">GitHub가 기본 연락 및 활동 채널입니다.</p>
+            <p data-copy="en" lang="en" hidden>GitHub is the primary channel for contact and activity.</p>
+            <a href="https://github.com/mcpads" target="_blank" rel="noopener noreferrer">
+              <span>github.com/mcpads</span><span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-shell footer-layout">
+        <p data-copy="ko">게임명과 회사명은 각 원작 권리자에게 귀속됩니다. 팬 번역 프로젝트는 비상업적이며 ROM이나 저작 자산을 배포하지 않습니다.</p>
+        <p data-copy="en" lang="en" hidden>Game and company names belong to their respective owners. Fan translations are non-commercial and distribute no ROMs or copyrighted game assets.</p>
+        <div>
+          <a href="https://github.com/mcpads" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="https://github.com/mcpads/mcpads.github.io" target="_blank" rel="noopener noreferrer">Site source ↗</a>
+          <span>© <span data-current-year>2026</span> mcpads</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
