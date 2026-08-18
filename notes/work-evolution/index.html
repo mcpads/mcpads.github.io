@@ -335,10 +335,292 @@
           <div class="note-body">
             <section id="rom-write" data-navigation-section="rom-write" class="note-section">
               <h2>ROM 쓰기: 읽을 수 있는 코드에서 허용된 변경을 증명하는 코드로</h2>
+
+              <h3>첫 문제는 raw hex의 의미가 보이지 않는다는 것이었다</h3>
+              <p>
+                슈퍼패미컴 마도물어에서 가장 먼저 나온 요구는 기계어를 사람이 읽을 수 있게
+                만들자는 것이었다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>02-12 12:41</time>
+                  <span>슈퍼패미컴 마도물어</span>
+                </figcaption>
+                <blockquote>
+                  <p>이제 HEX 대신, Enum/명령어로 Hex를 삽입하는 식으로 할 수 있게 해보자. 지금 Hex로 코드삽입 등을 하니까 디버깅 및 알아보기가 너무 힘들어</p>
+                </blockquote>
+              </figure>
+              <p>
+                이 단계에서 필요한 것은 명령어와 피연산자를 코드로 표현하고, 분기 주소나 명령어
+                길이를 검사하는 어셈블러였다. 생성된 바이트가 무슨 명령인지 설명할 수 있게 됐지만,
+                그 바이트를 ROM의 어디에 써도 되는지는 아직 다른 문제였다.
+              </p>
+
+              <h3>충돌이 반복되자 모든 쓰기 경로를 하나로 모았다</h3>
+              <p>
+                2월 21일 Git 기록에는 ROM 영역 충돌과 추적되지 않은 쓰기를 찾는 검사가 들어왔다.
+                이 검사가 경고만 내는 동안에는 새 구현이 추적기를 우회할 수 있었다. 다음 날
+                프롬프트는 리뷰를 더 꼼꼼히 하자는 수준을 넘어, 우회 자체가 어렵도록 구조를
+                바꾸라고 요구했다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>02-22 13:30</time>
+                  <span>슈퍼패미컴 마도물어</span>
+                </figcaption>
+                <blockquote>
+                  <p>그리고, tracker를 가진 Rom을 관리하는 특정 구조체를 통해서만 rom에 write를 할 수 있게 Rom을 wrap하는 것으로만 write를 할 수 있도록 아키텍처를 강제하는 설계를 진행해. 이번에도 그렇고 계속해서 무슨 구현마다 tracker를 무시하는 것 때문에 메모리 충돌 문제가 발생하고 있는데, 수많은 코드 속에서 코드리뷰만으로는 더이상 잡아낼 수 없다는 결론이 나왔어.</p>
+                </blockquote>
+              </figure>
+              <p>
+                Git 기록에서는 이 요구가 <code>TrackedRom</code> 도입(<code>64931ec</code>)으로
+                이어진다. ROM을 바꾸는 모든 코드가 같은 기록 경로를 지나도록 만들어, 새 기능이
+                검사 밖에서 조용히 쓰는 경우를 막는 것이었다.
+              </p>
+
+              <h3>Expected Write는 겹치지 않는 것보다 한 단계 더 물었다</h3>
+              <p>
+                같은 날 이어진 질문은 “어디에 썼는가”만 기록하지 않고 “쓰기 전 원본이 무엇이어야
+                하는가”를 선언하게 했다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>02-22 14:25</time>
+                  <span>슈퍼패미컴 마도물어</span>
+                </figcaption>
+                <blockquote>
+                  <p>이제 그러면, Expectation logic을 rom write쪽에 줘보려고 해. 내가 특정요소의 원본 롬에 FF 또는 00 등 위치에만 실제로 write를 수행중인, 또는 이 요소가 Overwrite를 할 수 있으며 어디든 상관 없는지 등 expectation을 위해서. 이러한 구조는 도움이 될지 평가해봐.</p>
+                </blockquote>
+              </figure>
+              <p>
+                그 결과는 <code>TrackedRom Expect</code>(<code>76bcb0e</code>)로 남았다. 여기서
+                서로 다른 검사가 나뉜다.
+              </p>
+              <ul>
+                <li>쓰기 추적은 어느 기능이 어느 범위를 바꿨는지와 기능끼리 겹치는지를 본다.</li>
+                <li>Expected Write는 쓰기 직전의 원본 바이트가 선언한 값이나 빈 공간 조건과 맞는지 본다.</li>
+                <li>typed ISA는 새로 만드는 실행 바이트가 선언한 CPU 명령으로 해석되는지 본다.</li>
+              </ul>
+              <p>
+                세 검사는 함께 쓰이지만 서로 대신할 수 없다. 충돌이 없더라도 잘못된 원본 버전에
+                쓸 수 있고, 예상한 빈 공간에 썼더라도 잘못 인코딩된 명령어일 수 있다.
+              </p>
+
+              <h3>한 프로젝트의 장치가 공용 방법으로 옮겨 갔다</h3>
+              <p>
+                세가 새턴 마도물어에서는 슈퍼패미컴판의 구조를 가져오되 디스크 쓰기에 맞게 다시
+                만들었다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>02-27 15:50</time>
+                  <span>세가 새턴 마도물어</span>
+                </figcaption>
+                <blockquote>
+                  <p>또한, ../snes_madou 코드베이스에서 강점들을 따오자. 롬에 덮어쓰는 경우 충돌이 일어나는지, 또는 우리가 기대하지 않은 값을 덮어쓰는지를 확인하자. 또한, 코드 리뷰어 4명 (존 카맥, 리누스 토발스, 러스트 프로그래밍 전문가, 어셈블리 프로그래밍 전문가)의 리뷰를 거쳐서, 코드베이스를 리팩토링하자. 테스트 파일도 따로 분리하는 패턴으로 가고. 최종적으로는 모든 덮어쓰는 행위는 감시되고 컨트롤 되어야만 해. 또한, 우리는 최종적으로 목적이 844 글리프를 유지하는것이 전혀 아니야. 확장이 결국 목표니까, 이들도 고려해서 진행해봐.</p>
+                </blockquote>
+              </figure>
+              <p>
+                그날 Git 기록에는 <code>TrackedDisc</code>(<code>911758c</code>)가 들어왔다. 7월
+                게임기어판에서는 공용 원리를 더 짧게 다시 설명했다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>07-03 08:38</time>
+                  <span>게임기어 마도물어 I</span>
+                </figcaption>
+                <blockquote>
+                  <p>자매 프로젝트들에서 핵심은 1. 예측되는 공간에만 쓰기, 2. 우리 쓰는 기능끼리 충돌하지 않기거든.</p>
+                </blockquote>
+              </figure>
+              <p>
+                게임기어판에는 원본 바이트, 빈 공간과 빌드 후 미추적 쓰기를 확인하는 게이트가
+                차례로 들어갔다. 7월 메가드라이브판에서는 raw bytes나 외부 asm 파일을 최종 빌드
+                입력으로 두지 말자는 요구가 다시 나왔다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>07-22 03:16</time>
+                  <span>메가드라이브 마도물어 I</span>
+                </figcaption>
+                <blockquote>
+                  <p>지금 ISA가 구현된 Enum 구조는 있어? SNES Madou나 SS Madou 등 참고하고. 빌드 파이프라인에는 기본적으로 바이트를 그대로 쓰거나 asm파일로 작성된건 acceptable해선 안되는게 원칙이니 미리 기억해두고</p>
+                </blockquote>
+              </figure>
+              <p>8월에는 프로젝트마다 있던 ISA 구현을 공용 라이브러리로 모으기 시작했다.</p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>08-06 20:58</time>
+                  <span>typed ISA</span>
+                </figcaption>
+                <blockquote>
+                  <p>이 프로젝트는 부모 디렉토리에서 rust 기반의 typed ISA들을 라이브러리화하는 것이야</p>
+                </blockquote>
+              </figure>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>08-07 05:55</time>
+                  <span>typed ISA</span>
+                </figcaption>
+                <blockquote>
+                  <p>여기로 가져올거 아니야? 애초에 에뮬레이션이 목표가 아니라 expected write 구조와 정적분석이 여기 목표야. 저건 동적분석에서 할일이고</p>
+                </blockquote>
+              </figure>
+              <p>
+                <code>retro-typed-isa</code>의 Git 기록에는 여러 CPU 프로필과 Expected Write 검증
+                규칙이 8월 7일에 함께 들어왔다. 이후 슈퍼패미컴·드림캐스트·게임기어·메가드라이브
+                프로젝트가 공용 구현으로 옮겨 갔다. 이 흐름은 “hex 대신 enum” 한 번으로 끝나지
+                않았다. 읽을 수 있는 명령, 쓰기 경로의 단일화, 원본 사전조건, 프로젝트 간 공용
+                검사 규칙이 각각 다른 실패를 거치며 추가됐다.
+              </p>
+
+              <div class="note-checklist">
+                <p class="note-checklist-title">
+                  다음 프로젝트에서 비슷한 문제가 생기면 프롬프트에는 최소한 다음 질문이 들어가야 한다.
+                </p>
+                <ul>
+                  <li>최종 산출물을 바꾸는 모든 경로가 같은 추적 인터페이스를 거치는가?</li>
+                  <li>각 쓰기는 기존 바이트, 빈 공간, 허용된 덮어쓰기 중 무엇을 기대하는가?</li>
+                  <li>두 기능의 쓰기 범위가 겹치면 빌드가 실패하는가?</li>
+                  <li>실행 코드는 선언한 CPU 프로필의 명령어로 생성되고 다시 해석되는가?</li>
+                </ul>
+              </div>
             </section>
 
             <section id="observe" data-navigation-section="observe" class="note-section">
               <h2>실행 확인: 사람이 옮겨 적던 HITL에서 재현 가능한 관찰로</h2>
+
+              <h3>초기 HITL은 사람에게 디버거 조작을 많이 맡겼다</h3>
+              <p>
+                2월 슈퍼패미컴판에서는 에이전트가 절차를 적고, 사람이 Mesen에서 장면을 만든 뒤
+                값과 결과를 답변 파일에 옮겼다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>02-22 11:26</time>
+                  <span>슈퍼패미컴 마도물어</span>
+                </figcaption>
+                <blockquote>
+                  <p>지금 프로젝트를 파악해서, 월드맵 VRAM 유출 문제를 해결할 Mesen HITL 절차를 하나 만들어봐.</p>
+                </blockquote>
+              </figure>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>02-22 11:56</time>
+                  <span>슈퍼패미컴 마도물어</span>
+                </figcaption>
+                <blockquote>
+                  <p>mesen_debug/HITL_S_ANSWER.md에 1~3 기록 남겨뒀어.</p>
+                </blockquote>
+              </figure>
+              <p>
+                이 방식은 사람이 알고 있는 게임 상태를 조사에 넣는 데는 효과가 있었다. 반면 같은
+                장면을 다시 만들거나 JP와 KR을 맞춰 비교하려면 저장 상태, 조작 순서, 메모리 값과
+                스크린샷을 계속 주고받아야 했다. 관찰 전에는 완료를 말할 수 없다는 경계도 사람이
+                따로 세워야 했다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>03-29 10:19</time>
+                  <span>슈퍼 나조 뿌요 루루의 루</span>
+                </figcaption>
+                <blockquote>
+                  <p>내가 HITL도 안했는데 왜 해결되었다는 판정을 내린거지? 메모리에 기록해둬. HITL전에 해결되었다고 쓰지말라고</p>
+                </blockquote>
+              </figure>
+              <p>
+                초기 HITL의 교훈은 사람이 에뮬레이터를 오래 조작해야 한다는 것이 아니었다. 정적
+                빌드 성공과 실제 소비 경로의 확인은 다른 증거라는 점, 그리고 사람만 알고 있는 장면
+                조건을 조사에 넣어야 한다는 점이었다.
+              </p>
+
+              <h3>emucap은 그 관찰을 에이전트가 다룰 수 있게 하려는 데서 시작했다</h3>
+              <p>
+                6월 23일 첫 프롬프트에는 사람이 특정 시점을 표시하고, 에이전트가 그 전후 상태와
+                화면을 읽는 도구라는 목적이 구체적으로 적혀 있다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>06-23 21:18</time>
+                  <span>emucap</span>
+                </figcaption>
+                <blockquote>
+                  <p>/create-kr-patch:create-kr-patch 이 프로젝트는 Emulator에서 "특정 키 조합"을 누르면, Monitor 등을 통해 프로세스를 감시하는 AI Agent가 이 시점 및 이전 시점들에서의 상태값과 스크린 화면 등을 파악할 수 있고 (또는, 사람이 임의 시점에서 키조합을 통해 "녹화"를 시작하면 그 시점부터 "중단" 시점까지의 메모리 state 및 스크린샷을 파악하거나), 이에 대해 사람이 문제점을 설명하면 AI가 문제를 분석할 수 있게 만들어주는 툴을 개발하는 것이야. 다양한 Emulator를 지원할 생각이고. Skill에서 일반적인 패치 방법론을 설명하고 있으니, 이를 기반으로 어떻게 이 프로젝트가 더 도움이 되는 기능들을 제공할 수 있을지 아이디에이션부터 진행해보자</p>
+                </blockquote>
+              </figure>
+              <p>
+                같은 날 Git 기록에는 ROM 해시가 붙은 기록 묶음과 Mesen2 회고 덤프가 생겼고, 이어서
+                메모리 읽기·스크린샷·상태 확인을 제공하는 라이브 제어가 들어왔다. 다음 날에는 입력,
+                세이브 상태, 브레이크포인트와 프레임 진행까지 확장됐다.
+              </p>
+
+              <h3>화면 캡처 도구에서 비교 실험 도구로 넓어졌다</h3>
+              <p>
+                개발 하루 뒤의 프롬프트는 같은 입력과 상태에서 원본과 패치판이 처음 갈라지는
+                지점을 찾도록 요구했다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>06-24 07:31</time>
+                  <span>emucap</span>
+                </figcaption>
+                <blockquote>
+                  <p>현재 아이디어인데, rom 두개에서 동일하게 실행되었을 때 diff를 볼 수 있으면 좋겠거든? 동일 Seed로 게임을 시작할 수 있나? JP Rom vs KR 패치중인 Rom에서 만약 KR 패치중인 Rom에서 문제가 생겼을 때 뭐가 문제인지 파악할 수 있게. WRAM/VRAM/Palette/Reg/DMA 등 요소들 전반 체크 되게</p>
+                </blockquote>
+              </figure>
+              <p>
+                이에 따라 상태 덤프, 세이브 상태 이분, JP·KR 교차 비교가 추가됐다. 사람이 화면 두
+                장을 보고 “다르다”고 말하는 데서 끝나지 않고, 동일한 시작점과 진행량 아래에서
+                메모리·레지스터·DMA의 첫 차이를 좁혔다.
+              </p>
+
+              <h3>마지막에는 스크린샷보다 실험 기록의 연결이 중요해졌다</h3>
+              <p>
+                7월 PCE-CD판에서 나온 프롬프트는 캡처 파일을 많이 남기는 것과, 무엇을 바꾼 뒤 어떤
+                상태에서 무엇이 달라졌는지 기록하는 일을 구분했다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>07-22 08:30</time>
+                  <span>PCE-CD 마도물어 I</span>
+                </figcaption>
+                <blockquote>
+                  <p>계속 스크린샷을 증거가 아닌 형태로 쌓지말고 emucap track을 쓰고 같이 증거로써 남겨</p>
+                </blockquote>
+              </figure>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>07-22 08:33</time>
+                  <span>PCE-CD 마도물어 I</span>
+                </figcaption>
+                <blockquote>
+                  <p>아니 쌓지말라는 의미는 현재 무슨 일이 일어나는지 저장이 안되면 내가 어떤 수정이 있었는데 어떻게 변경되었는지 어떻게 알아. path에 저장하고 mem에만 쌓지 말라고. 증거가 아닌 형태로</p>
+                </blockquote>
+              </figure>
+              <p>
+                <code>emucap</code>에는 6월 말부터 실행 입력, 상태와 화면을 한 실험에 묶는 tracking이
+                들어와 있었다. 8월에는 정해진 구간만 녹화하고, 특정 사건이 몇 번째 발생할 때 멈추거나,
+                준비 구간과 관찰 구간에서 받을 이벤트를 따로 정하는 기능까지 추가됐다.
+              </p>
+              <p>
+                도구가 맡는 부분이 늘어도 사람은 “두 번째 실패 뒤에만 나오는 힌트”, “초록 뿌요에게
+                아이스스톰을 쓴 장면”, “이 문장이 정상이라면 다음 화면은 무엇이어야 하는가”를 알려
+                준다. 에이전트와 도구는 그 상태를 재현하고, 원본과 패치판을 맞추고, 관찰을 실험
+                기록으로 남긴다. 사람이 매번 주소와 레지스터 값을 옮겨 적는 일은 도구로 넘어갔다.
+              </p>
+
+              <div class="note-checklist">
+                <p class="note-checklist-title">
+                  다음 프로젝트의 관찰 프롬프트에는 장면 이름만 적기보다 다음 정보가 유용하다.
+                </p>
+                <ul>
+                  <li>어떤 시작 상태와 입력 순서로 문제를 재현하는가?</li>
+                  <li>첫 실행, 두 번째 실행, 특정 캐릭터나 주문처럼 가설을 가르는 조건은 무엇인가?</li>
+                  <li>JP와 KR을 비교한다면 seed, 세이브 상태, 진행 프레임과 입력을 어떻게 맞출 것인가?</li>
+                  <li>캡처가 어느 원본 해시와 빌드에 연결되어야 하는가?</li>
+                  <li>사람이 판단해야 할 화면 의미와 도구가 자동으로 기록할 값은 각각 무엇인가?</li>
+                </ul>
+              </div>
             </section>
 
             <section
@@ -347,6 +629,162 @@
               class="note-section"
             >
               <h2>런타임 자산: 파일에 들어간 것과 게임이 쓴 것을 가르다</h2>
+
+              <p>
+                실행 관찰을 자동화해도 한 질문은 남는다. 패치한 글꼴이나 문장이 ROM에 들어 있다는
+                사실만으로는 게임이 그 데이터를 읽었다고 할 수 없다. 읽었다고 해도 다른 로드가 바로
+                덮을 수 있고, RAM에 남아 있어도 화면을 그리는 코드가 다른 버퍼를 볼 수 있다. 이
+                차이는 <code>emucap</code>이 생기기 전부터 여러 게임에서 반복해서 드러났다.
+              </p>
+
+              <h3>한 번 쓴 데이터가 다음 상태에서도 남는지 물었다</h3>
+              <p>
+                슈퍼 나조 뿌요 2에서는 퍼즐 조건 글자를 VRAM에 한 번 넣어 현재 화면을 맞추는 시도가
+                있었다. 사람은 이 게임에서 한 판에 2~6개의 조건이 차례로 바뀐다는 규칙을 알고 있었다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>04-05 14:10</time>
+                  <span>슈퍼 나조 뿌요 2</span>
+                </figcaption>
+                <blockquote>
+                  <p>다른게 계속 덮어씌우는거아니야? 이건 한번 깨고 끝이 아니라 각각 조건을 가진 2~6개의 퍼즐을 풀어야하는건데, 조건은 계속 바뀔테니까 또. 그때그때 계속 넣고 있어? 한번만 우리가 덮어씌우려고 하는게 실수일 수 있을거고</p>
+                </blockquote>
+              </figure>
+              <p>
+                사람의 지적 뒤 초점은 첫 화면의 모양에서 데이터의 수명으로 옮겨 갔다. 4월에 만든 고정
+                덮어쓰기는 당장의 조건을 보여 줬지만, 6월 동적 확인에서는 게임의 일본어 CHR 로드가 더
+                늦게 와서 한국어를 다시 덮는 경우가 확인됐다. Git 이력의 <code>97a944b</code>는
+                30프레임 동안 반복하는 임시 방식 대신, 조건 화면이 실제로 살아 있는 동안만 한국어
+                DMA를 보내는 게이트로 바뀐 기록이다. 중요한 것은 몇 번 덮어썼느냐가 아니라 어느
+                상태가 시작되고 끝날 때 자산이 유효해야 하는지였다.
+              </p>
+
+              <h3>캐시는 파일보다 게임 진행 순서에 묶여 있었다</h3>
+              <p>
+                세가 새턴 와쿠와쿠판에서는 캐릭터마다 필요한 글자가 달라 세 개의 ROM을 만드는 우회가
+                한때 구현됐다. 각 파일을 따로 켜면 글자가 나왔지만, 플레이어가 캐릭터를 바꿀 때마다
+                패치를 바꾸는 결과였다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>03-17 23:33</time>
+                  <span>세가 새턴 와쿠와쿠 뿌요뿌요 던전</span>
+                </figcaption>
+                <blockquote>
+                  <p>우선 지금 bin/cue들 out쪽에 있는거 다 날려줘. 저 3ROM 방식은 진짜 말도 안되는 짓거리야. 이건 소프트웨어가 아니라 게임이라고. 실기 패치를 하는 사람도 있는데 3ROM 배포같은 짓을 한다고? 캐시 구조를 애초에 파악해야하는 이유가 뭐지? 첫 로드는 지금 나만 해보고 있는거 아니야? 그냥 내가 에뮬레이터 캐시 날리면 끝 아닌가?</p>
+                </blockquote>
+              </figure>
+              <p>
+                세 산출물은 기술적으로 가능했지만 한 게임 안에서 캐릭터가 바뀌는 경험을 충족하지
+                못했다. 이어진 질문은 파일 교체가 아니라 실제 적재 시점을 겨냥했다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>03-21 14:07</time>
+                  <span>세가 새턴 와쿠와쿠 뿌요뿌요 던전</span>
+                </figcaption>
+                <blockquote>
+                  <p>재로드를 하는게 맞는지가 문제거든. VRAM? 같은곳에 올라가는거 확실해?</p>
+                </blockquote>
+              </figure>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>03-21 16:47</time>
+                  <span>세가 새턴 와쿠와쿠 뿌요뿌요 던전</span>
+                </figcaption>
+                <blockquote>
+                  <p>이게 히트하는 순간은 던전 진입 시점이네. 전체 플로우 떠올려. 내가 플레이하는 캐릭터가 아르르기때문에 이런 로드가 일어난 기분이라고 보면 되겠네.</p>
+                </blockquote>
+              </figure>
+              <p>
+                캐릭터 선택, 캐릭터 OPEN, 게임 맵과 던전 진입은 서로 다른 상태였다. 캐릭터 선택에서
+                브레이크포인트가 안 걸렸다고 로더가 없다고 결론 내릴 수 없었다. Git 이력에는 루트별
+                세 벌의 글꼴을 만든 뒤 로드 시점을 추적하고, 결국 세 벌 구조를 걷어 내 한 ROM의 단일
+                글리프 표로 돌아간 과정이 남아 있다. 캐시를 비우고 첫 실행만 맞추는 실험은 캐릭터를
+                바꾸고 다시 들어오는 플레이를 증명하지 못했다.
+              </p>
+
+              <h3>저장 공간과 실행 중 글리프 자리는 서로 다른 한계였다</h3>
+              <p>
+                PC-98판에서는 외자 188칸이 보이자 이를 게임 전체의 글리프 저장 한계로 오해할 수
+                있었다. 사람은 그 숫자가 어디에서 생겼는지 다시 물었다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>07-14 16:03</time>
+                  <span>PC-98 마도물어 1-2-3</span>
+                </figcaption>
+                <blockquote>
+                  <p>글리프 캐시는 어디에 위치하지? 항상 그곳에서만 읽어오게 되어있나?</p>
+                </blockquote>
+              </figure>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>07-14 16:23</time>
+                  <span>PC-98 마도물어 1-2-3</span>
+                </figcaption>
+                <blockquote>
+                  <p>그런데 원래 일본어 게임은 그러면 저 188자리가 아니라 다른 공간에서부터 글리프를 읽어온다는거지?</p>
+                </blockquote>
+              </figure>
+              <p>
+                디스크에 넣을 수 있는 글꼴의 총량, BIOS 외자 영역에 한 번에 등록할 수 있는 수, 현재
+                화면에서 동시에 필요한 글자는 같은 숫자가 아니었다. 이 구분이 생기자 “188자 안으로
+                번역을 줄인다”가 아니라, 디스크의 글꼴을 장면에 맞춰 실행 중인 슬롯으로 공급하는
+                방향을 조사할 수 있었다. 사람이 제공한 것은 캐시 주소가 아니라, 188이라는 수치가
+                게임 전체의 한계라는 설명이 정말 맞는지 되묻는 기준이었다.
+              </p>
+
+              <h3>프로젝트에서 반복된 구분이 스킬의 한 축이 됐다</h3>
+              <p>
+                7월 스킬 재구성 때 이 문제를 폰트나 압축의 부속 항목으로 두지 말자는 질문이 나왔다.
+              </p>
+              <figure class="prompt-quote">
+                <figcaption>
+                  <time>07-11 12:29</time>
+                  <span>create-kr-patch</span>
+                </figcaption>
+                <blockquote>
+                  <p>runtime-assets가 현재 시점에서 어떤 하나의 축으로써 가야할 것인가가 핵심인것 같은데</p>
+                </blockquote>
+              </figure>
+              <p>
+                8분 뒤 Git 이력의 <code>1224270</code>은 런타임 자산 도달성(runtime asset
+                reachability) 문서를 새로 만들었다. 여러 프로젝트의 표현을 합치면 확인할 연결은
+                다음과 같다.
+              </p>
+              <ol>
+                <li>ROM이나 디스크의 어느 자산을 빌드가 바꿨는가.</li>
+                <li>파일표, 포인터, 장면 분기가 그 자산을 고르는가.</li>
+                <li>실제 로더와 압축 해제 코드가 기대한 데이터를 RAM이나 VRAM으로 보냈는가.</li>
+                <li>다른 화면이나 캐시 갱신 뒤에도 필요한 동안 그 데이터가 남는가.</li>
+                <li>마지막 렌더러가 그 메모리를 읽어 화면에 썼는가.</li>
+              </ol>
+              <p>
+                한 화면이 맞았다는 사실은 그 실행 경로와 그 시점까지를 증명한다. 다른 캐릭터, 재진입,
+                오버레이 교체나 두 번째 로드는 자산의 선택과 수명을 바꿀 때만 별도 확인이 필요하다.
+                파일 수만큼 실행할 필요는 없지만, 다른 소비 경로를 같은 사례로 대신해서도 안 된다.
+              </p>
+              <p>
+                사람은 여기서 주소를 대신 찾지 않았다. 캐릭터를 바꾸면 어떤 화면을 거치는지, 조건문이
+                언제 갱신되는지, 같은 듯 보이는 장면이 실제로는 다른 진입 경로인지 알려 줬다.
+                에이전트는 그 게임 지식을 바탕으로 첫 번째로 끊긴 연결을 찾고, 정적 범위와 실행
+                증거를 나눠 기록했다.
+              </p>
+
+              <div class="note-checklist">
+                <p class="note-checklist-title">
+                  다음 프로젝트에서 자산이 “적용됐다”고 확인할 때는 다음처럼 물을 수 있다.
+                </p>
+                <ul>
+                  <li>빌드 결과 안에 바이트가 있다는 것과 게임이 그 자산을 골랐다는 것을 각각 무엇으로 확인했는가?</li>
+                  <li>로드나 변환 뒤 어느 RAM·VRAM 영역에 머물며, 언제 다른 데이터가 그곳을 덮는가?</li>
+                  <li>첫 실행, 캐릭터 전환, 화면 재진입과 저장 상태 복원 중 자산의 수명을 바꾸는 조건은 무엇인가?</li>
+                  <li>한 실행 사례가 같은 경로를 쓰는 파일 범위를 정적으로 설명할 수 있는가?</li>
+                  <li>사람이 알려 줘야 할 게임 상태와 도구가 추적해야 할 메모리 연결은 무엇인가?</li>
+                </ul>
+              </div>
             </section>
 
             <section id="poc" data-navigation-section="poc" class="note-section">
