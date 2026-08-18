@@ -427,21 +427,97 @@
             <section id="agent" data-navigation-section="agent" class="note-section">
               <h2 data-copy="ko">에이전트가 대신하는 일</h2>
               <h2 data-copy="en" lang="en" hidden>What the agent takes over</h2>
+
+              <p>앞 절의 말들이 성립하려면 나머지를 누군가 해야 합니다. 그 나머지가 에이전트 몫입니다.</p>
+              <ul>
+                <li>게임 파일에서 문장이 어디 있는지 찾고, 어떤 형식으로 저장돼 있는지 알아냅니다.</li>
+                <li>한글을 넣을 자리가 있는지, 없으면 어디를 늘릴 수 있는지 조사합니다.</li>
+                <li>바꾼 내용이 원본의 다른 부분을 망가뜨리지 않는지 전수로 검사합니다.</li>
+                <li>실행 중인 게임의 화면과 메모리를 읽어, 넣은 것이 실제로 쓰이는지 확인합니다.</li>
+                <li>같은 원본에서 같은 결과가 다시 나오는지 빌드로 보장합니다.</li>
+              </ul>
+              <p>
+                이 다섯 가지가 어떤 실패를 거쳐 지금 형태가 됐는지는
+                <a href="/notes/work-evolution/">한글화 작업 방식은 여러 갈래로 바뀌었다</a>에 적혀
+                있습니다. 기술 기록이라 읽기가 수월하지는 않습니다.
+              </p>
             </section>
 
             <section id="texture" data-navigation-section="texture" class="note-section">
               <h2 data-copy="ko">대부분의 시간은 이렇게 간다</h2>
               <h2 data-copy="en" lang="en" hidden>How most of the time actually goes</h2>
+
+              <p>
+                앞 절만 보면 매번 날카로운 판단을 내리는 것처럼 보이지만, 실제로 가장 많이 친 말은
+                따로 있습니다. 반년 치를 세어 봤습니다.
+              </p>
+              <div class="note-table-scroll">
+                <table class="note-table">
+                  <thead>
+                    <tr>
+                      <th><span data-copy="ko">프롬프트</span><span data-copy="en" lang="en" hidden>Prompt</span></th>
+                      <th><span data-copy="ko">횟수</span><span data-copy="en" lang="en" hidden>Count</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>계속</td><td>111</td></tr>
+                    <tr><td>진행해봐</td><td>99</td></tr>
+                    <tr><td>진행해</td><td>51</td></tr>
+                    <tr><td>진행하자</td><td>45</td></tr>
+                    <tr><td>그렇게 하자</td><td>28</td></tr>
+                    <tr><td>커밋 푸시</td><td>27</td></tr>
+                    <tr><td>상태?</td><td>27</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                가장 많이 친 말은 <code>계속</code>이었고, 그건 아무것도 바꾸지 않았습니다. 앞 절의
+                스물네 문장은 반년에 걸쳐 흩어져 있던 것들입니다. 대부분의 시간은 읽고, 기다리고,
+                다시 해 보라고 말하는 데 갑니다.
+              </p>
             </section>
 
             <section id="fit" data-navigation-section="fit" class="note-section">
               <h2 data-copy="ko">맞는 사람, 아닌 사람</h2>
               <h2 data-copy="en" lang="en" hidden>Who this fits</h2>
+
+              <div class="note-fit">
+                <div class="note-fit-yes">
+                  <h3>이런 사람에게 맞습니다</h3>
+                  <ul>
+                    <li>한글로 하고 싶은 게임이 이미 정해져 있고, 그 게임을 여러 번 해 봤다.</li>
+                    <li>화면이 조금 이상할 때 무엇이 이상한지 말로 설명할 수 있다.</li>
+                    <li>“대충 이 정도면 됐다”에서 멈추는 걸 못 견딘다.</li>
+                    <li>몇 달 걸려도 상관없다.</li>
+                  </ul>
+                </div>
+                <div class="note-fit-no">
+                  <h3>이런 사람에게는 맞지 않습니다</h3>
+                  <ul>
+                    <li>어떤 게임이든 상관없이 결과물만 빨리 갖고 싶다.</li>
+                    <li>번역기를 한 번 돌려 끼워 넣는 수준을 생각하고 있다.</li>
+                    <li>판단을 대신 내려 줄 사람이 필요하다. 그 자리는 비어 있고, 당신이 앉습니다.</li>
+                  </ul>
+                </div>
+              </div>
             </section>
 
             <section id="next" data-navigation-section="next" class="note-section">
               <h2 data-copy="ko">다음</h2>
               <h2 data-copy="en" lang="en" hidden>Next</h2>
+
+              <p>해 보기로 했다면 여기서 시작합니다.</p>
+              <ul>
+                <li>
+                  <a href="https://github.com/mcpads" target="_blank" rel="noopener noreferrer">github.com/mcpads <span aria-hidden="true">↗</span></a>
+                  — 방법론 스킬과 도구가 공개돼 있습니다.
+                </li>
+                <li>
+                  <a href="/notes/work-evolution/">한글화 작업 방식은 여러 갈래로 바뀌었다</a>
+                  — 각 판단이 어떤 실패에서 나왔는지의 기록입니다.
+                </li>
+              </ul>
+              <p>원본 게임 파일은 직접 준비해야 합니다. 패치는 원작 자산을 담지 않습니다.</p>
             </section>
           </div>
         </div>

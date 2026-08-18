@@ -534,3 +534,38 @@ code {
   color: var(--color-amber);
   font-size: 0.88rem;
 }
+
+.note-fit {
+  display: grid;
+  gap: 1rem;
+  margin: 1.75rem 0;
+}
+
+.note-fit > div {
+  padding: 1.15rem 1.35rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.note-body .note-fit h3 {
+  margin: 0 0 0.75rem;
+  font: 700 0.92rem var(--font-display);
+}
+
+.note-fit-yes h3 {
+  color: var(--color-green);
+}
+
+.note-fit-no h3 {
+  color: var(--color-amber);
+}
+
+.note-body .note-fit ul {
+  margin-bottom: 0;
+}
+
+@media (min-width: 640px) {
+  .note-fit {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
