@@ -12,6 +12,11 @@ interface SitePage {
 
 const sitePages: SitePage[] = [
   { file: "index.html", url: siteUrl, label: "home" },
+  {
+    file: "notes/work-evolution/index.html",
+    url: "https://mcpads.dev/notes/work-evolution/",
+    label: "work-evolution note",
+  },
 ];
 
 function readMetaContent(page: string, attribute: string, name: string): string | undefined {
