@@ -434,3 +434,61 @@ code {
     max-width: none;
   }
 }
+
+/* 읽기 전에 — 비기술 독자를 위한 진입 블록. 원문 이식분이 아니라 새로 쓴 안내다. */
+.note-primer {
+  padding-block: clamp(2rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--color-border-muted);
+  background: var(--color-surface);
+}
+
+.note-primer .page-shell {
+  max-width: min(calc(100% - 3rem), 52rem);
+  margin-inline: auto;
+}
+
+.note-primer-heading {
+  margin: 0 0 1rem;
+  color: var(--color-amber);
+  font: 700 0.8rem var(--font-code);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.note-primer p {
+  color: var(--color-copy);
+  word-break: keep-all;
+}
+
+.note-glossary {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1.25rem 0;
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--color-border);
+}
+
+.note-glossary div {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 0 1rem;
+}
+
+.note-glossary dt {
+  color: var(--color-green);
+  font: 700 0.82rem var(--font-code);
+}
+
+.note-glossary dd {
+  margin: 0;
+  color: var(--color-copy);
+  font-size: 0.93rem;
+  word-break: keep-all;
+}
+
+@media (max-width: 640px) {
+  .note-glossary div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.15rem;
+  }
+}
