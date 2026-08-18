@@ -126,6 +126,20 @@ test("every page offers a way into the notes hub", async () => {
   }
 });
 
+test("the notes hub tells readers who each note is for", async () => {
+  const hub = await readFile("notes/index.html", "utf8");
+  const cards = hub.split('<article class="note-card">').slice(1);
+
+  assert.equal(cards.length, 2, "the hub lists both notes");
+  for (const [index, card] of cards.entries()) {
+    assert.match(
+      card,
+      /class="note-card-audience"[^>]*data-copy="ko"/,
+      `card ${index + 1} must say who it is for`,
+    );
+  }
+});
+
 test("the sitemap has no fragment-only routes", async () => {
   const sitemap = await readFile("public/sitemap.xml", "utf8");
 
