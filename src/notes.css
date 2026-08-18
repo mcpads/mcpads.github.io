@@ -362,10 +362,18 @@ code {
 }
 
 .note-card {
+  position: relative;
   padding: 1.5rem;
   border: 1px solid var(--color-border);
   background: var(--color-surface);
   transition: border-color 0.2s ease;
+}
+
+/* 제목 링크를 카드 전체로 넓힌다 — 접근성 트리에는 링크가 하나만 남는다 */
+.note-card h2 a::after {
+  position: absolute;
+  inset: 0;
+  content: "";
 }
 
 .note-card:hover {
@@ -392,8 +400,13 @@ code {
   text-decoration: none;
 }
 
-.note-card h2 a:hover {
+.note-card:hover h2 a {
   color: var(--color-green);
+}
+
+.note-card h2 a:focus-visible::after {
+  outline: 2px solid var(--color-green);
+  outline-offset: 4px;
 }
 
 .note-card p {
@@ -405,6 +418,15 @@ code {
   margin-bottom: 0;
   color: var(--color-green);
   font: 0.78rem var(--font-code);
+}
+
+.note-card-more span[aria-hidden] {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.note-card:hover .note-card-more span[aria-hidden] {
+  transform: translateX(0.25rem);
 }
 
 @media (max-width: 900px) {
