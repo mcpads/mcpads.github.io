@@ -503,3 +503,18 @@ code {
 .note-card-audience {
   color: var(--color-amber);
 }
+
+.note-shift-table td:nth-child(2) {
+  color: var(--color-subtle);
+}
+
+.note-shift-table td:last-child {
+  color: var(--color-green);
+}
+
+.note-shift-table th:first-child,
+.note-shift-table td:first-child {
+  color: var(--color-text);
+  font-weight: 700;
+  white-space: nowrap;
+}
