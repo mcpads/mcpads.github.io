@@ -202,6 +202,26 @@
 
         <div class="note-intro">
           <div class="page-shell">
+            <aside class="note-english-summary" data-copy="en" lang="en" hidden>
+              <p class="note-english-notice">This note is written in Korean. Here is what it covers.</p>
+              <p>
+                Between February and August 2026, Korean localization work across twelve retro
+                games and three tool projects did not improve along a single track. Ten separate
+                threads each changed through failures of their own: how ROM writes are proven
+                safe, how a running game is observed, what a proof of concept must actually
+                prove, how the full scope is counted before local wins accumulate, how a shipped
+                build is reproduced from a verified original, how translation data stays separate
+                from human judgement, and how Korean glyphs are chosen to fit the scene they
+                appear in.
+              </p>
+              <p>
+                The table below maps each thread: the problem that surfaced first, the form it
+                settled into, and the part that stayed with the person. Throughout, repetitive
+                operation moved into tooling while game knowledge and final wording stayed a human
+                decision. Every quoted prompt is a real message from those project conversations,
+                kept verbatim.
+              </p>
+            </aside>
             <p class="note-lead">
               이 문서는 열두 게임 프로젝트의 대화와 Git 기록뿐 아니라
               <code>create-kr-patch</code>, <code>emucap</code>,
@@ -226,77 +246,78 @@
 
         <section class="note-flow-map">
           <div class="page-shell">
-            <h2>먼저 구분해야 할 흐름</h2>
+            <h2 data-copy="ko">먼저 구분해야 할 흐름</h2>
+            <h2 data-copy="en" lang="en" hidden>Threads to tell apart first</h2>
             <div class="note-table-scroll">
               <table class="flow-map">
                 <thead>
                   <tr>
-                    <th>흐름</th>
-                    <th>처음 드러난 문제</th>
-                    <th>나중에 갖춰진 형태</th>
-                    <th>사람이 계속 맡은 일</th>
+                    <th><span data-copy="ko">흐름</span><span data-copy="en" lang="en" hidden>Thread</span></th>
+                    <th><span data-copy="ko">처음 드러난 문제</span><span data-copy="en" lang="en" hidden>The problem that surfaced first</span></th>
+                    <th><span data-copy="ko">나중에 갖춰진 형태</span><span data-copy="en" lang="en" hidden>The form it settled into</span></th>
+                    <th><span data-copy="ko">사람이 계속 맡은 일</span><span data-copy="en" lang="en" hidden>What stayed with the person</span></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td><a href="#rom-write">ROM 쓰기</a></td>
-                    <td>raw hex가 읽기 어렵고 서로 다른 패치가 같은 곳을 덮음</td>
-                    <td><code>TrackedRom</code>·Expected Write·공용 typed ISA</td>
-                    <td>검사해야 할 쓰기 조건을 정함</td>
+                    <td><a href="#rom-write"><span data-copy="ko">ROM 쓰기</span><span data-copy="en" lang="en" hidden>ROM writes</span></a></td>
+                    <td><span data-copy="ko">raw hex가 읽기 어렵고 서로 다른 패치가 같은 곳을 덮음</span><span data-copy="en" lang="en" hidden>raw hex was unreadable and separate patches overwrote the same place</span></td>
+                    <td><span data-copy="ko"><code>TrackedRom</code>·Expected Write·공용 typed ISA</span><span data-copy="en" lang="en" hidden><code>TrackedRom</code>, Expected Write and a shared typed ISA</span></td>
+                    <td><span data-copy="ko">검사해야 할 쓰기 조건을 정함</span><span data-copy="en" lang="en" hidden>Decides which write conditions must be checked</span></td>
                   </tr>
                   <tr>
-                    <td><a href="#observe">실행 관찰</a></td>
-                    <td>사람이 스크린샷과 메모리 값을 옮겨 적어야 함</td>
-                    <td><code>emucap</code>의 제어·원본/패치 비교·실험 기록·이벤트 범위</td>
-                    <td>재현할 장면과 정상 동작의 의미를 알려 줌</td>
+                    <td><a href="#observe"><span data-copy="ko">실행 관찰</span><span data-copy="en" lang="en" hidden>Runtime observation</span></a></td>
+                    <td><span data-copy="ko">사람이 스크린샷과 메모리 값을 옮겨 적어야 함</span><span data-copy="en" lang="en" hidden>a person had to transcribe screenshots and memory values</span></td>
+                    <td><span data-copy="ko"><code>emucap</code>의 제어·원본/패치 비교·실험 기록·이벤트 범위</span><span data-copy="en" lang="en" hidden><code>emucap</code>&#8217;s control, original/patch comparison, experiment records and event ranges</span></td>
+                    <td><span data-copy="ko">재현할 장면과 정상 동작의 의미를 알려 줌</span><span data-copy="en" lang="en" hidden>Explains the scene to reproduce and what correct behaviour means</span></td>
                   </tr>
                   <tr>
-                    <td><a href="#runtime-asset">런타임 자산</a></td>
-                    <td>패치한 바이트가 있으면 게임도 그 자산을 쓴다고 여김</td>
-                    <td>저장·선택·적재·상주·소비를 실제 장면까지 연결</td>
-                    <td>캐릭터 선택, 재진입과 상태 변화의 의미를 알려 줌</td>
+                    <td><a href="#runtime-asset"><span data-copy="ko">런타임 자산</span><span data-copy="en" lang="en" hidden>Runtime assets</span></a></td>
+                    <td><span data-copy="ko">패치한 바이트가 있으면 게임도 그 자산을 쓴다고 여김</span><span data-copy="en" lang="en" hidden>patched bytes were taken to mean the game used the asset</span></td>
+                    <td><span data-copy="ko">저장·선택·적재·상주·소비를 실제 장면까지 연결</span><span data-copy="en" lang="en" hidden>storage, selection, loading, residency and consumption traced to the actual scene</span></td>
+                    <td><span data-copy="ko">캐릭터 선택, 재진입과 상태 변화의 의미를 알려 줌</span><span data-copy="en" lang="en" hidden>Explains character selection, re-entry and what state changes mean</span></td>
                   </tr>
                   <tr>
-                    <td><a href="#poc">PoC</a></td>
-                    <td>한글 한 글자가 보이면 전체 가능성을 크게 말함</td>
-                    <td>완성을 막는 어려운 조건과 실제 수요를 먼저 확인</td>
-                    <td>최종 결과에서 피할 수 없는 난점을 정함</td>
+                    <td><a href="#poc"><span data-copy="ko">PoC</span><span data-copy="en" lang="en" hidden>PoC</span></a></td>
+                    <td><span data-copy="ko">한글 한 글자가 보이면 전체 가능성을 크게 말함</span><span data-copy="en" lang="en" hidden>one visible Korean glyph was read as proof of the whole</span></td>
+                    <td><span data-copy="ko">완성을 막는 어려운 조건과 실제 수요를 먼저 확인</span><span data-copy="en" lang="en" hidden>check the hardest completion blocker and the real demand first</span></td>
+                    <td><span data-copy="ko">최종 결과에서 피할 수 없는 난점을 정함</span><span data-copy="en" lang="en" hidden>Decides the difficulties the final result cannot avoid</span></td>
                   </tr>
                   <tr>
-                    <td><a href="#scope">전체 범위</a></td>
-                    <td>발견한 파일과 화면을 하나씩 목록에 더함</td>
-                    <td>전체 대상을 먼저 세고 소비 경로별로 나눔</td>
-                    <td>작품에 반드시 있어야 할 장면과 모드를 알려 줌</td>
+                    <td><a href="#scope"><span data-copy="ko">전체 범위</span><span data-copy="en" lang="en" hidden>Full scope</span></a></td>
+                    <td><span data-copy="ko">발견한 파일과 화면을 하나씩 목록에 더함</span><span data-copy="en" lang="en" hidden>files and screens were added to the list one discovery at a time</span></td>
+                    <td><span data-copy="ko">전체 대상을 먼저 세고 소비 경로별로 나눔</span><span data-copy="en" lang="en" hidden>count the whole target first, then split it by consumption path</span></td>
+                    <td><span data-copy="ko">작품에 반드시 있어야 할 장면과 모드를 알려 줌</span><span data-copy="en" lang="en" hidden>Names the scenes and modes the work must contain</span></td>
                   </tr>
                   <tr>
-                    <td><a href="#build">원본과 빌드</a></td>
-                    <td>단발성 스크립트와 작업 중간 산출물이 서로 다른 결과를 냄</td>
-                    <td>확인된 원본에서 모든 변경과 배포 패치를 한 경로로 만듦</td>
-                    <td>빌드에 반드시 들어갈 결과와 입력 범위를 정함</td>
+                    <td><a href="#build"><span data-copy="ko">원본과 빌드</span><span data-copy="en" lang="en" hidden>Original and build</span></a></td>
+                    <td><span data-copy="ko">단발성 스크립트와 작업 중간 산출물이 서로 다른 결과를 냄</span><span data-copy="en" lang="en" hidden>one-off scripts and intermediate artifacts produced different results</span></td>
+                    <td><span data-copy="ko">확인된 원본에서 모든 변경과 배포 패치를 한 경로로 만듦</span><span data-copy="en" lang="en" hidden>build every change and the release patch from a verified original through one path</span></td>
+                    <td><span data-copy="ko">빌드에 반드시 들어갈 결과와 입력 범위를 정함</span><span data-copy="en" lang="en" hidden>Decides what the build must contain and which inputs are allowed</span></td>
                   </tr>
                   <tr>
-                    <td><a href="#translation">번역 작업</a></td>
-                    <td>원문, 제어코드, 번역 상태와 수정 판단이 뒤섞임</td>
-                    <td>원본 위치 기반 식별자·보호 데이터·단계별 검수</td>
-                    <td>문맥, 말투, 축약과 페이지 분할을 선택함</td>
+                    <td><a href="#translation"><span data-copy="ko">번역 작업</span><span data-copy="en" lang="en" hidden>Translation</span></a></td>
+                    <td><span data-copy="ko">원문, 제어코드, 번역 상태와 수정 판단이 뒤섞임</span><span data-copy="en" lang="en" hidden>source text, control codes, translation state and edit decisions were mixed together</span></td>
+                    <td><span data-copy="ko">원본 위치 기반 식별자·보호 데이터·단계별 검수</span><span data-copy="en" lang="en" hidden>identifiers anchored to source position, protected data and staged review</span></td>
+                    <td><span data-copy="ko">문맥, 말투, 축약과 페이지 분할을 선택함</span><span data-copy="en" lang="en" hidden>Chooses context, voice, abbreviation and page splits</span></td>
                   </tr>
                   <tr>
-                    <td><a href="#typography">화면 구성</a></td>
-                    <td>읽히는 한글을 한 글꼴과 정방향 그래픽으로 넣음</td>
-                    <td>화면별 글꼴·실제 배경 후보·원본 동세와 여백 비교</td>
-                    <td>시각적 위계, 의성어의 동작과 남길 요소를 정함</td>
+                    <td><a href="#typography"><span data-copy="ko">화면 구성</span><span data-copy="en" lang="en" hidden>On-screen typography</span></a></td>
+                    <td><span data-copy="ko">읽히는 한글을 한 글꼴과 정방향 그래픽으로 넣음</span><span data-copy="en" lang="en" hidden>readable Korean was dropped in with one font and upright graphics</span></td>
+                    <td><span data-copy="ko">화면별 글꼴·실제 배경 후보·원본 동세와 여백 비교</span><span data-copy="en" lang="en" hidden>per-screen fonts, real background candidates, comparison against the original&#8217;s motion and spacing</span></td>
+                    <td><span data-copy="ko">시각적 위계, 의성어의 동작과 남길 요소를 정함</span><span data-copy="en" lang="en" hidden>Decides visual hierarchy, how onomatopoeia moves and what stays untouched</span></td>
                   </tr>
                   <tr>
-                    <td><a href="#reuse">재사용</a></td>
-                    <td>선행 패치의 주소·레이아웃·도구가 정답처럼 따라옴</td>
-                    <td>방법은 재사용하되 대상 원본에서 수치와 경로를 재확인</td>
-                    <td>무엇을 참고 자료로 삼을지 정함</td>
+                    <td><a href="#reuse"><span data-copy="ko">재사용</span><span data-copy="en" lang="en" hidden>Reuse</span></a></td>
+                    <td><span data-copy="ko">선행 패치의 주소·레이아웃·도구가 정답처럼 따라옴</span><span data-copy="en" lang="en" hidden>a prior patch&#8217;s addresses, layout and tools were followed as if correct</span></td>
+                    <td><span data-copy="ko">방법은 재사용하되 대상 원본에서 수치와 경로를 재확인</span><span data-copy="en" lang="en" hidden>reuse the method, but re-verify numbers and paths against the target original</span></td>
+                    <td><span data-copy="ko">무엇을 참고 자료로 삼을지 정함</span><span data-copy="en" lang="en" hidden>Decides what counts as reference material</span></td>
                   </tr>
                   <tr>
-                    <td><a href="#skill">공용 스킬</a></td>
-                    <td>프로젝트마다 같은 원칙을 다시 설명함</td>
-                    <td>반복된 철학을 조건부 불변식으로 정리하고 실전 반례로 갱신</td>
-                    <td>무엇을 공통 원칙으로 승격할지 결정함</td>
+                    <td><a href="#skill"><span data-copy="ko">공용 스킬</span><span data-copy="en" lang="en" hidden>Shared skill</span></a></td>
+                    <td><span data-copy="ko">프로젝트마다 같은 원칙을 다시 설명함</span><span data-copy="en" lang="en" hidden>the same principle was explained again in every project</span></td>
+                    <td><span data-copy="ko">반복된 철학을 조건부 불변식으로 정리하고 실전 반례로 갱신</span><span data-copy="en" lang="en" hidden>repeated philosophy written as conditional invariants, updated by real counterexamples</span></td>
+                    <td><span data-copy="ko">무엇을 공통 원칙으로 승격할지 결정함</span><span data-copy="en" lang="en" hidden>Decides what gets promoted to a shared principle</span></td>
                   </tr>
                 </tbody>
               </table>
@@ -317,24 +338,25 @@
             data-aria-label-ko="글 목차"
             data-aria-label-en="Article contents"
           >
-            <a href="#rom-write" data-section-link="rom-write">ROM 쓰기</a>
-            <a href="#observe" data-section-link="observe">실행 관찰</a>
-            <a href="#runtime-asset" data-section-link="runtime-asset">런타임 자산</a>
-            <a href="#poc" data-section-link="poc">PoC</a>
-            <a href="#scope" data-section-link="scope">전체 범위</a>
-            <a href="#build" data-section-link="build">원본과 빌드</a>
-            <a href="#translation" data-section-link="translation">번역 작업</a>
-            <a href="#typography" data-section-link="typography">화면 구성</a>
-            <a href="#reuse" data-section-link="reuse">재사용</a>
-            <a href="#skill" data-section-link="skill">공용 스킬</a>
-            <a href="#timeline" data-section-link="timeline">겹친 시기</a>
-            <a href="#human" data-section-link="human">사람이 한 일</a>
-            <a href="#prompts" data-section-link="prompts">프롬프트 골격</a>
+            <a href="#rom-write" data-section-link="rom-write"><span data-copy="ko">ROM 쓰기</span><span data-copy="en" lang="en" hidden>ROM writes</span></a>
+            <a href="#observe" data-section-link="observe"><span data-copy="ko">실행 관찰</span><span data-copy="en" lang="en" hidden>Observation</span></a>
+            <a href="#runtime-asset" data-section-link="runtime-asset"><span data-copy="ko">런타임 자산</span><span data-copy="en" lang="en" hidden>Runtime assets</span></a>
+            <a href="#poc" data-section-link="poc"><span data-copy="ko">PoC</span><span data-copy="en" lang="en" hidden>PoC</span></a>
+            <a href="#scope" data-section-link="scope"><span data-copy="ko">전체 범위</span><span data-copy="en" lang="en" hidden>Full scope</span></a>
+            <a href="#build" data-section-link="build"><span data-copy="ko">원본과 빌드</span><span data-copy="en" lang="en" hidden>Original &amp; build</span></a>
+            <a href="#translation" data-section-link="translation"><span data-copy="ko">번역 작업</span><span data-copy="en" lang="en" hidden>Translation</span></a>
+            <a href="#typography" data-section-link="typography"><span data-copy="ko">화면 구성</span><span data-copy="en" lang="en" hidden>Typography</span></a>
+            <a href="#reuse" data-section-link="reuse"><span data-copy="ko">재사용</span><span data-copy="en" lang="en" hidden>Reuse</span></a>
+            <a href="#skill" data-section-link="skill"><span data-copy="ko">공용 스킬</span><span data-copy="en" lang="en" hidden>Shared skill</span></a>
+            <a href="#timeline" data-section-link="timeline"><span data-copy="ko">겹친 시기</span><span data-copy="en" lang="en" hidden>Overlap</span></a>
+            <a href="#human" data-section-link="human"><span data-copy="ko">사람이 한 일</span><span data-copy="en" lang="en" hidden>The person</span></a>
+            <a href="#prompts" data-section-link="prompts"><span data-copy="ko">프롬프트 골격</span><span data-copy="en" lang="en" hidden>Prompts</span></a>
           </nav>
 
           <div class="note-body">
             <section id="rom-write" data-navigation-section="rom-write" class="note-section">
-              <h2>ROM 쓰기: 읽을 수 있는 코드에서 허용된 변경을 증명하는 코드로</h2>
+              <h2 data-copy="ko">ROM 쓰기: 읽을 수 있는 코드에서 허용된 변경을 증명하는 코드로</h2>
+              <h2 data-copy="en" lang="en" hidden>ROM writes: from readable code to code that proves the change is allowed</h2>
 
               <h3>첫 문제는 raw hex의 의미가 보이지 않는다는 것이었다</h3>
               <p>
@@ -488,7 +510,8 @@
             </section>
 
             <section id="observe" data-navigation-section="observe" class="note-section">
-              <h2>실행 확인: 사람이 옮겨 적던 HITL에서 재현 가능한 관찰로</h2>
+              <h2 data-copy="ko">실행 확인: 사람이 옮겨 적던 HITL에서 재현 가능한 관찰로</h2>
+              <h2 data-copy="en" lang="en" hidden>Runtime checks: from HITL a person transcribed to reproducible observation</h2>
 
               <h3>초기 HITL은 사람에게 디버거 조작을 많이 맡겼다</h3>
               <p>
@@ -628,7 +651,8 @@
               data-navigation-section="runtime-asset"
               class="note-section"
             >
-              <h2>런타임 자산: 파일에 들어간 것과 게임이 쓴 것을 가르다</h2>
+              <h2 data-copy="ko">런타임 자산: 파일에 들어간 것과 게임이 쓴 것을 가르다</h2>
+              <h2 data-copy="en" lang="en" hidden>Runtime assets: separating what went into the file from what the game used</h2>
 
               <p>
                 실행 관찰을 자동화해도 한 질문은 남는다. 패치한 글꼴이나 문장이 ROM에 들어 있다는
@@ -788,7 +812,8 @@
             </section>
 
             <section id="poc" data-navigation-section="poc" class="note-section">
-              <h2>PoC: 한글 한 글자에서 완성을 막는 조건으로</h2>
+              <h2 data-copy="ko">PoC: 한글 한 글자에서 완성을 막는 조건으로</h2>
+              <h2 data-copy="en" lang="en" hidden>PoC: from one Korean glyph to the condition that blocks completion</h2>
 
               <h3>한 글자 PoC가 증명하는 범위가 너무 넓게 쓰였다</h3>
               <p>
@@ -890,7 +915,8 @@
             </section>
 
             <section id="scope" data-navigation-section="scope" class="note-section">
-              <h2>전체 범위: 눈앞의 성공을 늘리기 전에 분모부터 세다</h2>
+              <h2 data-copy="ko">전체 범위: 눈앞의 성공을 늘리기 전에 분모부터 세다</h2>
+              <h2 data-copy="en" lang="en" hidden>Full scope: counting the denominator before adding local wins</h2>
 
               <p>
                 초기 프로젝트에서는 실행 중 발견한 문자열과 화면을 목록에 하나씩 더하는 일이 많았다.
@@ -1043,7 +1069,8 @@
             </section>
 
             <section id="build" data-navigation-section="build" class="note-section">
-              <h2>원본과 빌드: 작업 폴더의 성공을 다시 만들 수 있는 결과로</h2>
+              <h2 data-copy="ko">원본과 빌드: 작업 폴더의 성공을 다시 만들 수 있는 결과로</h2>
+              <h2 data-copy="en" lang="en" hidden>Original and build: from a working folder that happens to run to a result that can be remade</h2>
 
               <p>
                 조사 중에는 짧은 스크립트와 손으로 고친 산출물이 빠르게 답을 줄 때가 있다. 문제는 그
@@ -1264,7 +1291,8 @@
             </section>
 
             <section id="translation" data-navigation-section="translation" class="note-section">
-              <h2>번역 작업: 원문을 지키는 자동화와 문장을 고르는 판단을 나누다</h2>
+              <h2 data-copy="ko">번역 작업: 원문을 지키는 자동화와 문장을 고르는 판단을 나누다</h2>
+              <h2 data-copy="en" lang="en" hidden>Translation: separating automation that protects the source from judgement that picks the words</h2>
 
               <h3>번역 파일은 처음부터 원문 위치와 제어코드를 기억해야 했다</h3>
               <p>
@@ -1410,7 +1438,8 @@
             </section>
 
             <section id="typography" data-navigation-section="typography" class="note-section">
-              <h2>글꼴과 의성어는 실제 장면에 맞춰 골랐다</h2>
+              <h2 data-copy="ko">글꼴과 의성어는 실제 장면에 맞춰 골랐다</h2>
+              <h2 data-copy="en" lang="en" hidden>Fonts and onomatopoeia were chosen to fit the actual scene</h2>
 
               <p>
                 문장이 자연스럽고 글자가 선명해도 화면 전체는 어색할 수 있다. 제목과 본문이 같은
@@ -1594,7 +1623,8 @@
             </section>
 
             <section id="reuse" data-navigation-section="reuse" class="note-section">
-              <h2>재사용: 결과물을 가져오기보다 검증할 방법을 가져오다</h2>
+              <h2 data-copy="ko">재사용: 결과물을 가져오기보다 검증할 방법을 가져오다</h2>
+              <h2 data-copy="en" lang="en" hidden>Reuse: taking the way to verify rather than the result</h2>
 
               <h3>선행 프로젝트는 강한 단서였지만 대상 게임의 사실은 아니었다</h3>
               <p>
@@ -1680,7 +1710,8 @@
             </section>
 
             <section id="skill" data-navigation-section="skill" class="note-section">
-              <h2>스킬: 프로젝트에서 반복된 철학이 공용 원칙이 되기까지</h2>
+              <h2 data-copy="ko">스킬: 프로젝트에서 반복된 철학이 공용 원칙이 되기까지</h2>
+              <h2 data-copy="en" lang="en" hidden>Skill: how philosophy repeated across projects became a shared principle</h2>
 
               <h3>스킬이 생기기 전부터 원칙은 프롬프트에 있었다</h3>
               <p>
@@ -1824,7 +1855,8 @@
             </section>
 
             <section id="timeline" data-navigation-section="timeline" class="note-section">
-              <h2>같은 시기에도 여러 흐름이 겹쳐 움직였다</h2>
+              <h2 data-copy="ko">같은 시기에도 여러 흐름이 겹쳐 움직였다</h2>
+              <h2 data-copy="en" lang="en" hidden>Several threads moved at once, even within the same months</h2>
 
               <p>
                 앞의 흐름을 날짜순으로 다시 놓으면 한 단계씩 차례로 발전한 이야기가 아니라는 점이 더
@@ -1884,7 +1916,8 @@
             </section>
 
             <section id="human" data-navigation-section="human" class="note-section">
-              <h2>이 변화 속에서 사람이 한 일</h2>
+              <h2 data-copy="ko">이 변화 속에서 사람이 한 일</h2>
+              <h2 data-copy="en" lang="en" hidden>What the person did through these changes</h2>
 
               <p>
                 대화를 통틀어 사람의 역할을 한두 개 직함으로 고정하기는 어렵다. 기술 문제가 달라질
@@ -2044,7 +2077,8 @@
             </section>
 
             <section id="prompts" data-navigation-section="prompts" class="note-section">
-              <h2>다음 프로젝트에서 쓸 수 있는 프롬프트의 형태</h2>
+              <h2 data-copy="ko">다음 프로젝트에서 쓸 수 있는 프롬프트의 형태</h2>
+              <h2 data-copy="en" lang="en" hidden>Prompt shapes for the next project</h2>
 
               <p>
                 이 기록에서 유용한 프롬프트는 구현 방법을 미리 단정한 문장보다, 사람이 알고 있는 게임의

@@ -6,6 +6,14 @@
   border-bottom: 1px solid var(--color-border);
 }
 
+.note-header .eyebrow {
+  display: inline-block;
+}
+
+.note-header .eyebrow a {
+  color: inherit;
+}
+
 .note-header h1 {
   margin: 0.75rem 0 0;
   font: 700 clamp(1.6rem, 2.4vw, 2.2rem) / 1.45 var(--font-display);
@@ -67,5 +75,340 @@
 
   .note-toc {
     display: none;
+  }
+}
+
+.note-english-summary {
+  margin-block: 2rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-copy);
+}
+
+.note-english-notice {
+  margin-top: 0;
+  color: var(--color-green);
+  font: 0.72rem var(--font-code);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.note-lead {
+  max-width: 44rem;
+  color: var(--color-copy);
+  font-size: 1.02rem;
+  word-break: keep-all;
+}
+
+.note-body {
+  max-width: 46rem;
+  word-break: keep-all;
+}
+
+.note-body p {
+  color: var(--color-copy);
+}
+
+.note-body h3 {
+  margin: 2.5rem 0 0.9rem;
+  color: var(--color-text);
+  font: 700 1.02rem / 1.6 var(--font-display);
+}
+
+.note-body ul,
+.note-body ol {
+  padding-left: 1.2rem;
+  color: var(--color-copy);
+}
+
+.note-body li + li {
+  margin-top: 0.4rem;
+}
+
+code {
+  padding: 0.1em 0.35em;
+  border: 1px solid var(--color-border-muted);
+  background: var(--color-panel);
+  color: var(--color-green);
+  font: 0.86em var(--font-code);
+  overflow-wrap: anywhere;
+}
+
+/* 프롬프트 인용 — 70개가 반복되므로 이 페이지의 리듬을 만든다 */
+.prompt-quote {
+  margin: 1.75rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 2px solid var(--color-green-dark);
+  background: var(--color-surface);
+}
+
+.prompt-quote figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.85rem;
+  color: var(--color-subtle);
+  font: 0.7rem var(--font-code);
+  letter-spacing: 0.05em;
+}
+
+.prompt-quote figcaption time {
+  color: var(--color-amber);
+}
+
+.prompt-quote blockquote {
+  margin: 0.6rem 0 0;
+}
+
+.prompt-quote blockquote p {
+  margin: 0.5rem 0 0;
+  color: var(--color-text);
+  font-size: 0.95rem;
+}
+
+.prompt-quote blockquote p:first-child {
+  margin-top: 0;
+}
+
+.note-checklist {
+  margin: 2rem 0;
+  padding: 1.1rem 1.35rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-panel);
+}
+
+.note-checklist-title {
+  margin-top: 0;
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.note-body .note-checklist ul {
+  margin-bottom: 0;
+}
+
+.note-table-scroll {
+  overflow-x: auto;
+  margin: 1.75rem 0;
+}
+
+.note-table,
+.flow-map {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+.note-table th,
+.note-table td,
+.flow-map th,
+.flow-map td {
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--color-border-muted);
+  vertical-align: top;
+  word-break: keep-all;
+}
+
+.note-table th,
+.flow-map th {
+  background: var(--color-panel);
+  color: var(--color-text);
+  font: 700 0.78rem var(--font-code);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.note-table td,
+.flow-map td {
+  color: var(--color-copy);
+}
+
+.note-table-contrast td:nth-child(2) {
+  color: var(--color-subtle);
+}
+
+.note-table-contrast td:last-child {
+  color: var(--color-green);
+}
+
+.note-flow-map h2 {
+  margin: 0 0 1.25rem;
+  font: 700 clamp(1.25rem, 1.6vw, 1.5rem) / 1.5 var(--font-display);
+  word-break: keep-all;
+}
+
+.note-flow-map {
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.flow-map td:first-child {
+  white-space: nowrap;
+}
+
+.flow-map td:first-child a {
+  border-bottom: 1px solid var(--color-green-dark);
+  color: var(--color-text);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.flow-map td:first-child a:hover {
+  color: var(--color-green);
+}
+
+.note-caution {
+  margin-top: 1.25rem;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--color-amber);
+  color: var(--color-muted);
+  font-size: 0.92rem;
+  word-break: keep-all;
+}
+
+.note-prompt-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.note-prompt-card {
+  padding: 1.1rem 1.35rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.note-body .note-prompt-card h3 {
+  margin: 0 0 0.7rem;
+  color: var(--color-green);
+  font: 700 0.9rem var(--font-display);
+}
+
+.note-prompt-card blockquote {
+  margin: 0;
+}
+
+.note-prompt-card blockquote p {
+  margin: 0;
+  color: var(--color-copy);
+  font-size: 0.93rem;
+}
+
+.note-footer {
+  padding-block: clamp(2.5rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 0.92rem;
+}
+
+.note-footer-back a {
+  color: var(--color-green);
+  font: 0.82rem var(--font-code);
+  text-decoration: none;
+}
+
+.note-footer-back a:hover {
+  text-decoration: underline;
+}
+
+.note-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 2.5rem;
+  margin: 1.5rem 0 0;
+}
+
+.note-meta div {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.note-meta dt {
+  color: var(--color-subtle);
+  font: 0.68rem var(--font-code);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.note-meta dd {
+  margin: 0;
+  color: var(--color-copy);
+  font-size: 0.9rem;
+}
+
+/* 허브 */
+.notes-intro h1 {
+  margin: 0.75rem 0 0;
+  font: 700 clamp(1.5rem, 2.2vw, 2rem) / 1.45 var(--font-display);
+  word-break: keep-all;
+}
+
+.notes-intro {
+  padding-bottom: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+.notes-list-section {
+  padding-block: clamp(2.5rem, 4vw, 3.5rem);
+  border-bottom: none;
+}
+
+.note-list {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.note-card {
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  transition: border-color 0.2s ease;
+}
+
+.note-card:hover {
+  border-color: var(--color-green-dark);
+}
+
+.note-card-meta {
+  display: flex;
+  gap: 0.85rem;
+  margin: 0;
+  color: var(--color-subtle);
+  font: 0.7rem var(--font-code);
+  letter-spacing: 0.05em;
+}
+
+.note-card h2 {
+  margin: 0.6rem 0 0.75rem;
+  font: 700 clamp(1.1rem, 1.5vw, 1.35rem) / 1.5 var(--font-display);
+  word-break: keep-all;
+}
+
+.note-card h2 a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.note-card h2 a:hover {
+  color: var(--color-green);
+}
+
+.note-card p {
+  color: var(--color-copy);
+  word-break: keep-all;
+}
+
+.note-card-more {
+  margin-bottom: 0;
+  color: var(--color-green);
+  font: 0.78rem var(--font-code);
+}
+
+@media (max-width: 900px) {
+  .note-body {
+    max-width: none;
   }
 }
