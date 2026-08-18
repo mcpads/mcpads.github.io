@@ -13,6 +13,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: pageEntry("index.html"),
+        notes: pageEntry("notes/index.html"),
         workEvolution: pageEntry("notes/work-evolution/index.html"),
       },
     },

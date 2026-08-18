@@ -12,6 +12,7 @@ interface SitePage {
 
 const sitePages: SitePage[] = [
   { file: "index.html", url: siteUrl, label: "home" },
+  { file: "notes/index.html", url: "https://mcpads.dev/notes/", label: "notes hub" },
   {
     file: "notes/work-evolution/index.html",
     url: "https://mcpads.dev/notes/work-evolution/",
@@ -95,6 +96,29 @@ test("the home page declares the public identity behind the site", async () => {
   assert.equal(structuredData.url, siteUrl);
   assert.equal(structuredData.mainEntity.name, "mcpads");
   assert.deepEqual(structuredData.mainEntity.sameAs, ["https://github.com/mcpads"]);
+});
+
+test("the notes hub links to every published note", async () => {
+  const hub = await readFile("notes/index.html", "utf8");
+  const notePaths = sitePages
+    .filter((page) => page.file.startsWith("notes/") && page.file !== "notes/index.html")
+    .map((page) => new URL(page.url).pathname);
+
+  assert.ok(notePaths.length > 0, "there must be at least one note to list");
+  for (const path of notePaths) {
+    assert.ok(hub.includes(`href="${path}"`), `the hub must link to ${path}`);
+  }
+});
+
+test("every page offers a way into the notes hub", async () => {
+  for (const { file, label } of sitePages) {
+    const page = await readFile(file, "utf8");
+    assert.match(
+      page,
+      /<a\b[^>]*\bhref="\/notes\/"[^>]*>/i,
+      `${label} must link to the notes hub`,
+    );
+  }
 });
 
 test("the sitemap has no fragment-only routes", async () => {

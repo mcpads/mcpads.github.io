@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="레트로 게임 한글화와 도구 개발에서 실제로 바뀐 작업 방식을 정리한 기록."
+    />
+    <meta name="author" content="mcpads" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="theme-color" content="#080b12" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:site_name" content="mcpads" />
+    <meta property="og:title" content="Notes — mcpads" />
+    <meta
+      property="og:description"
+      content="레트로 게임 한글화와 도구 개발에서 실제로 바뀐 작업 방식을 정리한 기록."
+    />
+    <meta property="og:url" content="https://mcpads.dev/notes/" />
+    <meta property="og:image" content="https://mcpads.dev/og.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="mcpads 로고 아래 ROM, IR, GAME 패널이 연결된 레트로 도트 그래픽."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Notes — mcpads" />
+    <meta
+      name="twitter:description"
+      content="레트로 게임 한글화와 도구 개발에서 실제로 바뀐 작업 방식을 정리한 기록."
+    />
+    <meta name="twitter:image" content="https://mcpads.dev/og.png" />
+    <meta
+      name="twitter:image:alt"
+      content="mcpads 로고 아래 ROM, IR, GAME 패널이 연결된 레트로 도트 그래픽."
+    />
+    <link rel="canonical" href="https://mcpads.dev/notes/" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="preload"
+      href="https://cdn.jsdelivr.net/npm/galmuri@2.40.3/dist/Galmuri11-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <title>Notes — mcpads</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "@id": "https://mcpads.dev/notes/#blog",
+        "url": "https://mcpads.dev/notes/",
+        "name": "Notes",
+        "description": "레트로 게임 한글화와 도구 개발에서 실제로 바뀐 작업 방식을 정리한 기록.",
+        "inLanguage": ["ko", "en"],
+        "author": { "@id": "https://mcpads.dev/#mcpads" },
+        "blogPost": [
+          {
+            "@type": "BlogPosting",
+            "@id": "https://mcpads.dev/notes/work-evolution/#article",
+            "url": "https://mcpads.dev/notes/work-evolution/",
+            "headline": "한글화 작업 방식은 여러 갈래로 바뀌었다",
+            "datePublished": "2026-08-18",
+            "inLanguage": "ko"
+          }
+        ]
+      }
+    </script>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/notes.css" />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">
+      <span data-copy="ko">본문으로 건너뛰기</span>
+      <span data-copy="en" lang="en" hidden>Skip to content</span>
+    </a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a
+          class="wordmark"
+          href="/"
+          aria-label="mcpads 홈"
+          data-aria-label-ko="mcpads 홈"
+          data-aria-label-en="mcpads home"
+        >
+          <span class="wordmark-mark" aria-hidden="true"></span>
+          <span>mcpads</span>
+        </a>
+
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-navigation"
+        >
+          <span class="sr-only">메뉴 열기</span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+
+        <nav
+          id="site-navigation"
+          class="site-navigation"
+          aria-label="주요 섹션"
+          data-aria-label-ko="주요 섹션"
+          data-aria-label-en="Primary sections"
+        >
+          <a href="/#journey">Journey</a>
+          <a href="/#retroir">RetroIR</a>
+          <a href="/#work">Work</a>
+          <a href="/notes/" aria-current="page">Notes</a>
+          <a href="/#about">About</a>
+          <div class="mobile-navigation-actions">
+            <div
+              class="language-switch"
+              role="group"
+              aria-label="언어 선택"
+              data-aria-label-ko="언어 선택"
+              data-aria-label-en="Choose language"
+            >
+              <button type="button" data-language="ko" aria-pressed="true">KO</button>
+              <button type="button" data-language="en" aria-pressed="false">EN</button>
+            </div>
+            <a
+              class="github-link"
+              href="https://github.com/mcpads"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="mcpads GitHub 프로필, 새 탭"
+              data-aria-label-ko="mcpads GitHub 프로필, 새 탭"
+              data-aria-label-en="mcpads GitHub profile, opens in a new tab"
+            >GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </nav>
+
+        <div class="header-actions">
+          <div
+            class="language-switch"
+            role="group"
+            aria-label="언어 선택"
+            data-aria-label-ko="언어 선택"
+            data-aria-label-en="Choose language"
+          >
+            <button type="button" data-language="ko" aria-pressed="true">KO</button>
+            <button type="button" data-language="en" aria-pressed="false">EN</button>
+          </div>
+          <a
+            class="github-link"
+            href="https://github.com/mcpads"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="mcpads GitHub 프로필, 새 탭"
+            data-aria-label-ko="mcpads GitHub 프로필, 새 탭"
+            data-aria-label-en="mcpads GitHub profile, opens in a new tab"
+          >GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="section notes-intro">
+        <div class="page-shell">
+          <div class="section-kicker">
+            <span>§ NOTES</span>
+            <i></i>
+            <span>WHAT ACTUALLY CHANGED</span>
+          </div>
+          <h1 data-copy="ko">작업하면서 실제로 바뀐 것을 남깁니다</h1>
+          <h1 data-copy="en" lang="en" hidden>Notes on what actually changed while working</h1>
+          <p class="section-intro" data-copy="ko">
+            결론만 정리한 방법론이 아니라, 어떤 문제에서 출발해 무엇이 바뀌었고
+            무엇이 사람에게 남았는지를 실제 기록으로 남깁니다.
+          </p>
+          <p class="section-intro" data-copy="en" lang="en" hidden>
+            Not methodology written after the fact, but a record of which problems
+            surfaced, what changed because of them, and what stayed with the person.
+          </p>
+        </div>
+      </section>
+
+      <section class="section notes-list-section">
+        <div class="page-shell">
+          <ol class="note-list">
+            <li>
+              <article class="note-card">
+                <p class="note-card-meta">
+                  <time datetime="2026-08-18">2026-08-18</time>
+                  <span data-copy="ko">한국어 본문</span>
+                  <span data-copy="en" lang="en" hidden>Korean text</span>
+                </p>
+                <h2>
+                  <a href="/notes/work-evolution/">
+                    <span data-copy="ko">한글화 작업 방식은 여러 갈래로 바뀌었다</span>
+                    <span data-copy="en" lang="en" hidden>
+                      Localization work split into several evolving threads
+                    </span>
+                  </a>
+                </h2>
+                <p data-copy="ko">
+                  2026년 2월부터 8월까지 게임 12개와 도구 3개 프로젝트에서, ROM 쓰기·실행
+                  관찰·번역·화면 구성 같은 열 갈래가 각각 다른 실패를 거치며 어떻게 바뀌었는지
+                  정리했습니다.
+                </p>
+                <p data-copy="en" lang="en" hidden>
+                  Across twelve games and three tool projects between February and August 2026,
+                  ten separate threads—ROM writes, runtime observation, translation, on-screen
+                  typography—each changed through failures of their own.
+                </p>
+                <p class="note-card-more">
+                  <span data-copy="ko">읽기</span>
+                  <span data-copy="en" lang="en" hidden>Read</span>
+                  <span aria-hidden="true">→</span>
+                </p>
+              </article>
+            </li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-shell footer-layout">
+        <p data-copy="ko">게임명과 회사명은 각 원작 권리자에게 귀속됩니다. 팬 번역 프로젝트는 비상업적이며 ROM이나 저작 자산을 배포하지 않습니다.</p>
+        <p data-copy="en" lang="en" hidden>Game and company names belong to their respective owners. Fan translations are non-commercial and distribute no ROMs or copyrighted game assets.</p>
+        <div>
+          <a href="https://github.com/mcpads" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="https://github.com/mcpads/mcpads.github.io" target="_blank" rel="noopener noreferrer">Site source ↗</a>
+          <span>© <span data-current-year>2026</span> mcpads</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
