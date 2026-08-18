@@ -14,6 +14,7 @@ export default defineConfig({
       input: {
         main: pageEntry("index.html"),
         notes: pageEntry("notes/index.html"),
+        whatYouType: pageEntry("notes/what-you-type/index.html"),
         workEvolution: pageEntry("notes/work-evolution/index.html"),
       },
     },

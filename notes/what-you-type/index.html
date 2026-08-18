@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="레트로 게임 한글화에서 사람이 실제로 맡는 일. 반년 치 대화에서 고른 프롬프트 24개로 정리했습니다."
+    />
+    <meta name="author" content="mcpads" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="theme-color" content="#080b12" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:site_name" content="mcpads" />
+    <meta property="og:title" content="코드는 몰라도 된다" />
+    <meta
+      property="og:description"
+      content="대신 게임을 알아야 하고, 계속 판단하게 된다."
+    />
+    <meta property="og:url" content="https://mcpads.dev/notes/what-you-type/" />
+    <meta property="og:image" content="https://mcpads.dev/og.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="mcpads 로고 아래 ROM, IR, GAME 패널이 연결된 레트로 도트 그래픽."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="코드는 몰라도 된다" />
+    <meta
+      name="twitter:description"
+      content="대신 게임을 알아야 하고, 계속 판단하게 된다."
+    />
+    <meta name="twitter:image" content="https://mcpads.dev/og.png" />
+    <meta
+      name="twitter:image:alt"
+      content="mcpads 로고 아래 ROM, IR, GAME 패널이 연결된 레트로 도트 그래픽."
+    />
+    <link rel="canonical" href="https://mcpads.dev/notes/what-you-type/" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="preload"
+      href="https://cdn.jsdelivr.net/npm/galmuri@2.40.3/dist/Galmuri11-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <title>코드는 몰라도 된다 — mcpads</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "@id": "https://mcpads.dev/notes/what-you-type/#article",
+        "url": "https://mcpads.dev/notes/what-you-type/",
+        "headline": "코드는 몰라도 된다",
+        "description": "레트로 게임 한글화에서 사람이 실제로 맡는 일. 반년 치 대화에서 고른 프롬프트 24개로 정리했습니다.",
+        "inLanguage": "ko",
+        "datePublished": "2026-08-18",
+        "dateModified": "2026-08-18",
+        "author": { "@id": "https://mcpads.dev/#mcpads" },
+        "publisher": { "@id": "https://mcpads.dev/#mcpads" },
+        "isPartOf": { "@id": "https://mcpads.dev/notes/#blog" },
+        "image": "https://mcpads.dev/og.png"
+      }
+    </script>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/notes.css" />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">
+      <span data-copy="ko">본문으로 건너뛰기</span>
+      <span data-copy="en" lang="en" hidden>Skip to content</span>
+    </a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a
+          class="wordmark"
+          href="/"
+          aria-label="mcpads 홈"
+          data-aria-label-ko="mcpads 홈"
+          data-aria-label-en="mcpads home"
+        >
+          <span class="wordmark-mark" aria-hidden="true"></span>
+          <span>mcpads</span>
+        </a>
+
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-navigation"
+        >
+          <span class="sr-only">메뉴 열기</span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+
+        <nav
+          id="site-navigation"
+          class="site-navigation"
+          aria-label="주요 섹션"
+          data-aria-label-ko="주요 섹션"
+          data-aria-label-en="Primary sections"
+        >
+          <a href="/#journey">Journey</a>
+          <a href="/#retroir">RetroIR</a>
+          <a href="/#work">Work</a>
+          <a href="/notes/" aria-current="page">Notes</a>
+          <a href="/#about">About</a>
+          <div class="mobile-navigation-actions">
+            <div
+              class="language-switch"
+              role="group"
+              aria-label="언어 선택"
+              data-aria-label-ko="언어 선택"
+              data-aria-label-en="Choose language"
+            >
+              <button type="button" data-language="ko" aria-pressed="true">KO</button>
+              <button type="button" data-language="en" aria-pressed="false">EN</button>
+            </div>
+            <a
+              class="github-link"
+              href="https://github.com/mcpads"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="mcpads GitHub 프로필, 새 탭"
+              data-aria-label-ko="mcpads GitHub 프로필, 새 탭"
+              data-aria-label-en="mcpads GitHub profile, opens in a new tab"
+            >GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </nav>
+
+        <div class="header-actions">
+          <div
+            class="language-switch"
+            role="group"
+            aria-label="언어 선택"
+            data-aria-label-ko="언어 선택"
+            data-aria-label-en="Choose language"
+          >
+            <button type="button" data-language="ko" aria-pressed="true">KO</button>
+            <button type="button" data-language="en" aria-pressed="false">EN</button>
+          </div>
+          <a
+            class="github-link"
+            href="https://github.com/mcpads"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="mcpads GitHub 프로필, 새 탭"
+            data-aria-label-ko="mcpads GitHub 프로필, 새 탭"
+            data-aria-label-en="mcpads GitHub profile, opens in a new tab"
+          >GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <article class="note">
+        <header class="note-header">
+          <div class="page-shell">
+            <p class="eyebrow"><a href="/notes/">NOTES</a> · 2026-08-18</p>
+            <h1 data-copy="ko">코드는 몰라도 된다</h1>
+            <h1 data-copy="en" lang="en" hidden>You do not need to write code</h1>
+            <p class="note-subtitle" data-copy="ko">대신 게임을 알아야 하고, 계속 판단하게 된다</p>
+            <p class="note-subtitle" data-copy="en" lang="en" hidden>
+              You need to know the game, and keep making calls
+            </p>
+            <dl class="note-meta">
+              <div>
+                <dt data-copy="ko">읽는 사람</dt>
+                <dt data-copy="en" lang="en" hidden>For</dt>
+                <dd data-copy="ko">한글화를 해 보고 싶은데 코드를 모르는 사람</dd>
+                <dd data-copy="en" lang="en" hidden>Anyone who wants to try this without writing code</dd>
+              </div>
+              <div>
+                <dt data-copy="ko">근거</dt>
+                <dt data-copy="en" lang="en" hidden>Sources</dt>
+                <dd data-copy="ko">2026년 2~8월 실제 프롬프트 24개</dd>
+                <dd data-copy="en" lang="en" hidden>24 real prompts from Feb–Aug 2026</dd>
+              </div>
+            </dl>
+          </div>
+        </header>
+
+        <div class="note-intro">
+          <div class="page-shell">
+            <p class="note-lead">(1절 리드 — Task 2에서 채운다)</p>
+          </div>
+        </div>
+
+        <div class="page-shell note-layout">
+          <nav
+            class="note-toc"
+            aria-label="글 목차"
+            data-aria-label-ko="글 목차"
+            data-aria-label-en="Article contents"
+          >
+            <a href="#shift" data-section-link="shift"><span data-copy="ko">시작 지점이 달라졌다</span><span data-copy="en" lang="en" hidden>Where you start</span></a>
+            <a href="#words" data-section-link="words"><span data-copy="ko">당신이 치게 될 말</span><span data-copy="en" lang="en" hidden>What you will type</span></a>
+            <a href="#agent" data-section-link="agent"><span data-copy="ko">에이전트가 하는 일</span><span data-copy="en" lang="en" hidden>What the agent does</span></a>
+            <a href="#texture" data-section-link="texture"><span data-copy="ko">대부분의 시간</span><span data-copy="en" lang="en" hidden>Most of the time</span></a>
+            <a href="#fit" data-section-link="fit"><span data-copy="ko">맞는 사람, 아닌 사람</span><span data-copy="en" lang="en" hidden>Is this you</span></a>
+            <a href="#next" data-section-link="next"><span data-copy="ko">다음</span><span data-copy="en" lang="en" hidden>Next</span></a>
+          </nav>
+
+          <div class="note-body">
+            <section id="shift" data-navigation-section="shift" class="note-section">
+              <h2 data-copy="ko">지금 시작하는 사람은 다른 지점에서 시작한다</h2>
+              <h2 data-copy="en" lang="en" hidden>You are starting from a different point</h2>
+            </section>
+
+            <section id="words" data-navigation-section="words" class="note-section">
+              <h2 data-copy="ko">당신이 치게 될 말</h2>
+              <h2 data-copy="en" lang="en" hidden>What you will actually type</h2>
+            </section>
+
+            <section id="agent" data-navigation-section="agent" class="note-section">
+              <h2 data-copy="ko">에이전트가 대신하는 일</h2>
+              <h2 data-copy="en" lang="en" hidden>What the agent takes over</h2>
+            </section>
+
+            <section id="texture" data-navigation-section="texture" class="note-section">
+              <h2 data-copy="ko">대부분의 시간은 이렇게 간다</h2>
+              <h2 data-copy="en" lang="en" hidden>How most of the time actually goes</h2>
+            </section>
+
+            <section id="fit" data-navigation-section="fit" class="note-section">
+              <h2 data-copy="ko">맞는 사람, 아닌 사람</h2>
+              <h2 data-copy="en" lang="en" hidden>Who this fits</h2>
+            </section>
+
+            <section id="next" data-navigation-section="next" class="note-section">
+              <h2 data-copy="ko">다음</h2>
+              <h2 data-copy="en" lang="en" hidden>Next</h2>
+            </section>
+          </div>
+        </div>
+
+        <footer class="note-footer">
+          <div class="page-shell">
+            <p data-copy="ko">
+              인용한 프롬프트는 2026년 2월부터 8월까지 실제 프로젝트 대화에서 그대로 옮긴 것입니다.
+            </p>
+            <p data-copy="en" lang="en" hidden>
+              Every quoted prompt is reproduced verbatim from real project conversations between
+              February and August 2026.
+            </p>
+            <p class="note-footer-back">
+              <a href="/notes/">
+                <span aria-hidden="true">←</span>
+                <span data-copy="ko">다른 기록 보기</span>
+                <span data-copy="en" lang="en" hidden>Back to notes</span>
+              </a>
+            </p>
+          </div>
+        </footer>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-shell footer-layout">
+        <p data-copy="ko">게임명과 회사명은 각 원작 권리자에게 귀속됩니다. 팬 번역 프로젝트는 비상업적이며 ROM이나 저작 자산을 배포하지 않습니다.</p>
+        <p data-copy="en" lang="en" hidden>Game and company names belong to their respective owners. Fan translations are non-commercial and distribute no ROMs or copyrighted game assets.</p>
+        <div>
+          <a href="https://github.com/mcpads" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="https://github.com/mcpads/mcpads.github.io" target="_blank" rel="noopener noreferrer">Site source ↗</a>
+          <span>© <span data-current-year>2026</span> mcpads</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

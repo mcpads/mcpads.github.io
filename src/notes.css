@@ -492,3 +492,14 @@ code {
     gap: 0.15rem;
   }
 }
+
+.note-subtitle {
+  margin: 0.6rem 0 0;
+  color: var(--color-muted);
+  font-size: 1.02rem;
+  word-break: keep-all;
+}
+
+.note-card-audience {
+  color: var(--color-amber);
+}

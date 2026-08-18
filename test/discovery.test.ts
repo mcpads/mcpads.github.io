@@ -14,6 +14,11 @@ const sitePages: SitePage[] = [
   { file: "index.html", url: siteUrl, label: "home" },
   { file: "notes/index.html", url: "https://mcpads.dev/notes/", label: "notes hub" },
   {
+    file: "notes/what-you-type/index.html",
+    url: "https://mcpads.dev/notes/what-you-type/",
+    label: "what-you-type note",
+  },
+  {
     file: "notes/work-evolution/index.html",
     url: "https://mcpads.dev/notes/work-evolution/",
     label: "work-evolution note",
