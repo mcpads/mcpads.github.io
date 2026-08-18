@@ -569,3 +569,8 @@ code {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* 허브 소개는 두 문단이 한 흐름이라 사이를 좁힌다 */
+.notes-intro .section-intro + .section-intro {
+  margin-top: -1.25rem;
+}
