@@ -435,7 +435,7 @@
 
               <h3>충돌이 반복되자 모든 쓰기 경로를 하나로 모았다</h3>
               <p>
-                2월 21일 Git 기록에는 ROM 영역 충돌과 추적되지 않은 쓰기를 찾는 검사가 들어왔다.
+                2월 21일 Git 기록에는 ROM 영역 충돌과 추적되지 않은 <span class="term" role="button" tabindex="0" data-term="write" aria-describedby="glo-write">쓰기</span>를 찾는 검사가 들어왔다.
                 이 검사가 경고만 내는 동안에는 새 구현이 추적기를 우회할 수 있었다. 다음 날
                 프롬프트는 리뷰를 더 꼼꼼히 하자는 수준을 넘어, 우회 자체가 어렵도록 구조를
                 바꾸라고 요구했다.
@@ -475,7 +475,7 @@
               </p>
               <ul>
                 <li>쓰기 추적은 어느 기능이 어느 범위를 바꿨는지와 기능끼리 겹치는지를 본다.</li>
-                <li><span class="term" role="button" tabindex="0" data-term="expected-write" aria-describedby="glo-expected-write">Expected Write</span>는 쓰기 직전의 원본 바이트가 선언한 값이나 빈 공간 조건과 맞는지 본다.</li>
+                <li><span class="term" role="button" tabindex="0" data-term="expected-write" aria-describedby="glo-expected-write">Expected Write</span>는 쓰기 직전의 원본 바이트가 선언한 값이나 <span class="term" role="button" tabindex="0" data-term="free-space" aria-describedby="glo-free-space">빈 공간</span> 조건과 맞는지 본다.</li>
                 <li><span class="term" role="button" tabindex="0" data-term="typed-isa" aria-describedby="glo-typed-isa">typed ISA</span>는 새로 만드는 실행 바이트가 선언한 CPU 명령으로 해석되는지 본다.</li>
               </ul>
               <p>
@@ -592,7 +592,7 @@
                 </blockquote>
               </figure>
               <p>
-                이 방식은 사람이 알고 있는 게임 상태를 조사에 넣는 데는 효과가 있었다. 반면 같은
+                이 방식은 사람이 알고 있는 게임 <span class="term" role="button" tabindex="0" data-term="state" aria-describedby="glo-state">상태</span>를 조사에 넣는 데는 효과가 있었다. 반면 같은
                 장면을 다시 만들거나 JP와 KR을 맞춰 비교하려면 저장 상태, 조작 순서, 메모리 값과
                 스크린샷을 계속 주고받아야 했다. 관찰 전에는 완료를 말할 수 없다는 경계도 사람이
                 따로 세워야 했다.
@@ -608,7 +608,7 @@
               </figure>
               <p>
                 초기 <span class="term" role="button" tabindex="0" data-term="hitl" aria-describedby="glo-hitl">HITL</span>의 교훈은 사람이 <span class="term" role="button" tabindex="0" data-term="emulator" aria-describedby="glo-emulator">에뮬레이터</span>를 오래 조작해야 한다는 것이 아니었다. 정적
-                <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span> 성공과 실제 소비 경로의 확인은 다른 증거라는 점, 그리고 사람만 알고 있는 장면
+                <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span> 성공과 실제 <span class="term" role="button" tabindex="0" data-term="consumption-path" aria-describedby="glo-consumption-path">소비 경로</span>의 확인은 다른 증거라는 점, 그리고 사람만 알고 있는 장면
                 조건을 조사에 넣어야 한다는 점이었다.
               </p>
 
@@ -731,12 +731,12 @@
                 </blockquote>
               </figure>
               <p>
-                사람의 지적 뒤 초점은 첫 화면의 모양에서 데이터의 수명으로 옮겨 갔다. 4월에 만든 고정
+                사람의 지적 뒤 초점은 첫 화면의 모양에서 데이터의 <span class="term" role="button" tabindex="0" data-term="lifetime" aria-describedby="glo-lifetime">수명</span>으로 옮겨 갔다. 4월에 만든 고정
                 덮어쓰기는 당장의 조건을 보여 줬지만, 6월 동적 확인에서는 게임의 일본어 CHR 로드가 더
                 늦게 와서 한국어를 다시 덮는 경우가 확인됐다. Git 이력의 <code>97a944b</code>는
                 30<span class="term" role="button" tabindex="0" data-term="frame" aria-describedby="glo-frame">프레임</span> 동안 반복하는 임시 방식 대신, 조건 화면이 실제로 살아 있는 동안만 한국어
                 <span class="term" role="button" tabindex="0" data-term="dma" aria-describedby="glo-dma">DMA</span>를 보내는 <span class="term" role="button" tabindex="0" data-term="gate" aria-describedby="glo-gate">게이트</span>로 바뀐 기록이다. 중요한 것은 몇 번 덮어썼느냐가 아니라 어느
-                상태가 시작되고 끝날 때 자산이 유효해야 하는지였다.
+                <span class="term" role="button" tabindex="0" data-term="state" aria-describedby="glo-state">상태</span>가 시작되고 끝날 때 자산이 유효해야 하는지였다.
               </p>
 
               <h3>글자를 언제 불러오는지는 파일이 아니라 게임 진행이 정했다</h3>
@@ -756,7 +756,7 @@
               </figure>
               <p>
                 세 산출물은 기술적으로 가능했지만 한 게임 안에서 캐릭터가 바뀌는 경험을 충족하지
-                못했다. 이어진 질문은 파일 교체가 아니라 실제 적재 시점을 겨냥했다.
+                못했다. 이어진 질문은 파일 교체가 아니라 실제 <span class="term" role="button" tabindex="0" data-term="load-in" aria-describedby="glo-load-in">적재</span> 시점을 겨냥했다.
               </p>
               <figure class="prompt-quote">
                 <figcaption>
@@ -786,7 +786,7 @@
 
               <h3>디스크에 담는 글자 수와 화면에 동시에 띄울 글자 수는 다른 한계였다</h3>
               <p>
-                PC-98판에서는 외자 188칸이 보이자 이를 게임 전체의 글리프 저장 한계로 오해할 수
+                PC-98판에서는 <span class="term" role="button" tabindex="0" data-term="gaiji" aria-describedby="glo-gaiji">외자</span> 188칸이 보이자 이를 게임 전체의 글리프 저장 한계로 오해할 수
                 있었다. 사람은 그 숫자가 어디에서 생겼는지 다시 물었다.
               </p>
               <figure class="prompt-quote">
@@ -843,18 +843,18 @@
               <p>
                 한 화면이 맞았다는 사실은 그 실행 경로와 그 시점까지를 증명한다. 다른 캐릭터, 재진입,
                 오버레이 교체나 두 번째 로드는 자산의 선택과 수명을 바꿀 때만 별도 확인이 필요하다.
-                파일 수만큼 실행할 필요는 없지만, 다른 소비 경로를 같은 사례로 대신해서도 안 된다.
+                파일 수만큼 실행할 필요는 없지만, 다른 <span class="term" role="button" tabindex="0" data-term="consumption-path" aria-describedby="glo-consumption-path">소비 경로</span>를 같은 사례로 대신해서도 안 된다.
               </p>
               <p>
                 사람은 여기서 주소를 대신 찾지 않았다. 캐릭터를 바꾸면 어떤 화면을 거치는지, 조건문이
                 언제 갱신되는지, 같은 듯 보이는 장면이 실제로는 다른 진입 경로인지 알려 줬다.
-                에이전트는 그 게임 지식을 바탕으로 첫 번째로 끊긴 연결을 찾고, 정적 범위와 실행
+                에이전트는 그 게임 지식을 바탕으로 첫 번째로 끊긴 연결을 찾고, <span class="term" role="button" tabindex="0" data-term="static" aria-describedby="glo-static">정적</span> 범위와 실행
                 증거를 나눠 기록했다.
               </p>
 
               <div class="note-checklist">
                 <p class="note-checklist-title">
-                  다음 프로젝트에서 자산이 “적용됐다”고 확인할 때는 다음처럼 물을 수 있다.
+                  다음 프로젝트에서 <span class="term" role="button" tabindex="0" data-term="asset" aria-describedby="glo-asset">자산</span>이 “적용됐다”고 확인할 때는 다음처럼 물을 수 있다.
                 </p>
                 <ul>
                   <li>빌드 결과 안에 <span class="term" role="button" tabindex="0" data-term="byte" aria-describedby="glo-byte">바이트</span>가 있다는 것과 게임이 그 자산을 골랐다는 것을 각각 무엇으로 확인했는가?</li>
@@ -873,7 +873,7 @@
               <h3>한 글자가 나왔다는 걸 너무 크게 해석했다</h3>
               <p>
                 한글 한 글자를 띄우는 <span class="term" role="button" tabindex="0" data-term="poc" aria-describedby="glo-poc">PoC</span>는 렌더 경로, <span class="term" role="button" tabindex="0" data-term="glyph" aria-describedby="glo-glyph">글리프</span> 형식이나 <span class="term" role="button" tabindex="0" data-term="encoding" aria-describedby="glo-encoding">인코딩</span>의 일부를 빠르게
-                확인할 수 있다. 하지만 전체 번역에 필요한 글리프 수, 재배치, 동적 적재와 다른
+                확인할 수 있다. 하지만 전체 번역에 필요한 글리프 수, 재배치, 동적 <span class="term" role="button" tabindex="0" data-term="load-in" aria-describedby="glo-load-in">적재</span>와 다른
                 화면의 <span class="term" role="button" tabindex="0" data-term="renderer" aria-describedby="glo-renderer">렌더러</span>까지 증명하지는 못한다. 6월에 <span class="term" role="button" tabindex="0" data-term="skill" aria-describedby="glo-skill">스킬</span>을 검토하면서 이 차이를 실제
                 프로젝트 사례로 다시 물었다.
               </p>
@@ -912,7 +912,7 @@
                 </blockquote>
               </figure>
               <p>
-                PC-98판에서는 188칸의 외자 영역에 한 글자를 넣는 시연보다 전체 번역에서 요구할
+                PC-98판에서는 188칸의 <span class="term" role="button" tabindex="0" data-term="gaiji" aria-describedby="glo-gaiji">외자</span> 영역에 한 글자를 넣는 시연보다 전체 번역에서 요구할
                 글리프 양을 먼저 문제 삼았다.
               </p>
               <figure class="prompt-quote">
@@ -936,7 +936,7 @@
               <p>
                 전체 문장을 넣자 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>와 화면이 무너졌고, 188이라는 숫자가 디스크에 저장할 수 있는
                 총 글리프 수가 아니라 동시에 등록되는 외자 슬롯의 한계라는 점을 다시 조사하게 됐다.
-                필요한 글자를 동적으로 공급하는 구조를 먼저 마련한 뒤에야 번역 검수를 계속할 수
+                필요한 글자를 <span class="term" role="button" tabindex="0" data-term="dynamic" aria-describedby="glo-dynamic">동적</span>으로 공급하는 구조를 먼저 마련한 뒤에야 번역 검수를 계속할 수
                 있었다. 작은 성공을 더 많이 보여 주는 것보다 전체 수요를 한 번 넣어 본 실패가 설계를
                 더 크게 바꾼 사례다.
               </p>
@@ -960,7 +960,7 @@
                   다음 내용을 함께 주는 편이 낫다.
                 </p>
                 <ul>
-                  <li>완성된 <span class="term" role="button" tabindex="0" data-term="patch" aria-describedby="glo-patch">패치</span>에서 반드시 되는 소비 경로와 가장 큰 수요는 무엇인가?</li>
+                  <li>완성된 <span class="term" role="button" tabindex="0" data-term="patch" aria-describedby="glo-patch">패치</span>에서 반드시 되는 <span class="term" role="button" tabindex="0" data-term="consumption-path" aria-describedby="glo-consumption-path">소비 경로</span>와 가장 큰 수요는 무엇인가?</li>
                   <li>현재 PoC는 렌더 경로, 인코딩, 저장 공간, 런타임 슬롯 중 어디까지만 증명하는가?</li>
                   <li>최악 조건의 문장·글리프·파일을 넣었을 때도 같은 설계가 버티는가?</li>
                   <li>이 시험이 실패하면 어떤 설계를 바꾸고, 성공하면 다음에 어떤 위험을 확인할 것인가?</li>
@@ -995,7 +995,7 @@
                 </blockquote>
               </figure>
               <p>
-                다섯 층 분량의 추출과 11층·지하 4층짜리 작품이 동시에 맞을 수는 없다. 어느 뱅크가
+                다섯 층 분량의 추출과 11층·지하 4층짜리 작품이 동시에 맞을 수는 없다. 어느 <span class="term" role="button" tabindex="0" data-term="bank" aria-describedby="glo-bank">뱅크</span>가
                 빠졌는지 곧바로 답하지 않았지만, 추출 완료라는 판단을 철회하고 다른 뱅크와 참조
                 경로를 다시 보게 했다.
               </p>
@@ -1022,7 +1022,7 @@
 
               <h3>초벌을 통째로 넣어 보니 무엇이 부족한지가 드러났다</h3>
               <p>
-                슈퍼 뿌요뿌요 2에서는 앞 장의 “전체 한글 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>” 질문 뒤 273개 초벌 대사와 433자 <span class="term" role="button" tabindex="0" data-term="glyph" aria-describedby="glo-glyph">글리프</span>
+                슈퍼 뿌요뿌요 2에서는 앞 장의 “전체 한글 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>” 질문 뒤 273개 <span class="term" role="button" tabindex="0" data-term="draft" aria-describedby="glo-draft">초벌</span> 대사와 433자 <span class="term" role="button" tabindex="0" data-term="glyph" aria-describedby="glo-glyph">글리프</span>
                 수요를 한꺼번에 넣었다. Git 이력의 <code>7949b92</code>가 그 전체 이야기 빌드다. 작은
                 시연에서는 숨었던 누락 글자와 대사창 감김이 이때 드러났다.
               </p>
@@ -1040,7 +1040,7 @@
                 </blockquote>
               </figure>
               <p>
-                다음 Git 기록 <code>951c0a7</code>은 모드 선택, 옵션과 하위 메뉴를 별도 한글화 표면으로
+                다음 Git 기록 <code>951c0a7</code>은 모드 선택, 옵션과 하위 메뉴를 별도 한글화 <span class="term" role="button" tabindex="0" data-term="surface" aria-describedby="glo-surface">표면</span>으로
                 정리했다. 번역 문장 수, 필요한 글리프 수와 한글화할 화면 수는 각각 세어야 할 전체가 달랐다.
                 어느 하나가 100%라고 다른 두 범위까지 끝난 것은 아니다.
               </p>
@@ -1070,8 +1070,8 @@
                 </blockquote>
               </figure>
               <p>
-                8월 6일 Git 기록 <code>eae22e8</code>은 런타임 확인을 파일 수가 아니라 소비 경로로
-                묶도록 <span class="term" role="button" tabindex="0" data-term="skill" aria-describedby="glo-skill">스킬</span>을 고쳤다. 먼저 정적으로 파일·엔트리의 전체 목록을 만들고, 같은 선택
+                8월 6일 Git 기록 <code>eae22e8</code>은 런타임 확인을 파일 수가 아니라 <span class="term" role="button" tabindex="0" data-term="consumption-path" aria-describedby="glo-consumption-path">소비 경로</span>로
+                묶도록 <span class="term" role="button" tabindex="0" data-term="skill" aria-describedby="glo-skill">스킬</span>을 고쳤다. 먼저 <span class="term" role="button" tabindex="0" data-term="static" aria-describedby="glo-static">정적</span>으로 파일·엔트리의 전체 목록을 만들고, 같은 선택
                 규칙과 <span class="term" role="button" tabindex="0" data-term="loader" aria-describedby="glo-loader">로더</span>와 <span class="term" role="button" tabindex="0" data-term="renderer" aria-describedby="glo-renderer">렌더러</span>를 쓰는 항목끼리 묶는다. 그 공통 경로는 대표 사례로 실행해
                 확인하되, 각 파일이 실제로 그 그룹에 속한다는 사실은 전체 정적 검사로 닫는다. 크기
                 경계, 별도 <span class="term" role="button" tabindex="0" data-term="compression" aria-describedby="glo-compression">압축</span>, 다른 캐시나 렌더러를 쓰는 예외만 따로 실행한다.
@@ -1169,7 +1169,7 @@
 
               <h3>참고 패치는 단서로 남기고 최종 입력에서 뺐다</h3>
               <p>
-                게임기어판의 초기 한국어 빌드는 영어 패치 ROM을 먼저 요구했다. 영어판에서 훅과 여유
+                게임기어판의 초기 한국어 빌드는 영어 패치 ROM을 먼저 요구했다. 영어판에서 <span class="term" role="button" tabindex="0" data-term="hook" aria-describedby="glo-hook">훅</span>과 여유
                 공간을 찾기는 쉬웠지만, 일본 원본에서 영어판을 거쳐 한국어판으로 온 변경 중 무엇이
                 필요한지 설명하기 어려웠다.
               </p>
@@ -1289,9 +1289,9 @@
               </figure>
               <p>
                 PC-98판에서도 앞 장에 인용한 “사람 검수는 글리프와 관련된 확신이 있어야 진행될 수
-                있다”는 질문이 같은 역할을 했다. 초벌 전체는 글리프 수와 최대 문장 폭을 재는 기술
-                입력으로 먼저 쓸 수 있다. 말투와 의미를 다듬는 전수 검수는 그 수요가 실제 빌드와 주요
-                소비 경로에서 받아들여지는지 확인한 뒤 진행한다. 이름, 용어와 문맥처럼 기술 설계 전에
+                있다”는 질문이 같은 역할을 했다. <span class="term" role="button" tabindex="0" data-term="draft" aria-describedby="glo-draft">초벌</span> 전체는 글리프 수와 최대 문장 폭을 재는 기술
+                입력으로 먼저 쓸 수 있다. 말투와 의미를 다듬는 <span class="term" role="button" tabindex="0" data-term="exhaustive" aria-describedby="glo-exhaustive">전수</span> 검수는 그 수요가 실제 빌드와 주요
+                <span class="term" role="button" tabindex="0" data-term="consumption-path" aria-describedby="glo-consumption-path">소비 경로</span>에서 받아들여지는지 확인한 뒤 진행한다. 이름, 용어와 문맥처럼 기술 설계 전에
                 결정해야 할 사항은 먼저 정한다. 기술 설계 전에 필요한 사람 판단까지 미루지는 않았다.
               </p>
               <p>그래서 “됐다”는 말도 하나로 쓰기 어려워졌다.</p>
@@ -1371,7 +1371,7 @@
 
               <h3>번역 검수는 원문·현재 번역·이유·제안을 함께 보게 했다</h3>
               <p>
-                슈퍼패미컴판의 전수 검수에서는 규칙으로 문장을 일괄 변경하지 말고, 항목별로 판단할
+                슈퍼패미컴판의 <span class="term" role="button" tabindex="0" data-term="exhaustive" aria-describedby="glo-exhaustive">전수</span> 검수에서는 규칙으로 문장을 일괄 변경하지 말고, 항목별로 판단할
                 자료를 남기도록 했다.
               </p>
               <figure class="prompt-quote">
@@ -1474,7 +1474,7 @@
               </figure>
               <p>
                 사람이 오탈자 후보를 손으로 전수 검색할 필요는 없다. 자동화가 전체 범위를 검사하고
-                원문 위치, 제어코드, 폭과 누락을 지키게 한 뒤, 사람은 실제 문장과 화면에 손실이 생기는
+                원문 위치, <span class="term" role="button" tabindex="0" data-term="control-code" aria-describedby="glo-control-code">제어코드</span>, 폭과 누락을 지키게 한 뒤, 사람은 실제 문장과 화면에 손실이 생기는
                 선택을 맡는다.
               </p>
 
@@ -1506,7 +1506,7 @@
 
               <h3>한 글꼴로 한국어판 전체를 통일하지 않았다</h3>
               <p>
-                슈퍼 나조 뿌요 2에서는 <code>게임하기 / 데이터 삭제</code> 메뉴의 커서와 기준선이
+                슈퍼 나조 뿌요 2에서는 <code>게임하기 / 데이터 삭제</code> 메뉴의 커서와 <span class="term" role="button" tabindex="0" data-term="baseline" aria-describedby="glo-baseline">기준선</span>이
                 어긋나 보이자 새 글꼴을 시험했다.
               </p>
               <figure class="prompt-quote">
@@ -1697,8 +1697,8 @@
               </figure>
               <p>
                 이 원칙은 선행 작업을 버리라는 말과 다르다. 어디를 먼저 볼지, 어떤 실패를 예상할지,
-                어떤 검사를 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>에 둘지는 재사용할 수 있다. 주소, 빈 공간, <span class="term" role="button" tabindex="0" data-term="encoding" aria-describedby="glo-encoding">인코딩</span> 폭, <span class="term" role="button" tabindex="0" data-term="glyph" aria-describedby="glo-glyph">글리프</span> 수와 소비
-                경로는 새 원본에서 다시 확인해야 한다.
+                어떤 검사를 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>에 둘지는 재사용할 수 있다. 주소, <span class="term" role="button" tabindex="0" data-term="free-space" aria-describedby="glo-free-space">빈 공간</span>, <span class="term" role="button" tabindex="0" data-term="encoding" aria-describedby="glo-encoding">인코딩</span> 폭, <span class="term" role="button" tabindex="0" data-term="glyph" aria-describedby="glo-glyph">글리프</span> 수와 <span class="term" role="button" tabindex="0" data-term="consumption-path" aria-describedby="glo-consumption-path">소비
+                경로</span>는 새 원본에서 다시 확인해야 한다.
               </p>
 
               <h3>영어 패치의 레이아웃도 한국어의 정답은 아니었다</h3>
@@ -1737,7 +1737,7 @@
                 </blockquote>
               </figure>
               <p>
-                필요한 것은 메모리 읽기, 상태 재현, 쓰기 추적 같은 기능과 거기서 얻은 증거다. 지금
+                필요한 것은 메모리 읽기, 상태 재현, <span class="term" role="button" tabindex="0" data-term="write" aria-describedby="glo-write">쓰기</span> 추적 같은 기능과 거기서 얻은 증거다. 지금
                 환경에서 <code>emucap</code>이 그 능력을 가장 잘 제공할 수는 있어도, 방법론 자체가 한
                 도구의 명령어나 경로를 정답으로 삼으면 다른 플랫폼에서 바로 낡는다.
               </p>
@@ -1856,8 +1856,8 @@
               <p>
                 이 질문에 따라 특정 언어, 라이브러리, <span class="term" role="button" tabindex="0" data-term="emulator" aria-describedby="glo-emulator">에뮬레이터</span>나 고정된 조사 순서보다 조건부 실패
                 기준이 남았다. 예를 들어 원본과 다른 값을 기대하지 않은 곳에 썼거나, 필요한 문자가
-                매핑되지 않았거나, 제어코드가 바뀌었다면 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>는 실패해야 한다. 어느 <span class="term" role="button" tabindex="0" data-term="disassemble" aria-describedby="glo-disassemble">디스어셈블러</span>를 쓰고
-                저장 경로부터 볼지 소비 경로부터 볼지는 대상의 증거에 따라 에이전트가 고른다.
+                매핑되지 않았거나, <span class="term" role="button" tabindex="0" data-term="control-code" aria-describedby="glo-control-code">제어코드</span>가 바뀌었다면 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>는 실패해야 한다. 어느 <span class="term" role="button" tabindex="0" data-term="disassemble" aria-describedby="glo-disassemble">디스어셈블러</span>를 쓰고
+                저장 경로부터 볼지 <span class="term" role="button" tabindex="0" data-term="consumption-path" aria-describedby="glo-consumption-path">소비 경로</span>부터 볼지는 대상의 증거에 따라 에이전트가 고른다.
               </p>
 
               <h3>실제 프로젝트의 반례가 스킬을 계속 고쳤다</h3>
@@ -1868,14 +1868,14 @@
               <ul>
                 <li>게임기어판은 영어 <span class="term" role="button" tabindex="0" data-term="patch" aria-describedby="glo-patch">패치</span>의 줄 간격을 그대로 물려받는 위험을 드러냈다.</li>
                 <li>PCE-CD판은 선행 도구의 2048<span class="term" role="button" tabindex="0" data-term="byte" aria-describedby="glo-byte">바이트</span> 오프셋과 raw 2352바이트 섹터의 차이, 원본 라운드트립의 필요를 보여 줬다.</li>
-                <li>PC-98판은 디스크 저장 공간, <span class="term" role="button" tabindex="0" data-term="encoding" aria-describedby="glo-encoding">인코딩</span> 공간과 런타임 외자 슬롯이 서로 다른 상한임을 보여 줬다.</li>
+                <li>PC-98판은 디스크 저장 공간, <span class="term" role="button" tabindex="0" data-term="encoding" aria-describedby="glo-encoding">인코딩</span> 공간과 런타임 <span class="term" role="button" tabindex="0" data-term="gaiji" aria-describedby="glo-gaiji">외자</span> 슬롯이 서로 다른 상한임을 보여 줬다.</li>
                 <li>다른 새턴 타이틀에서는 한 프로젝트의 VDP2 텍스트 방식이 VDP1 <span class="term" role="button" tabindex="0" data-term="sprite" aria-describedby="glo-sprite">스프라이트</span> 텍스트에 그대로 적용되지 않았다.</li>
                 <li>다른 드림캐스트 타이틀에서는 뿌요뿌욘의 PVR 사례와 달리, 게임 아카이브 속 raw <span class="term" role="button" tabindex="0" data-term="glyph" aria-describedby="glo-glyph">글리프</span> 배열이 본문 렌더 경로였다.</li>
               </ul>
               <p>
                 이 사례들은 “게임기어에서는 항상 이렇게 한다” 같은 새 명령으로 들어가지 않았다. 먼저
                 어떤 대상에서 확인됐는지와 다른 대상에 옮길 수 없는 범위를 적고, 공통 문서에는 렌더
-                경로와 저장·적재·소비를 따로 확인하라는 질문만 남겼다.
+                경로와 저장·<span class="term" role="button" tabindex="0" data-term="load-in" aria-describedby="glo-load-in">적재</span>·소비를 따로 확인하라는 질문만 남겼다.
               </p>
 
               <h3>스킬도 적용 결과를 보고 다시 범위를 고쳤다</h3>
@@ -1892,7 +1892,7 @@
               <p>
                 8월에는 앞의 전체 범위 장에서 본 1,100개 파일 문제가 새 반례가 됐다. “런타임 증거가
                 중요하다”를 “모든 파일을 한 번씩 플레이한다”로 읽자 오히려 전체 구조를 보지 못했다.
-                이에 따라 스킬은 전체 목록을 정적으로 닫고, 같은 소비 경로는 대표·경계 사례로
+                이에 따라 스킬은 전체 목록을 <span class="term" role="button" tabindex="0" data-term="static" aria-describedby="glo-static">정적</span>으로 닫고, 같은 소비 경로는 대표·경계 사례로
                 실행하며, 예외만 따로 확인하도록 다시 고쳐졌다.
               </p>
               <p>스킬은 다음과 같은 순환을 거쳐 바뀌었다.</p>
@@ -1915,7 +1915,7 @@
 
               <p>
                 앞의 흐름을 날짜순으로 다시 놓으면 한 단계씩 차례로 발전한 이야기가 아니라는 점이 더
-                분명하다. 어떤 프로젝트는 쓰기 안전성이 먼저 필요했고, 다른 프로젝트는 전체 번역
+                분명하다. 어떤 프로젝트는 <span class="term" role="button" tabindex="0" data-term="write" aria-describedby="glo-write">쓰기</span> 안전성이 먼저 필요했고, 다른 프로젝트는 전체 번역
                 수요나 게임의 진행 순서를 먼저 알아야 했다.
               </p>
               <div class="note-table-scroll">
@@ -1984,8 +1984,8 @@
               <p>
                 자동 추출이 5층까지만 보였을 때 이 게임은 11층과 지하 4층까지 있다고 알려 줬고,
                 PC-98판에서 스토리 460개는 너무 적다고 지적했다. 두 번째 실패에서만 나오는 힌트, 특정
-                주문, 캐릭터 선택 뒤 던전처럼 자동화가 모르는 게임 상태도 사람이 제공했다. 이런 정보는
-                주소 정답이 아니라 조사해야 할 전체 범위와 소비 경로를 바꾸는 입력이었다.
+                주문, 캐릭터 선택 뒤 던전처럼 자동화가 모르는 게임 <span class="term" role="button" tabindex="0" data-term="state" aria-describedby="glo-state">상태</span>도 사람이 제공했다. 이런 정보는
+                주소 정답이 아니라 조사해야 할 전체 범위와 <span class="term" role="button" tabindex="0" data-term="consumption-path" aria-describedby="glo-consumption-path">소비 경로</span>를 바꾸는 입력이었다.
               </p>
 
               <h3>게임 지식은 번역표 바깥의 정답지였다</h3>
@@ -2043,7 +2043,7 @@
 
               <h3>반복되는 실패에서 공통 금지선을 뽑았다</h3>
               <p>
-                한 번의 충돌을 고치는 데서 멈추지 않고 모든 쓰기를 추적하게 했고, 예상한 원본에만
+                한 번의 충돌을 고치는 데서 멈추지 않고 모든 <span class="term" role="button" tabindex="0" data-term="write" aria-describedby="glo-write">쓰기</span>를 추적하게 했고, 예상한 원본에만
                 쓰도록 <span class="term" role="button" tabindex="0" data-term="expected-write" aria-describedby="glo-expected-write">Expected Write</span>를 붙였다. 수동 <span class="term" role="button" tabindex="0" data-term="hitl" aria-describedby="glo-hitl">HITL</span>이 반복되자 관찰 도구를 만들었고, 한 글자
                 <span class="term" role="button" tabindex="0" data-term="poc" aria-describedby="glo-poc">PoC</span>가 반복되자 가장 어려운 완성 조건과 통합 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>를 <span class="term" role="button" tabindex="0" data-term="skill" aria-describedby="glo-skill">스킬</span>에 넣었다. 사람의 철학이
                 스킬로 갔다는 것은 이런 식으로 국소 수정이 공용 경계로 바뀐 과정을 뜻한다.
@@ -2051,7 +2051,7 @@
 
               <h3>문장과 화면의 선택은 끝까지 사람이 했다</h3>
               <p>
-                자동화는 누락, 폭, 제어코드, 원문 불일치와 수정 후보를 전체에서 찾았다. 어떤 말투가
+                자동화는 누락, 폭, <span class="term" role="button" tabindex="0" data-term="control-code" aria-describedby="glo-control-code">제어코드</span>, 원문 불일치와 수정 후보를 전체에서 찾았다. 어떤 말투가
                 인물에게 맞는지, 뜻을 줄일지 페이지를 늘릴지, 한글 그래픽이 원작 화면과 어울리는지는
                 사람이 원문과 실제 장면을 보고 정했다. 메뉴마다 같은 글꼴을 쓸지, 의성어를 어느 방향으로
                 기울일지, 읽을 수 있는 영문이나 장식 글자를 그대로 둘지도 이 판단에 포함됐다. 가능한
@@ -2061,7 +2061,7 @@
               <h3>반복 작업은 사람에게 남기지 않았다</h3>
               <p>
                 사람이 1,100개 파일을 하나씩 실행하거나, 매번 메모리 값을 답변 파일에 옮기거나, 어떤
-                주소를 늘려야 하는지 대신 역공학하는 것은 목표가 아니었다. 그런 반복은 추출기, 빌드
+                주소를 늘려야 하는지 대신 <span class="term" role="button" tabindex="0" data-term="reverse-engineering" aria-describedby="glo-reverse-engineering">역공학</span>하는 것은 목표가 아니었다. 그런 반복은 추출기, 빌드
                 검사, <span class="term" role="button" tabindex="0" data-term="typed-isa" aria-describedby="glo-typed-isa">typed ISA</span>, Expected Write와 <code><span class="term" role="button" tabindex="0" data-term="emucap" aria-describedby="glo-emucap">emucap</span></code>으로 옮겼다. 사람에게 질문할 때는
                 기술 조사를 대신해 달라고 하기보다 다음처럼 선택의 근거가 필요한 지점을 묻는 편이
                 맞았다.
@@ -2344,6 +2344,78 @@
               <div>
                 <dt>게이트</dt>
                 <dd id="glo-gate">조건이 맞을 때만 통과시키는 관문. 통과하지 못하면 다음 단계로 넘어가지 못합니다.</dd>
+              </div>
+              <div>
+                <dt>소비 경로</dt>
+                <dd id="glo-consumption-path">게임이 그 데이터를 실제로 골라, 읽어 들이고, 화면에 그리기까지 거치는 길. 파일에 들어 있다는 것과 게임이 이 길을 지났다는 것은 다른 증거입니다.</dd>
+              </div>
+              <div>
+                <dt>자산</dt>
+                <dd id="glo-asset">게임 안에 든 글꼴·그림·문장 같은 데이터. 돈이나 재산이라는 뜻이 아닙니다.</dd>
+              </div>
+              <div>
+                <dt>쓰기</dt>
+                <dd id="glo-write">게임 파일의 정해진 자리에 값을 넣는 일. 글을 쓴다는 뜻이 아닙니다.</dd>
+              </div>
+              <div>
+                <dt>상태</dt>
+                <dd id="glo-state">돌아가는 게임의 그 순간 조건 전체. 어느 화면인지, 메모리에 무엇이 올라와 있는지까지 포함합니다.</dd>
+              </div>
+              <div>
+                <dt>정적</dt>
+                <dd id="glo-static">게임을 켜지 않고 파일만 들여다봐서 확인하는 것.</dd>
+              </div>
+              <div>
+                <dt>동적</dt>
+                <dd id="glo-dynamic">게임을 실제로 켜서, 돌아가는 중에 확인하거나 바꾸는 것.</dd>
+              </div>
+              <div>
+                <dt>적재</dt>
+                <dd id="glo-load-in">파일에 있던 데이터를 게임이 쓸 수 있는 자리로 올리는 일.</dd>
+              </div>
+              <div>
+                <dt>수명</dt>
+                <dd id="glo-lifetime">올려 둔 데이터가 다른 것에 덮이기 전까지 남아 있는 동안.</dd>
+              </div>
+              <div>
+                <dt>빈 공간</dt>
+                <dd id="glo-free-space">게임 파일에서 아무것도 쓰지 않고 있어 새 데이터를 넣어도 되는 자리.</dd>
+              </div>
+              <div>
+                <dt>외자</dt>
+                <dd id="glo-gaiji">게임이 원래 갖고 있지 않은 글자를 따로 만들어 등록하는 자리. 한글은 대개 여기로 들어갑니다.</dd>
+              </div>
+              <div>
+                <dt>제어코드</dt>
+                <dd id="glo-control-code">문장에 섞여 있는, 글자가 아닌 지시. 줄바꿈이나 말하는 사람이 바뀌는 지점 같은 것을 게임에 알려 줍니다.</dd>
+              </div>
+              <div>
+                <dt>뱅크</dt>
+                <dd id="glo-bank">게임 파일을 일정한 크기로 나눈 구획. 한 번에 한 구획만 들여다볼 수 있어서 데이터가 여러 뱅크에 흩어집니다.</dd>
+              </div>
+              <div>
+                <dt>훅</dt>
+                <dd id="glo-hook">게임이 원래 하던 일 중간에 끼어들어, 우리 코드가 대신 처리하게 만드는 자리.</dd>
+              </div>
+              <div>
+                <dt>기준선</dt>
+                <dd id="glo-baseline">글자들이 나란히 앉는 가로선. 이게 어긋나면 글자가 떠 보이거나 가라앉아 보입니다.</dd>
+              </div>
+              <div>
+                <dt>초벌</dt>
+                <dd id="glo-draft">다듬기 전에 한 번 훑어 옮긴 번역. 뜻을 고르기보다 분량과 글자 수를 먼저 재는 데 씁니다.</dd>
+              </div>
+              <div>
+                <dt>전수</dt>
+                <dd id="glo-exhaustive">하나도 빠뜨리지 않고 전부. 무엇을 전부로 셀 것인지가 이 글의 문제였습니다.</dd>
+              </div>
+              <div>
+                <dt>표면</dt>
+                <dd id="glo-surface">게임에서 글자가 드러나는 자리. 대사, 메뉴, 옵션, 그래픽 글자가 각각 다른 표면입니다.</dd>
+              </div>
+              <div>
+                <dt>역공학</dt>
+                <dd id="glo-reverse-engineering">만들어진 결과물을 뜯어 원래 구조와 규칙을 알아내는 일.</dd>
               </div>
             </dl>
           </div>
