@@ -442,7 +442,8 @@ code {
   background: var(--color-surface);
 }
 
-.note-primer .page-shell {
+.note-primer .page-shell,
+.note-terms .page-shell {
   max-width: min(calc(100% - 3rem), 52rem);
   margin-inline: auto;
 }
@@ -586,4 +587,106 @@ code {
 
 .prompt-situation + .prompt-quote {
   margin-top: 1.1rem;
+}
+
+/* ---- 용어 표시와 뜻풀이 ------------------------------------------------
+   본문에 표시된 용어는 버튼이지만 문장 안에서는 낱말처럼 보여야 한다.
+   button은 브라우저가 inline-block으로 고정해 뒤따르는 쉼표가 다음 줄로 밀린다.
+   그래서 span에 button 역할을 주고 display:inline으로 글자처럼 흐르게 한다. */
+.term {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline dotted var(--color-subtle);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.24em;
+  cursor: help;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.term:hover,
+.term[aria-expanded="true"] {
+  text-decoration-color: var(--color-green);
+}
+
+.term:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
+}
+
+/* code 안에 든 용어는 자기 밑줄만 그리고 글꼴은 부모를 따른다 */
+code .term {
+  text-underline-offset: 0.18em;
+}
+
+.term-tip {
+  position: fixed;
+  inset: auto;
+  z-index: 60;
+  width: max-content;
+  max-width: min(23rem, calc(100vw - 2rem));
+  margin: 0;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-panel);
+  color: var(--color-copy);
+  box-shadow: 0 10px 30px rgb(2 5 12 / 65%);
+  opacity: 0;
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.term-tip[data-side="above"] {
+  transform: translateY(4px);
+}
+
+.term-tip[data-side="below"] {
+  transform: translateY(-4px);
+}
+
+.term-tip[data-placed] {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.term-tip-name {
+  margin: 0 0 0.3rem;
+  color: var(--color-green);
+  font: 700 0.78rem var(--font-code);
+}
+
+.term-tip-body {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.62;
+  word-break: keep-all;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term-tip {
+    transition: none;
+  }
+
+  .term-tip[data-side="above"],
+  .term-tip[data-side="below"] {
+    transform: none;
+  }
+}
+
+/* 글 끝에 모아 둔 용어 목록. 앞머리의 다섯 개와 같은 형식을 쓴다. */
+.note-terms {
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--color-border-muted);
+}
+
+.note-terms-heading {
+  margin: 0 0 1rem;
+  color: var(--color-amber);
+  font: 700 0.8rem var(--font-code);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }

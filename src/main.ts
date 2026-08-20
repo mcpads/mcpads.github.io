@@ -1,3 +1,4 @@
+import "./glossary";
 import {
   findCurrentNavigationSection,
   type NavigationSectionPosition,
