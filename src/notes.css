@@ -571,11 +571,6 @@ code {
   }
 }
 
-/* 허브 소개는 두 문단이 한 흐름이라 사이를 좁힌다 */
-.notes-intro .section-intro + .section-intro {
-  margin-top: -1.25rem;
-}
-
 /* 인용 앞에 붙는 상황 한 줄 */
 .prompt-situation {
   margin: 1.75rem 0 -1.1rem;
@@ -689,4 +684,31 @@ code .term {
   font: 700 0.8rem var(--font-code);
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+/* Reference material stays close to its chapter without interrupting the narrative. */
+.note-reference > summary,
+.note-checklist > summary {
+  color: var(--color-text);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.note-reference > summary:hover,
+.note-checklist > summary:hover {
+  color: var(--color-green);
+}
+
+.note-reference[open] > summary,
+.note-checklist[open] > summary {
+  margin-bottom: 1rem;
+}
+
+.note-body {
+  line-height: 1.9;
+}
+
+.note-body h3 {
+  font-family: var(--font-body);
+  font-size: 1.12rem;
 }

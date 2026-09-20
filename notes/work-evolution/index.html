@@ -16,7 +16,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:locale" content="ko_KR" />
     <meta property="og:site_name" content="mcpads" />
-    <meta property="og:title" content="한글화 작업 방식은 여러 갈래로 바뀌었다" />
+    <meta property="og:title" content="한글 패치를 만들며 바꾼 작업 방식" />
     <meta
       property="og:description"
       content="한 갈래로 발전한 이야기가 아니다. 열 갈래가 각각 다른 실패를 거치며 따로 바뀌었다."
@@ -31,7 +31,7 @@
       content="mcpads 로고 아래 ROM, IR, GAME 패널이 연결된 레트로 도트 그래픽."
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="한글화 작업 방식은 여러 갈래로 바뀌었다" />
+    <meta name="twitter:title" content="한글 패치를 만들며 바꾼 작업 방식" />
     <meta
       name="twitter:description"
       content="한 갈래로 발전한 이야기가 아니다. 열 갈래가 각각 다른 실패를 거치며 따로 바뀌었다."
@@ -51,14 +51,14 @@
       type="font/woff2"
       crossorigin
     />
-    <title>한글화 작업 방식은 여러 갈래로 바뀌었다 — mcpads</title>
+    <title>한글 패치를 만들며 바꾼 작업 방식 — mcpads</title>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Article",
         "@id": "https://mcpads.dev/notes/work-evolution/#article",
         "url": "https://mcpads.dev/notes/work-evolution/",
-        "headline": "한글화 작업 방식은 여러 갈래로 바뀌었다",
+        "headline": "한글 패치를 만들며 바꾼 작업 방식",
         "description": "2026년 2월부터 8월까지 열두 게임과 세 도구 프로젝트에서 한글화 작업 방식이 어떻게 갈라져 바뀌었는지, 실제 대화와 Git 기록으로 정리한 기록.",
         "inLanguage": "ko",
         "datePublished": "2026-08-18",
@@ -170,9 +170,9 @@
             <p class="eyebrow">
               <a href="/notes/">NOTES</a> · 2026-08-18
             </p>
-            <h1 data-copy="ko">한글화 작업 방식은 여러 갈래로 바뀌었다</h1>
+            <h1 data-copy="ko">한글 패치를 만들며 바꾼 작업 방식</h1>
             <h1 data-copy="en" lang="en" hidden>
-              Localization work split into several evolving threads
+              How I changed the way I make Korean patches
             </h1>
             <dl class="note-meta">
               <div>
@@ -202,19 +202,14 @@
 
         <section class="note-primer">
           <div class="page-shell">
-            <h2 class="note-primer-heading">읽기 전에</h2>
+            <h2 class="note-primer-heading">용어 안내</h2>
             <p>
-              오래된 게임을 한국어로 옮기는 작업의 기록입니다. 영상에 자막을 얹는 일과는
-              다릅니다. 1990년대 게임기용 게임에는 한글이 들어갈 자리가 아예 없어서, 게임
-              프로그램 자체를 뜯어 글자가 앉을 공간과 그 글자를 화면에 그리는 방법을 새로
-              만들어야 합니다.
+              오래된 게임에 한글을 넣으려면 프로그램도 고쳐야 합니다. 1990년대 게임기용 게임은 한글을 저장하거나 출력할 준비가 돼 있지 않아, 글꼴을 넣을 공간과 화면에 그리는 코드를 만드는 작업이 필요합니다.
             </p>
             <p>
-              그 일을 사람이 혼자 하지는 않습니다. 사람은 게임을 알고 무엇을 지킬지 정하고,
-              AI 에이전트가 게임 파일을 뒤지고 고칩니다. 이 글은 그 분업이 반년 동안 어떻게
-              달라졌는지를 실제 대화와 작업 이력으로 되짚은 것입니다.
+              사람이 게임 내용과 수정 방향을 알려 주면 AI 에이전트가 파일을 조사하고 코드를 고칩니다. 반년 동안 이 작업을 어떻게 진행했는지 대화와 Git 이력을 함께 살폈습니다.
             </p>
-            <p>본문에는 기술 용어가 자주 나옵니다. 다음 몇 개만 알아도 흐름은 읽힙니다.</p>
+            <p>자주 나오는 용어를 먼저 정리했습니다.</p>
             <dl class="note-glossary">
               <div>
                 <dt>ROM</dt>
@@ -245,8 +240,7 @@
             </dl>
             <p>
               <code>TrackedRom</code>, <code>Expected Write</code>, <code>typed ISA</code>,
-              <code>emucap</code>은 미리 알아야 하는 용어가 아닙니다. 이 작업에서 필요해져
-              직접 만든 장치들이고, 각각 어떤 실패 때문에 생겼는지를 본문이 차례로 설명합니다.
+              <code>emucap</code>은 작업 중 필요해서 만든 도구입니다. 본문에서 어떤 문제를 해결하려고 만들었는지 설명합니다.
             </p>
             <p>
               본문에서 점선이 그어진 낱말은 눌러 보면 뜻이 뜹니다. 전체 목록은
@@ -278,31 +272,25 @@
               </p>
             </aside>
             <p class="note-lead">
-              이 문서는 열두 게임 프로젝트의 대화와 Git 기록뿐 아니라
+              열두 게임 프로젝트의 대화와 Git 기록을 살폈다.
               <code>create-kr-patch</code>, <code>emucap</code>,
-              <code>retro-typed-isa</code>로 이어진 도구·스킬 프로젝트의 대화도 함께 본다.
-              기간은 2026년 2월부터 8월까지다. 프로젝트마다 시작점과 난도가 달랐기 때문에
-              이를 하나의 성장 단계로 줄 세우지는 않았다.
+              <code>retro-typed-isa</code>의 개발 대화도 함께 읽었다. 기간은 2026년 2월부터 8월까지다. 프로젝트마다 시작점과 난도가 달라 주제별로 묶었다.
             </p>
             <p class="note-lead">
-              실제로는 서로 다른 문제가 동시에 누적됐다. ROM을 안전하게 쓰는 방법, 실행 중인
-              게임을 관찰하는 방법, PoC의 합격 기준, 번역 데이터와 사람의 판단을 나누는 방법,
-              한글 글자를 원작 화면에 어울리게 만드는 방법이 각각 따로 바뀌었다. 한 프로젝트에서
-              생긴 원칙이 다른 프로젝트로 건너가기도 했고, 공용 스킬로 옮긴 원칙이 새 게임의
-              반례를 만나 다시 고쳐지기도 했다.
+              ROM 쓰기, 실행 관찰, PoC, 번역 검수와 화면 구성에서 서로 다른 문제가 생겼다. 한 게임에서 찾은 해결책을 다른 게임에 적용하기도 했고, 공용 스킬에 넣었던 규칙을 새 사례에 맞춰 고치기도 했다.
             </p>
             <p class="note-lead">
-              여기서 프롬프트 전문은 모든 대화를 보관하려고 싣는 것이 아니다. 다음 프로젝트에서
-              비슷한 상황을 만났을 때, 사람이 어떤 정보를 주고 무엇을 요구하면 조사가 달라지는지
-              보여 주는 사례만 골랐다.
+              프롬프트는 조사 방향이 달라진 사례를 골라 원문 그대로 실었다. 비슷한 문제를 만났을 때 어떤 정보를 주면 좋을지 참고할 수 있다.
             </p>
           </div>
         </div>
 
         <section class="note-flow-map">
           <div class="page-shell">
-            <h2 data-copy="ko">먼저 구분해야 할 흐름</h2>
-            <h2 data-copy="en" lang="en" hidden>Threads to tell apart first</h2>
+            <h2 data-copy="ko">주제별 요약</h2>
+            <h2 data-copy="en" lang="en" hidden>Topic overview</h2>
+            <details class="note-reference">
+              <summary><span data-copy="ko">열 가지 주제 요약표</span><span data-copy="en" lang="en" hidden>Summary of the ten topics</span></summary>
             <div class="note-table-scroll">
               <table class="flow-map">
                 <thead>
@@ -378,11 +366,9 @@
               </table>
             </div>
             <p class="note-caution">
-              이 흐름들은 같은 뜻이 아니다. Expected Write는 typed ISA의 다른 이름이 아니고,
-              <code>emucap</code>은 HITL을 없애는 도구가 아니다. 전체 범위를 세는 일과 모든
-              항목을 실행해 보는 일도 다르다. 스킬 역시 프로젝트별 판단을 대신하는 정답집으로
-              만들어진 것이 아니다. 각각 어떤 문제에서 출발했는지부터 봐야 변화의 방향이 보인다.
+              Expected Write와 typed ISA는 각각 쓰기 조건과 명령어 표현을 다룬다. <code>emucap</code>으로 관찰을 자동화해도 사람의 화면 검수는 필요하다. 전체 목록을 검사하는 범위와 실제로 실행할 사례도 따로 정한다. 스킬을 적용할 때는 대상 게임의 조건을 다시 확인해야 한다.
             </p>
+            </details>
           </div>
         </section>
 
@@ -403,17 +389,17 @@
             <a href="#typography" data-section-link="typography"><span data-copy="ko">화면 구성</span><span data-copy="en" lang="en" hidden>Typography</span></a>
             <a href="#reuse" data-section-link="reuse"><span data-copy="ko">재사용</span><span data-copy="en" lang="en" hidden>Reuse</span></a>
             <a href="#skill" data-section-link="skill"><span data-copy="ko">공용 스킬</span><span data-copy="en" lang="en" hidden>Shared skill</span></a>
-            <a href="#timeline" data-section-link="timeline"><span data-copy="ko">겹친 시기</span><span data-copy="en" lang="en" hidden>Overlap</span></a>
-            <a href="#human" data-section-link="human"><span data-copy="ko">사람이 한 일</span><span data-copy="en" lang="en" hidden>The person</span></a>
-            <a href="#prompts" data-section-link="prompts"><span data-copy="ko">프롬프트 골격</span><span data-copy="en" lang="en" hidden>Prompts</span></a>
+            <a href="#timeline" data-section-link="timeline"><span data-copy="ko">작업 연표</span><span data-copy="en" lang="en" hidden>Overlap</span></a>
+            <a href="#human" data-section-link="human"><span data-copy="ko">사람의 판단</span><span data-copy="en" lang="en" hidden>The person</span></a>
+            <a href="#prompts" data-section-link="prompts"><span data-copy="ko">요청 예시</span><span data-copy="en" lang="en" hidden>Prompts</span></a>
           </nav>
 
           <div class="note-body">
             <section id="rom-write" data-navigation-section="rom-write" class="note-section">
-              <h2 data-copy="ko">ROM 쓰기: 읽을 수 있는 코드를 넘어 허용된 변경까지 증명하게 됐다</h2>
-              <h2 data-copy="en" lang="en" hidden>ROM writes: from readable code to code that proves the change is allowed</h2>
+              <h2 data-copy="ko">ROM 쓰기 검증</h2>
+              <h2 data-copy="en" lang="en" hidden>ROM write verification</h2>
 
-              <h3>첫 문제는 raw hex의 의미가 보이지 않는다는 것이었다</h3>
+              <h3>명령어 표현과 raw hex</h3>
               <p>
                 슈퍼패미컴 마도물어에서 가장 먼저 나온 요구는 기계어를 사람이 읽을 수 있게
                 만들자는 것이었다.
@@ -433,12 +419,10 @@
                 그 바이트를 <span class="term" role="button" tabindex="0" data-term="rom" aria-describedby="glo-rom">ROM</span>의 어디에 써도 되는지는 아직 다른 문제였다.
               </p>
 
-              <h3>충돌이 반복되자 모든 쓰기 경로를 하나로 모았다</h3>
+              <h3>쓰기 경로의 통합</h3>
               <p>
                 2월 21일 Git 기록에는 ROM 영역 충돌과 추적되지 않은 <span class="term" role="button" tabindex="0" data-term="write" aria-describedby="glo-write">쓰기</span>를 찾는 검사가 들어왔다.
-                이 검사가 경고만 내는 동안에는 새 구현이 추적기를 우회할 수 있었다. 다음 날
-                프롬프트는 리뷰를 더 꼼꼼히 하자는 수준을 넘어, 우회 자체가 어렵도록 구조를
-                바꾸라고 요구했다.
+                이 검사가 경고만 내는 동안에는 새 구현이 추적기를 우회할 수 있었다. 다음 날에는 새 코드가 검사를 우회하기 어렵도록 구조를 바꾸라고 요청했다.
               </p>
               <figure class="prompt-quote">
                 <figcaption>
@@ -455,7 +439,7 @@
                 검사 밖에서 조용히 쓰는 경우를 막는 것이었다.
               </p>
 
-              <h3>겹치는지만이 아니라 쓰기 전 원본이 무엇이어야 하는지도 물었다</h3>
+              <h3>원본 바이트 검사</h3>
               <p>
                 같은 날 이어진 질문은 “어디에 썼는가”만 기록하지 않고 “쓰기 전 원본이 무엇이어야
                 하는가”를 선언하게 했다.
@@ -483,7 +467,7 @@
                 쓸 수 있고, 예상한 빈 공간에 썼더라도 잘못 <span class="term" role="button" tabindex="0" data-term="encoding" aria-describedby="glo-encoding">인코딩</span>된 명령어일 수 있다.
               </p>
 
-              <h3>한 게임에서 만든 검사가 다른 게임으로 옮겨 갔다</h3>
+              <h3>게임 간 검사 코드 공유</h3>
               <p>
                 세가 새턴 마도물어에서는 슈퍼패미컴판의 구조를 가져오되 디스크 쓰기에 맞게 다시
                 만들었다.
@@ -546,29 +530,25 @@
               <p>
                 <code>retro-typed-isa</code>의 Git 기록에는 여러 CPU 프로필과 Expected Write 검증
                 규칙이 8월 7일에 함께 들어왔다. 이후 슈퍼패미컴·드림캐스트·게임기어·메가드라이브
-                프로젝트가 공용 구현으로 옮겨 갔다. 이 흐름은 “hex 대신 enum” 한 번으로 끝나지
-                않았다. 읽을 수 있는 명령, 쓰기 경로의 단일화, 원본 사전조건, 프로젝트 간 공용
-                검사 규칙이 각각 다른 실패를 거치며 추가됐다.
+                프로젝트가 공용 구현으로 옮겨 갔다. 명령어를 읽기 쉽게 표현한 뒤에도 문제가 남았다. 모든 쓰기를 추적하고, 쓰기 전 원본을 검사하고, 여러 프로젝트에서 같은 검사 규칙을 쓰도록 차례로 보완했다.
               </p>
 
-              <div class="note-checklist">
-                <p class="note-checklist-title">
-                  다음 프로젝트에서 비슷한 문제가 생기면 프롬프트에는 최소한 다음 질문이 들어가야 한다.
-                </p>
+              <details class="note-checklist">
+                <summary>ROM 쓰기 확인 질문</summary>
                 <ul>
                   <li>최종 산출물을 바꾸는 모든 경로가 같은 추적 인터페이스를 거치는가?</li>
                   <li>각 쓰기는 기존 바이트, 빈 공간, 허용된 덮어쓰기 중 무엇을 기대하는가?</li>
                   <li>두 기능의 쓰기 범위가 겹치면 빌드가 실패하는가?</li>
                   <li>실행 코드는 선언한 CPU 프로필의 명령어로 생성되고 다시 해석되는가?</li>
                 </ul>
-              </div>
+              </details>
             </section>
 
             <section id="observe" data-navigation-section="observe" class="note-section">
-              <h2 data-copy="ko">실행 관찰: 사람이 옮겨 적던 일을 다시 만들 수 있는 기록으로 넘겼다</h2>
-              <h2 data-copy="en" lang="en" hidden>Runtime observation: what a person transcribed became a reproducible record</h2>
+              <h2 data-copy="ko">실행 관찰과 emucap</h2>
+              <h2 data-copy="en" lang="en" hidden>Runtime observation and emucap</h2>
 
-              <h3>초기 HITL은 사람에게 디버거 조작을 많이 맡겼다</h3>
+              <h3>초기 HITL의 수작업</h3>
               <p>
                 2월 슈퍼패미컴판에서는 에이전트가 절차를 적고, 사람이 Mesen에서 장면을 만든 뒤
                 값과 결과를 답변 파일에 옮겼다.
@@ -607,12 +587,10 @@
                 </blockquote>
               </figure>
               <p>
-                초기 <span class="term" role="button" tabindex="0" data-term="hitl" aria-describedby="glo-hitl">HITL</span>의 교훈은 사람이 <span class="term" role="button" tabindex="0" data-term="emulator" aria-describedby="glo-emulator">에뮬레이터</span>를 오래 조작해야 한다는 것이 아니었다. 정적
-                <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span> 성공과 실제 <span class="term" role="button" tabindex="0" data-term="consumption-path" aria-describedby="glo-consumption-path">소비 경로</span>의 확인은 다른 증거라는 점, 그리고 사람만 알고 있는 장면
-                조건을 조사에 넣어야 한다는 점이었다.
+                초기 <span class="term" role="button" tabindex="0" data-term="hitl" aria-describedby="glo-hitl">HITL</span>에서는 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span> 성공과 실제 <span class="term" role="button" tabindex="0" data-term="consumption-path" aria-describedby="glo-consumption-path">소비 경로</span> 확인에 각각 다른 증거가 필요하다는 점을 확인했다. 사람이 알고 있는 장면 조건도 조사에 필요했다. <span class="term" role="button" tabindex="0" data-term="emulator" aria-describedby="glo-emulator">에뮬레이터</span>를 직접 조작하는 시간이 길어진 만큼, 그 관찰을 도구에 맡길 방법을 찾게 됐다.
               </p>
 
-              <h3>emucap은 그 관찰을 에이전트가 다룰 수 있게 하려는 데서 시작했다</h3>
+              <h3>에이전트의 실행 상태 관찰</h3>
               <p>
                 6월 23일 첫 프롬프트에는 사람이 특정 시점을 표시하고, 에이전트가 그 전후 상태와
                 화면을 읽는 도구라는 목적이 구체적으로 적혀 있다.
@@ -632,7 +610,7 @@
                 <span class="term" role="button" tabindex="0" data-term="savestate" aria-describedby="glo-savestate">세이브 상태</span>, <span class="term" role="button" tabindex="0" data-term="breakpoint" aria-describedby="glo-breakpoint">브레이크포인트</span>와 <span class="term" role="button" tabindex="0" data-term="frame" aria-describedby="glo-frame">프레임</span> 진행까지 확장됐다.
               </p>
 
-              <h3>화면 캡처 도구에서 비교 실험 도구로 넓어졌다</h3>
+              <h3>원본과 패치판의 비교 실험</h3>
               <p>
                 개발 하루 뒤의 프롬프트는 같은 입력과 상태에서 원본과 <span class="term" role="button" tabindex="0" data-term="patch" aria-describedby="glo-patch">패치</span>판이 처음 갈라지는
                 지점을 찾도록 요구했다.
@@ -652,7 +630,7 @@
                 메모리·<span class="term" role="button" tabindex="0" data-term="register" aria-describedby="glo-register">레지스터</span>·<span class="term" role="button" tabindex="0" data-term="dma" aria-describedby="glo-dma">DMA</span>의 첫 차이를 좁혔다.
               </p>
 
-              <h3>마지막에는 스크린샷보다 실험 기록의 연결이 중요해졌다</h3>
+              <h3>실험 조건과 캡처 기록</h3>
               <p>
                 7월 PCE-CD판에서 나온 프롬프트는 캡처 파일을 많이 남기는 것과, 무엇을 바꾼 뒤 어떤
                 상태에서 무엇이 달라졌는지 기록하는 일을 구분했다.
@@ -687,10 +665,8 @@
                 기록으로 남긴다. 사람이 매번 주소와 레지스터 값을 옮겨 적는 일은 도구로 넘어갔다.
               </p>
 
-              <div class="note-checklist">
-                <p class="note-checklist-title">
-                  다음 프로젝트의 관찰 프롬프트에는 장면 이름만 적기보다 다음 정보가 유용하다.
-                </p>
+              <details class="note-checklist">
+                <summary>실행 관찰 확인 질문</summary>
                 <ul>
                   <li>어떤 시작 상태와 입력 순서로 문제를 재현하는가?</li>
                   <li>첫 실행, 두 번째 실행, 특정 캐릭터나 주문처럼 가설을 가르는 조건은 무엇인가?</li>
@@ -698,7 +674,7 @@
                   <li>캡처가 어느 원본 해시와 빌드에 연결되어야 하는가?</li>
                   <li>사람이 판단해야 할 화면 의미와 도구가 자동으로 기록할 값은 각각 무엇인가?</li>
                 </ul>
-              </div>
+              </details>
             </section>
 
             <section
@@ -706,17 +682,17 @@
               data-navigation-section="runtime-asset"
               class="note-section"
             >
-              <h2 data-copy="ko">런타임 자산: 파일에 들어간 것과 게임이 실제로 쓴 것을 갈랐다</h2>
-              <h2 data-copy="en" lang="en" hidden>Runtime assets: separating what went into the file from what the game used</h2>
+              <h2 data-copy="ko">런타임 자산의 사용 경로</h2>
+              <h2 data-copy="en" lang="en" hidden>Runtime asset usage</h2>
 
               <p>
-                실행 관찰을 자동화해도 한 질문은 남는다. <span class="term" role="button" tabindex="0" data-term="patch" aria-describedby="glo-patch">패치</span>한 글꼴이나 문장이 <span class="term" role="button" tabindex="0" data-term="rom" aria-describedby="glo-rom">ROM</span>에 들어 있다는
+                실행 관찰을 자동화한 뒤에도 확인할 것이 있었다. <span class="term" role="button" tabindex="0" data-term="patch" aria-describedby="glo-patch">패치</span>한 글꼴이나 문장이 <span class="term" role="button" tabindex="0" data-term="rom" aria-describedby="glo-rom">ROM</span>에 들어 있다는
                 사실만으로는 게임이 그 데이터를 읽었다고 할 수 없다. 읽었다고 해도 다른 로드가 바로
                 덮을 수 있고, <span class="term" role="button" tabindex="0" data-term="ram" aria-describedby="glo-ram">RAM</span>에 남아 있어도 화면을 그리는 코드가 다른 버퍼를 볼 수 있다. 이
                 차이는 <code><span class="term" role="button" tabindex="0" data-term="emucap" aria-describedby="glo-emucap">emucap</span></code>이 생기기 전부터 여러 게임에서 반복해서 드러났다.
               </p>
 
-              <h3>한 번 쓴 데이터가 다음 상태에서도 남는지 물었다</h3>
+              <h3>화면 전환과 데이터 수명</h3>
               <p>
                 슈퍼 나조 뿌요 2에서는 퍼즐 조건 글자를 <span class="term" role="button" tabindex="0" data-term="vram" aria-describedby="glo-vram">VRAM</span>에 한 번 넣어 현재 화면을 맞추는 시도가
                 있었다. 사람은 이 게임에서 한 판에 2~6개의 조건이 차례로 바뀐다는 규칙을 알고 있었다.
@@ -731,15 +707,10 @@
                 </blockquote>
               </figure>
               <p>
-                사람의 지적 뒤 초점은 첫 화면의 모양에서 데이터의 <span class="term" role="button" tabindex="0" data-term="lifetime" aria-describedby="glo-lifetime">수명</span>으로 옮겨 갔다. 4월에 만든 고정
-                덮어쓰기는 당장의 조건을 보여 줬지만, 6월 동적 확인에서는 게임의 일본어 CHR 로드가 더
-                늦게 와서 한국어를 다시 덮는 경우가 확인됐다. Git 이력의 <code>97a944b</code>는
-                30<span class="term" role="button" tabindex="0" data-term="frame" aria-describedby="glo-frame">프레임</span> 동안 반복하는 임시 방식 대신, 조건 화면이 실제로 살아 있는 동안만 한국어
-                <span class="term" role="button" tabindex="0" data-term="dma" aria-describedby="glo-dma">DMA</span>를 보내는 <span class="term" role="button" tabindex="0" data-term="gate" aria-describedby="glo-gate">게이트</span>로 바뀐 기록이다. 중요한 것은 몇 번 덮어썼느냐가 아니라 어느
-                <span class="term" role="button" tabindex="0" data-term="state" aria-describedby="glo-state">상태</span>가 시작되고 끝날 때 자산이 유효해야 하는지였다.
+                사람의 지적 뒤에는 데이터가 언제까지 유지되는지 조사했다. 4월의 고정 덮어쓰기는 현재 조건을 보여 줬지만, 6월 실행 확인에서는 게임의 일본어 CHR 로드가 더 늦게 와서 한국어를 다시 덮는 경우를 찾았다. Git 이력의 <code>97a944b</code>에서는 30<span class="term" role="button" tabindex="0" data-term="frame" aria-describedby="glo-frame">프레임</span> 동안 반복하던 임시 방식을 고쳤다. 조건 화면이 떠 있는 동안만 한국어 <span class="term" role="button" tabindex="0" data-term="dma" aria-describedby="glo-dma">DMA</span>를 보내도록 바꿨다.
               </p>
 
-              <h3>글자를 언제 불러오는지는 파일이 아니라 게임 진행이 정했다</h3>
+              <h3>캐릭터 전환과 글꼴 적재</h3>
               <p>
                 세가 새턴 와쿠와쿠판에서는 캐릭터마다 필요한 글자가 달라 세 개의 ROM을 만드는 우회가
                 한때 구현됐다. 각 파일을 따로 켜면 글자가 나왔지만, 플레이어가 캐릭터를 바꿀 때마다
@@ -755,8 +726,7 @@
                 </blockquote>
               </figure>
               <p>
-                세 산출물은 기술적으로 가능했지만 한 게임 안에서 캐릭터가 바뀌는 경험을 충족하지
-                못했다. 이어진 질문은 파일 교체가 아니라 실제 <span class="term" role="button" tabindex="0" data-term="load-in" aria-describedby="glo-load-in">적재</span> 시점을 겨냥했다.
+                캐릭터를 바꾸려고 게임 파일까지 교체하게 할 수는 없었다. 게임 안에서 글꼴을 언제 <span class="term" role="button" tabindex="0" data-term="load-in" aria-describedby="glo-load-in">적재</span>하는지 다시 조사했다.
               </p>
               <figure class="prompt-quote">
                 <figcaption>
@@ -784,7 +754,7 @@
                 바꾸고 다시 들어오는 플레이를 증명하지 못했다.
               </p>
 
-              <h3>디스크에 담는 글자 수와 화면에 동시에 띄울 글자 수는 다른 한계였다</h3>
+              <h3>글꼴 저장량과 동시 표시량</h3>
               <p>
                 PC-98판에서는 <span class="term" role="button" tabindex="0" data-term="gaiji" aria-describedby="glo-gaiji">외자</span> 188칸이 보이자 이를 게임 전체의 글리프 저장 한계로 오해할 수
                 있었다. 사람은 그 숫자가 어디에서 생겼는지 다시 물었다.
@@ -811,11 +781,10 @@
                 디스크에 넣을 수 있는 글꼴의 총량, BIOS 외자 영역에 한 번에 등록할 수 있는 수, 현재
                 화면에서 동시에 필요한 글자는 같은 숫자가 아니었다. 이 구분이 생기자 “188자 안으로
                 번역을 줄인다”가 아니라, 디스크의 글꼴을 장면에 맞춰 실행 중인 슬롯으로 공급하는
-                방향을 조사할 수 있었다. 사람이 제공한 것은 캐시 주소가 아니라, 188이라는 수치가
-                게임 전체의 한계라는 설명이 정말 맞는지 되묻는 기준이었다.
+                방향을 조사할 수 있었다. 사람은 캐시 주소를 몰랐어도 188칸이 게임 전체의 한계라는 설명에는 의문을 제기할 수 있었다.
               </p>
 
-              <h3>여러 게임에서 되풀이된 문제가 스킬의 독립 항목이 됐다</h3>
+              <h3>런타임 자산 도달성 지침</h3>
               <p>
                 7월 <span class="term" role="button" tabindex="0" data-term="skill" aria-describedby="glo-skill">스킬</span> 재구성 때 이 문제를 폰트나 <span class="term" role="button" tabindex="0" data-term="compression" aria-describedby="glo-compression">압축</span>의 부속 항목으로 두지 말자는 질문이 나왔다.
               </p>
@@ -852,10 +821,8 @@
                 증거를 나눠 기록했다.
               </p>
 
-              <div class="note-checklist">
-                <p class="note-checklist-title">
-                  다음 프로젝트에서 <span class="term" role="button" tabindex="0" data-term="asset" aria-describedby="glo-asset">자산</span>이 “적용됐다”고 확인할 때는 다음처럼 물을 수 있다.
-                </p>
+              <details class="note-checklist">
+                <summary>자산 사용 경로 확인 질문</summary>
                 <ul>
                   <li>빌드 결과 안에 <span class="term" role="button" tabindex="0" data-term="byte" aria-describedby="glo-byte">바이트</span>가 있다는 것과 게임이 그 자산을 골랐다는 것을 각각 무엇으로 확인했는가?</li>
                   <li>로드나 변환 뒤 어느 RAM·VRAM 영역에 머물며, 언제 다른 데이터가 그곳을 덮는가?</li>
@@ -863,14 +830,14 @@
                   <li>한 실행 사례가 같은 경로를 쓰는 파일 범위를 정적으로 설명할 수 있는가?</li>
                   <li>사람이 알려 줘야 할 게임 상태와 도구가 추적해야 할 메모리 연결은 무엇인가?</li>
                 </ul>
-              </div>
+              </details>
             </section>
 
             <section id="poc" data-navigation-section="poc" class="note-section">
-              <h2 data-copy="ko">PoC: 한글 한 글자에서 완성을 막는 조건으로 옮겼다</h2>
-              <h2 data-copy="en" lang="en" hidden>PoC: from one Korean glyph to the condition that blocks completion</h2>
+              <h2 data-copy="ko">PoC의 범위와 합격 기준</h2>
+              <h2 data-copy="en" lang="en" hidden>PoC scope and acceptance criteria</h2>
 
-              <h3>한 글자가 나왔다는 걸 너무 크게 해석했다</h3>
+              <h3>한 글자 시연의 한계</h3>
               <p>
                 한글 한 글자를 띄우는 <span class="term" role="button" tabindex="0" data-term="poc" aria-describedby="glo-poc">PoC</span>는 렌더 경로, <span class="term" role="button" tabindex="0" data-term="glyph" aria-describedby="glo-glyph">글리프</span> 형식이나 <span class="term" role="button" tabindex="0" data-term="encoding" aria-describedby="glo-encoding">인코딩</span>의 일부를 빠르게
                 확인할 수 있다. 하지만 전체 번역에 필요한 글리프 수, 재배치, 동적 <span class="term" role="button" tabindex="0" data-term="load-in" aria-describedby="glo-load-in">적재</span>와 다른
@@ -887,7 +854,7 @@
                 </blockquote>
               </figure>
               <p>
-                이 프롬프트는 PoC를 없애자는 말이 아니다. PoC가 답해야 할 질문이 “한글을 띄울 수
+                PoC에서 확인할 질문이 “한글을 띄울 수
                 있는가”에서 “완성할 때 실제로 막힐 조건을 넘을 수 있는가”로 바뀌었다.
               </p>
               <figure class="prompt-quote">
@@ -900,7 +867,7 @@
                 </blockquote>
               </figure>
 
-              <h3>게임 프로젝트에서는 가장 어려운 조건을 먼저 지정했다</h3>
+              <h3>완성을 막는 조건의 우선 검증</h3>
               <p>게임기어판을 다시 시작할 때도 같은 질문이 구체적으로 나왔다.</p>
               <figure class="prompt-quote">
                 <figcaption>
@@ -937,8 +904,7 @@
                 전체 문장을 넣자 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>와 화면이 무너졌고, 188이라는 숫자가 디스크에 저장할 수 있는
                 총 글리프 수가 아니라 동시에 등록되는 외자 슬롯의 한계라는 점을 다시 조사하게 됐다.
                 필요한 글자를 <span class="term" role="button" tabindex="0" data-term="dynamic" aria-describedby="glo-dynamic">동적</span>으로 공급하는 구조를 먼저 마련한 뒤에야 번역 검수를 계속할 수
-                있었다. 작은 성공을 더 많이 보여 주는 것보다 전체 수요를 한 번 넣어 본 실패가 설계를
-                더 크게 바꾼 사례다.
+                있었다. 전체 수요를 넣어 보면서 기존 설계로 감당하지 못하는 부분을 찾았다.
               </p>
               <p>
                 슈퍼 뿌요뿌요 2에서도 한 글자가 보인다는 사실보다 전체 글리프 수요를 처리할 수
@@ -954,11 +920,8 @@
                 </blockquote>
               </figure>
 
-              <div class="note-checklist">
-                <p class="note-checklist-title">
-                  다음 프로젝트에서 “PoC를 해 달라”는 말만 쓰면 가장 쉬운 화면이 선택될 수 있다.
-                  다음 내용을 함께 주는 편이 낫다.
-                </p>
+              <details class="note-checklist">
+                <summary>PoC 계획 확인 질문</summary>
                 <ul>
                   <li>완성된 <span class="term" role="button" tabindex="0" data-term="patch" aria-describedby="glo-patch">패치</span>에서 반드시 되는 <span class="term" role="button" tabindex="0" data-term="consumption-path" aria-describedby="glo-consumption-path">소비 경로</span>와 가장 큰 수요는 무엇인가?</li>
                   <li>현재 PoC는 렌더 경로, 인코딩, 저장 공간, 런타임 슬롯 중 어디까지만 증명하는가?</li>
@@ -966,12 +929,12 @@
                   <li>이 시험이 실패하면 어떤 설계를 바꾸고, 성공하면 다음에 어떤 위험을 확인할 것인가?</li>
                   <li>쉬운 첫 화면보다 이후에 피할 수 없는 어려운 조건을 먼저 고를 수 있는가?</li>
                 </ul>
-              </div>
+              </details>
             </section>
 
             <section id="scope" data-navigation-section="scope" class="note-section">
-              <h2 data-copy="ko">전체 범위: 눈앞의 성공을 늘리기 전에 전체가 몇 개인지부터 셌다</h2>
-              <h2 data-copy="en" lang="en" hidden>Full scope: counting the whole before adding local wins</h2>
+              <h2 data-copy="ko">전체 작업 범위</h2>
+              <h2 data-copy="en" lang="en" hidden>Full project scope</h2>
 
               <p>
                 초기 프로젝트에서는 실행 중 발견한 문자열과 화면을 목록에 하나씩 더하는 일이 많았다.
@@ -980,7 +943,7 @@
                 달라졌다.
               </p>
 
-              <h3>사람이 아는 작품의 크기가 추출기의 첫 검사가 됐다</h3>
+              <h3>게임 분량과 추출량</h3>
               <p>
                 메가드라이브 마도물어의 초기 추출은 5층 부근까지만 설명했다. 사람은 주소나 파일
                 형식을 제시하지 않고 게임의 실제 층수를 알려 줬다.
@@ -1016,11 +979,10 @@
                 같은 날 Git 기록에서 뒤이은 변화가 보인다. 메시지를 <span class="term" role="button" tabindex="0" data-term="pointer" aria-describedby="glo-pointer">포인터</span> 차이마다 잘못 잘라
                 445개로 축소했던 <span class="term" role="button" tabindex="0" data-term="parser" aria-describedby="glo-parser">파서</span>를 고치자 1,514개가 나왔고(<code>a5be2f5</code>), 512개짜리
                 포인터 표 뒤에 있던 메뉴·아이템 텍스트 구역까지 찾으면서 <code>MENUDAT</code>의 전체
-                구조가 다시 바뀌었다(<code>2f92054</code>, <code>70845ea</code>). “상식적으로 적다”는
-                느낌이 최종 증거는 아니지만, 그럴듯한 오답을 완료로 굳히지 않는 강한 경보였다.
+                구조가 다시 바뀌었다(<code>2f92054</code>, <code>70845ea</code>). 추출량이 너무 적다는 지적을 받고 파서를 다시 확인한 결과였다.
               </p>
 
-              <h3>초벌을 통째로 넣어 보니 무엇이 부족한지가 드러났다</h3>
+              <h3>전체 초벌 빌드의 누락 검사</h3>
               <p>
                 슈퍼 뿌요뿌요 2에서는 앞 장의 “전체 한글 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>” 질문 뒤 273개 <span class="term" role="button" tabindex="0" data-term="draft" aria-describedby="glo-draft">초벌</span> 대사와 433자 <span class="term" role="button" tabindex="0" data-term="glyph" aria-describedby="glo-glyph">글리프</span>
                 수요를 한꺼번에 넣었다. Git 이력의 <code>7949b92</code>가 그 전체 이야기 빌드다. 작은
@@ -1045,7 +1007,7 @@
                 어느 하나가 100%라고 다른 두 범위까지 끝난 것은 아니다.
               </p>
 
-              <h3>1,100개 파일은 1,100번 실행하라는 뜻이 아니었다</h3>
+              <h3>1,100개 파일과 대표 실행 범위</h3>
               <p>
                 전체를 놓치지 말라는 원칙과 <code><span class="term" role="button" tabindex="0" data-term="emucap" aria-describedby="glo-emucap">emucap</span></code>을 함께 쓰자 반대쪽 문제가 생겼다.
                 모든 파일을 실제로 한 번씩 띄우려는 접근이었다.
@@ -1109,10 +1071,8 @@
                 영역을 따로 남겼다.
               </p>
 
-              <div class="note-checklist">
-                <p class="note-checklist-title">
-                  다음 프로젝트에서 전체 범위를 물을 때는 수치 하나보다 다음 질문이 유용하다.
-                </p>
+              <details class="note-checklist">
+                <summary>전체 범위 확인 질문</summary>
                 <ul>
                   <li>이 작품에 반드시 있는 층, 장면, 메뉴, 캐릭터, 분기와 엔딩을 현재 목록이 모두 설명하는가?</li>
                   <li>번역 항목, 글리프 수요, 그래픽 화면과 소비 경로를 각각 따로 세었는가?</li>
@@ -1120,12 +1080,12 @@
                   <li>대표 실행 하나가 증명하는 공통 경로와 별도 확인할 예외는 무엇인가?</li>
                   <li>미확인 대상을 완료 목록이나 제외 목록에 섞지 않고 남겼는가?</li>
                 </ul>
-              </div>
+              </details>
             </section>
 
             <section id="build" data-navigation-section="build" class="note-section">
-              <h2 data-copy="ko">원본과 빌드: 작업 폴더에서만 되던 결과를 언제든 다시 만들 수 있게 했다</h2>
-              <h2 data-copy="en" lang="en" hidden>Original and build: a result that can be remade, not one that happens to run</h2>
+              <h2 data-copy="ko">원본 기반 재현 빌드</h2>
+              <h2 data-copy="en" lang="en" hidden>Reproducible builds</h2>
 
               <p>
                 조사 중에는 짧은 스크립트와 손으로 고친 산출물이 빠르게 답을 줄 때가 있다. 문제는 그
@@ -1135,7 +1095,7 @@
                 닫으라는 요구로 바뀌었다.
               </p>
 
-              <h3>조사하려고 짠 스크립트를 최종 빌드에 남기지 않았다</h3>
+              <h3>조사 스크립트와 정식 빌드</h3>
               <p>
                 세가 새턴 마도물어에서는 폰트와 시퀀스 수정이 여러 도구에 흩어지자, 코드베이스로 같은
                 실험을 계속 실행할 수 있게 하라는 요구가 나왔다.
@@ -1167,7 +1127,7 @@
                 아는 변경을 배포 산출물에 남기지는 않았다.
               </p>
 
-              <h3>참고 패치는 단서로 남기고 최종 입력에서 뺐다</h3>
+              <h3>참고 패치와 빌드 입력</h3>
               <p>
                 게임기어판의 초기 한국어 빌드는 영어 패치 ROM을 먼저 요구했다. 영어판에서 <span class="term" role="button" tabindex="0" data-term="hook" aria-describedby="glo-hook">훅</span>과 여유
                 공간을 찾기는 쉬웠지만, 일본 원본에서 영어판을 거쳐 한국어판으로 온 변경 중 무엇이
@@ -1190,7 +1150,7 @@
                 됐다.
               </p>
 
-              <h3>따로 성공한 기능은 한 산출물에서 다시 만났다</h3>
+              <h3>기능별 빌드의 통합</h3>
               <p>
                 폰트, 대사, 그래픽과 엔딩이 각자 되는 격리 빌드는 서로의 주소와 <span class="term" role="button" tabindex="0" data-term="glyph" aria-describedby="glo-glyph">글리프</span> 공간을
                 침범하는지 알려 주지 않는다. 슈퍼 나조 뿌요 2에서 사람은 그래서 한 파일을 요구했다.
@@ -1242,7 +1202,7 @@
                 하나의 주 빌드에 들어가야 한다는 규칙 <code>d17b119</code>가 추가됐다.
               </p>
 
-              <h3>잘 보이는 ROM의 출처도 다시 만들 수 있어야 했다</h3>
+              <h3>실행 ROM의 빌드 출처</h3>
               <p>
                 메가드라이브판에서 화면 문제가 해결된 뒤에는 현재 실행 중인 ROM이 깨끗한 소스에서
                 나왔는지를 사람이 다시 물었다.
@@ -1272,10 +1232,9 @@
                 만들 수 없다면 다음 수정의 기준으로 쓸 수 없다.
               </p>
 
-              <h3>문장 다듬기는 글자가 다 들어간다는 걸 확인한 뒤에 했다</h3>
+              <h3>글리프 수요 확인과 문장 검수 순서</h3>
               <p>
-                원본 기반 통합 빌드는 사람의 검수를 뒤로 미루기 위한 핑계가 아니었다. 이미 다듬은
-                문장을 글리프 공급이나 디스크 배치 실패 때문에 버리지 않도록 순서를 잡는 일이었다.
+                글리프 공급이나 디스크 배치에 실패하면 이미 다듬은 문장을 다시 손봐야 한다. 그래서 전체 문장을 넣을 수 있는지 빌드부터 확인했다.
                 PS1판에서는 이를 아주 짧게 지시했다.
               </p>
               <figure class="prompt-quote">
@@ -1329,11 +1288,8 @@
                 </table>
               </div>
 
-              <div class="note-checklist">
-                <p class="note-checklist-title">
-                  다음 프로젝트에서 빌드를 요청할 때는 “최종 빌드 하나”보다 입력과 포함 범위를 함께
-                  적는 편이 낫다.
-                </p>
+              <details class="note-checklist">
+                <summary>빌드 입력과 결과 확인 질문</summary>
                 <ul>
                   <li>지원할 원본의 리비전, 표현 형식과 <span class="term" role="button" tabindex="0" data-term="hash" aria-describedby="glo-hash">해시</span>는 무엇인가?</li>
                   <li>번역, 글꼴, 그래픽, 코드 훅, 컨테이너 수정과 배포 패치가 한 주 빌드에서 만들어지는가?</li>
@@ -1342,14 +1298,14 @@
                   <li>배포 패치를 원본에 적용한 결과가 검증한 ROM과 같은가?</li>
                   <li>현재 실행 증거가 정확히 어느 원본, 커밋과 빌드 결과에 붙는가?</li>
                 </ul>
-              </div>
+              </details>
             </section>
 
             <section id="translation" data-navigation-section="translation" class="note-section">
-              <h2 data-copy="ko">번역 작업: 원문을 지키는 자동화와 문장을 고르는 판단을 나눴다</h2>
-              <h2 data-copy="en" lang="en" hidden>Translation: separating automation that protects the source from judgement that picks the words</h2>
+              <h2 data-copy="ko">번역 검사와 문장 수정</h2>
+              <h2 data-copy="en" lang="en" hidden>Translation checks and edits</h2>
 
-              <h3>번역 파일은 처음부터 원문 위치와 제어코드를 기억해야 했다</h3>
+              <h3>원문 위치와 제어코드 보존</h3>
               <p>
                 세가 새턴 마도물어의 텍스트 추출 프롬프트에는 이후 공용 <span class="term" role="button" tabindex="0" data-term="skill" aria-describedby="glo-skill">스킬</span>로 옮겨 간 요소가 이미
                 들어 있다.
@@ -1365,11 +1321,11 @@
               </figure>
               <p>
                 단순 순번 대신 원본 파일과 위치를 가리키는 식별자를 두고, 원문 <span class="term" role="button" tabindex="0" data-term="byte" aria-describedby="glo-byte">바이트</span>와 제어코드를
-                번역문과 분리했다. 나중에 새 문자열이 발견되더라도 기존 번역의 신원을 잃지 않고, 알 수
+                번역문과 분리했다. 나중에 새 문자열이 발견되더라도 기존 번역이 어느 원문에 대응하는지 유지하고, 알 수
                 없는 토큰을 한국어 문장처럼 바꾸지 않기 위한 구조였다.
               </p>
 
-              <h3>번역 검수는 원문·현재 번역·이유·제안을 함께 보게 했다</h3>
+              <h3>번역 검수 자료</h3>
               <p>
                 슈퍼패미컴판의 <span class="term" role="button" tabindex="0" data-term="exhaustive" aria-describedby="glo-exhaustive">전수</span> 검수에서는 규칙으로 문장을 일괄 변경하지 말고, 항목별로 판단할
                 자료를 남기도록 했다.
@@ -1390,7 +1346,7 @@
                 것도 기계 작업과 사람의 승인을 한 상태로 뭉개지 않기 위해서였다.
               </p>
 
-              <h3>화면 제약은 문장을 몰래 버리는 이유가 되지 않았다</h3>
+              <h3>문장 넘침과 자동 잘림 방지</h3>
               <p>
                 새턴 와쿠와쿠판에서는 넘치는 문장을 자동으로 자르거나 줄바꿈을 다시 배치하면 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>는
                 쉽게 통과할 수 있었다. 사람은 조용히 뜻이 사라지는 기본값을 막았다.
@@ -1418,12 +1374,10 @@
                 </blockquote>
               </figure>
               <p>
-                이 원칙은 문장을 절대로 고치지 말라는 뜻이 아니다. 창을 넓히거나 페이지를 나누고
-                글리프를 늘리는 기술적 선택을 먼저 조사한 뒤, 의미나 말투를 줄여야 할 때는 사람이 그
-                손실을 보고 결정하라는 뜻으로 정리됐다.
+                먼저 창 확장, 페이지 분할, 글리프 추가가 가능한지 조사했다. 그래도 문장의 의미나 말투를 줄여야 한다면 무엇이 빠지는지 사람이 보고 결정하도록 했다.
               </p>
 
-              <h3>자동화의 경계는 검출과 수정 사이에 놓였다</h3>
+              <h3>오류 검출과 수정 제안</h3>
               <p>
                 드림캐스트판의 번역 검사 프롬프트는 이유와 제안은 출력하되 자동으로 원문을 덮지 못하게
                 했다.
@@ -1478,10 +1432,8 @@
                 선택을 맡는다.
               </p>
 
-              <div class="note-checklist">
-                <p class="note-checklist-title">
-                  번역 관련 프롬프트에는 다음 구분을 명시하면 결과를 다시 살피기 쉽다.
-                </p>
+              <details class="note-checklist">
+                <summary>번역 검사 확인 질문</summary>
                 <ul>
                   <li>원문의 안정 식별자와 보호해야 할 raw byte·제어코드는 무엇인가?</li>
                   <li>검사는 어떤 오류를 전수로 찾고, 각 항목에 어떤 이유와 수정 제안을 남기는가?</li>
@@ -1489,12 +1441,12 @@
                   <li>말투, 뜻, 줄바꿈, 축약과 페이지 추가 중 무엇은 사람의 승인을 기다려야 하는가?</li>
                   <li>첫 번역, 에이전트 검토, 사람 검토와 빌드 채택 상태가 서로 구분되는가?</li>
                 </ul>
-              </div>
+              </details>
             </section>
 
             <section id="typography" data-navigation-section="typography" class="note-section">
-              <h2 data-copy="ko">화면 구성: 글꼴과 의성어를 실제 장면에 맞춰 골랐다</h2>
-              <h2 data-copy="en" lang="en" hidden>On-screen typography: fonts and onomatopoeia chosen to fit the actual scene</h2>
+              <h2 data-copy="ko">글꼴과 의성어 그래픽</h2>
+              <h2 data-copy="en" lang="en" hidden>Fonts and onomatopoeia</h2>
 
               <p>
                 문장이 자연스럽고 글자가 선명해도 화면 전체는 어색할 수 있다. 제목과 본문이 같은
@@ -1504,7 +1456,7 @@
                 구현 조건이 됐다.
               </p>
 
-              <h3>한 글꼴로 한국어판 전체를 통일하지 않았다</h3>
+              <h3>화면별 글꼴 선택</h3>
               <p>
                 슈퍼 나조 뿌요 2에서는 <code>게임하기 / 데이터 삭제</code> 메뉴의 커서와 <span class="term" role="button" tabindex="0" data-term="baseline" aria-describedby="glo-baseline">기준선</span>이
                 어긋나 보이자 새 글꼴을 시험했다.
@@ -1565,7 +1517,7 @@
                 보존했다.
               </p>
 
-              <h3>의성어는 읽는 말이면서 움직이는 그림이었다</h3>
+              <h3>의성어의 크기와 기울기</h3>
               <p>
                 슈퍼 나조 뿌요 2의 스토리에는 대사 데이터가 아니라 <span class="term" role="button" tabindex="0" data-term="sprite" aria-describedby="glo-sprite">스프라이트</span>로 그린
                 <code>ガッ</code>과 <code>パチ</code>가 있었다. 첫 장면이 음식을 먹는 동작임을 사람이
@@ -1613,7 +1565,7 @@
                 그래픽 배치를 함께 결정했다.
               </p>
 
-              <h3>모든 비한국어 요소를 바꾸지는 않았다</h3>
+              <h3>영문과 장식 요소의 보존</h3>
               <p>
                 화면에 일본어 코드가 있다고 모두 문장은 아니었다. 세가 새턴 마도물어의 OCR을 시작할
                 때부터 화살표와 뿌요 모양을 글자 후보에서 분리하라는 설명이 있었다.
@@ -1662,10 +1614,8 @@
                 사람은 화면 요소가 전달하는 정보와 역할을 먼저 분류한 뒤 무엇을 번역할지 정했다.
               </p>
 
-              <div class="note-checklist">
-                <p class="note-checklist-title">
-                  화면 글자와 그래픽을 맡길 때는 다음 정보를 프롬프트에 함께 넣는 편이 좋았다.
-                </p>
+              <details class="note-checklist">
+                <summary>화면 수정 확인 질문</summary>
                 <ul>
                   <li>이 글자는 본문, 제목, 작은 안내문, 효과음과 장식 중 무엇인가?</li>
                   <li>같은 글꼴을 유지해야 할 화면과 별도 후보를 비교할 화면은 어디인가?</li>
@@ -1674,14 +1624,14 @@
                   <li>남아 있는 비한국어 요소가 번역할 정보인지, 기호·고유 표기·장식인지 구분했는가?</li>
                   <li>바꾸지 않는다면 기술적 한계가 아니라 화면의 역할을 근거로 설명할 수 있는가?</li>
                 </ul>
-              </div>
+              </details>
             </section>
 
             <section id="reuse" data-navigation-section="reuse" class="note-section">
-              <h2 data-copy="ko">재사용: 결과물이 아니라 검증할 방법을 가져왔다</h2>
-              <h2 data-copy="en" lang="en" hidden>Reuse: taking the way to verify rather than the result</h2>
+              <h2 data-copy="ko">선행 작업의 재사용</h2>
+              <h2 data-copy="en" lang="en" hidden>Reuse of prior work</h2>
 
-              <h3>선행 프로젝트는 강한 단서였지만 대상 게임의 사실은 아니었다</h3>
+              <h3>대상 게임의 구조 재확인</h3>
               <p>
                 2월 슈퍼 나조 뿌요 2를 조사할 때 같은 제작사의 프로젝트 코드를 참고하되, 그 구조에
                 맞춰 결론을 끼워 넣지 말라는 프롬프트가 먼저 나왔다.
@@ -1696,12 +1646,12 @@
                 </blockquote>
               </figure>
               <p>
-                이 원칙은 선행 작업을 버리라는 말과 다르다. 어디를 먼저 볼지, 어떤 실패를 예상할지,
+                선행 작업에서 참고할 수 있는 것은 많다. 어디를 먼저 볼지, 어떤 실패를 예상할지,
                 어떤 검사를 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>에 둘지는 재사용할 수 있다. 주소, <span class="term" role="button" tabindex="0" data-term="free-space" aria-describedby="glo-free-space">빈 공간</span>, <span class="term" role="button" tabindex="0" data-term="encoding" aria-describedby="glo-encoding">인코딩</span> 폭, <span class="term" role="button" tabindex="0" data-term="glyph" aria-describedby="glo-glyph">글리프</span> 수와 <span class="term" role="button" tabindex="0" data-term="consumption-path" aria-describedby="glo-consumption-path">소비
                 경로</span>는 새 원본에서 다시 확인해야 한다.
               </p>
 
-              <h3>영어 패치의 레이아웃도 한국어의 정답은 아니었다</h3>
+              <h3>영어 패치와 한국어 레이아웃</h3>
               <p>
                 게임기어판은 영어 <span class="term" role="button" tabindex="0" data-term="patch" aria-describedby="glo-patch">패치</span>에서 많은 구조를 찾았지만, 영어에 맞춘 좁은 줄 간격이 한국어에는
                 맞지 않았다.
@@ -1722,7 +1672,7 @@
                 차이를 다시 검사했는가”를 묻게 했다.
               </p>
 
-              <h3>공용 방법도 특정 도구 이름에 묶지 않았다</h3>
+              <h3>공용 지침과 도구 선택</h3>
               <p>
                 <span class="term" role="button" tabindex="0" data-term="skill" aria-describedby="glo-skill">스킬</span>을 다듬을 때는 <code><span class="term" role="button" tabindex="0" data-term="emucap" aria-describedby="glo-emucap">emucap</span></code>이나 특정 <span class="term" role="button" tabindex="0" data-term="emulator" aria-describedby="glo-emulator">에뮬레이터</span>를 반드시 쓰라는 식으로
                 일반화하지 않도록 했다.
@@ -1749,11 +1699,8 @@
                 올렸다.
               </p>
 
-              <div class="note-checklist">
-                <p class="note-checklist-title">
-                  재사용을 요청할 때는 “자매 프로젝트처럼 해 달라”보다 다음과 같이 범위를 나누는 편이
-                  안전하다.
-                </p>
+              <details class="note-checklist">
+                <summary>선행 작업 재사용 확인 질문</summary>
                 <ul>
                   <li>선행 프로젝트에서 가져올 것은 구현, 실패 사례, 검사 방식 중 무엇인가?</li>
                   <li>새 대상의 원본 <span class="term" role="button" tabindex="0" data-term="hash" aria-describedby="glo-hash">해시</span>와 구조에서 다시 확인할 주소·수치·포맷은 무엇인가?</li>
@@ -1761,14 +1708,14 @@
                   <li>사용한 도구가 아니라 필요한 관찰 능력과 합격 조건을 설명할 수 있는가?</li>
                   <li>한 타이틀의 사례를 공용 원칙으로 옮길 만큼 반복된 근거가 있는가?</li>
                 </ul>
-              </div>
+              </details>
             </section>
 
             <section id="skill" data-navigation-section="skill" class="note-section">
-              <h2 data-copy="ko">공용 스킬: 프로젝트에서 되풀이된 원칙이 공용 규칙이 됐다</h2>
-              <h2 data-copy="en" lang="en" hidden>Shared skill: principles repeated across projects became shared rules</h2>
+              <h2 data-copy="ko">공용 스킬의 작성과 수정</h2>
+              <h2 data-copy="en" lang="en" hidden>Shared skill development</h2>
 
-              <h3>스킬이 생기기 전부터 원칙은 프롬프트에 있었다</h3>
+              <h3>스킬 이전의 작업 지침</h3>
               <p>
                 <code>create-kr-patch</code> <span class="term" role="button" tabindex="0" data-term="skill" aria-describedby="glo-skill">스킬</span>의 첫 패키징은 Git 기록상 6월 17일이다. 그러나 스킬의
                 내용이 그날 새로 생긴 것은 아니다. 앞선 프로젝트 프롬프트에 흩어져 있던 판단이 먼저
@@ -1818,11 +1765,10 @@
                 </table>
               </div>
               <p>
-                스킬은 에이전트가 실수하니 나중에 붙인 벌점표가 아니다. 사람이 여러 게임에서 반복해 온
-                작업 철학을 다른 프로젝트에서도 다시 쓰도록 정리했다.
+                여러 게임에서 반복해 설명했던 작업 기준을 다음 프로젝트에서도 쓸 수 있도록 스킬에 정리했다.
               </p>
 
-              <h3>중심 철학은 사람을 반복 조작에서 빼고 판단에 남기는 것이었다</h3>
+              <h3>반복 조작의 자동화</h3>
               <p>
                 6월 29일 프롬프트는 스킬과 <code><span class="term" role="button" tabindex="0" data-term="emucap" aria-describedby="glo-emucap">emucap</span></code>이 공유할 방향을 직접 설명한다.
               </p>
@@ -1836,13 +1782,12 @@
                 </blockquote>
               </figure>
               <p>
-                여기서 “사람의 개입 최소화”는 사람의 취향과 게임 지식을 제거한다는 뜻이 아니다. 파일을
-                하나씩 열고, 디버거 값을 옮기고, 이미 정해진 오류를 손으로 찾는 반복을 줄이자는 뜻이다.
+                줄이려던 것은 파일을 하나씩 열고, 디버거 값을 옮기고, 이미 정해진 오류를 손으로 찾는 작업이었다. 사람의 취향과 게임 지식은 계속 필요했다.
                 에이전트가 상황에 맞는 도구를 고르고 조사하되, 플레이 경험을 바꾸는 선택은 사람이 할 수
                 있게 증거와 후보를 내놓는 방향이다.
               </p>
 
-              <h3>스킬은 모든 작업 순서를 고정하지 않도록 계속 다듬었다</h3>
+              <h3>실패 조건과 작업 순서</h3>
               <p>7월에는 무엇을 공용 규칙으로 강제할지 범위를 좁혔다.</p>
               <figure class="prompt-quote">
                 <figcaption>
@@ -1860,7 +1805,7 @@
                 저장 경로부터 볼지 <span class="term" role="button" tabindex="0" data-term="consumption-path" aria-describedby="glo-consumption-path">소비 경로</span>부터 볼지는 대상의 증거에 따라 에이전트가 고른다.
               </p>
 
-              <h3>실제 프로젝트의 반례가 스킬을 계속 고쳤다</h3>
+              <h3>새 프로젝트의 반례</h3>
               <p>
                 스킬이 생긴 뒤에도 프로젝트는 스킬을 적용받기만 하지 않았다. 새 게임에서 맞지 않는
                 부분을 다시 스킬 쪽으로 돌려보냈다.
@@ -1878,7 +1823,7 @@
                 경로와 저장·<span class="term" role="button" tabindex="0" data-term="load-in" aria-describedby="glo-load-in">적재</span>·소비를 따로 확인하라는 질문만 남겼다.
               </p>
 
-              <h3>스킬도 적용 결과를 보고 다시 범위를 고쳤다</h3>
+              <h3>스킬 적용 범위의 조정</h3>
               <p>7월에는 자동화가 선택까지 대신하지 않게 하는 원칙을 더 분명히 했다.</p>
               <figure class="prompt-quote">
                 <figcaption>
@@ -1910,12 +1855,11 @@
             </section>
 
             <section id="timeline" data-navigation-section="timeline" class="note-section">
-              <h2 data-copy="ko">같은 시기에도 여러 흐름이 겹쳐 움직였다</h2>
-              <h2 data-copy="en" lang="en" hidden>Several threads moved at once, even within the same months</h2>
+              <h2 data-copy="ko">날짜별 작업 기록</h2>
+              <h2 data-copy="en" lang="en" hidden>Project timeline</h2>
 
               <p>
-                앞의 흐름을 날짜순으로 다시 놓으면 한 단계씩 차례로 발전한 이야기가 아니라는 점이 더
-                분명하다. 어떤 프로젝트는 <span class="term" role="button" tabindex="0" data-term="write" aria-describedby="glo-write">쓰기</span> 안전성이 먼저 필요했고, 다른 프로젝트는 전체 번역
+                여러 작업이 같은 시기에 진행됐다. 어떤 프로젝트는 <span class="term" role="button" tabindex="0" data-term="write" aria-describedby="glo-write">쓰기</span> 안전성이 먼저 필요했고, 다른 프로젝트는 전체 번역
                 수요나 게임의 진행 순서를 먼저 알아야 했다.
               </p>
               <div class="note-table-scroll">
@@ -1957,10 +1901,7 @@
                 </table>
               </div>
               <p>
-                이 표의 행은 성숙도 등급이 아니다. 2월의 <span class="term" role="button" tabindex="0" data-term="expected-write" aria-describedby="glo-expected-write">Expected Write</span>가 7월의 한 명령 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>보다 덜
-                발전한 방법인 것도 아니고, 6월의 <code><span class="term" role="button" tabindex="0" data-term="emucap" aria-describedby="glo-emucap">emucap</span></code>이 수동 <span class="term" role="button" tabindex="0" data-term="hitl" aria-describedby="glo-hitl">HITL</span>을 쓸모없게 만든 것도
-                아니다. 서로 다른 문제를 푸는 장치가 필요한 시점에 생겼고, 뒤의 프로젝트가 앞의 원칙을
-                새 조건에서 다시 시험했다.
+                2월의 <span class="term" role="button" tabindex="0" data-term="expected-write" aria-describedby="glo-expected-write">Expected Write</span>와 7월의 한 명령 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>는 서로 다른 문제를 해결했다. 6월에 <code><span class="term" role="button" tabindex="0" data-term="emucap" aria-describedby="glo-emucap">emucap</span></code>을 만든 뒤에도 수동 <span class="term" role="button" tabindex="0" data-term="hitl" aria-describedby="glo-hitl">HITL</span>은 필요했다. 나중에 시작한 프로젝트에서는 앞서 만든 도구와 원칙이 새 조건에서도 맞는지 다시 확인했다.
               </p>
               <p>
                 시기를 가로질러 공통으로 바뀐 것은 사람에게 묻는 내용이었다. 처음에는 실행 결과와
@@ -1971,16 +1912,14 @@
             </section>
 
             <section id="human" data-navigation-section="human" class="note-section">
-              <h2 data-copy="ko">사람은 무엇을 게임으로 받아들일지를 붙잡았다</h2>
-              <h2 data-copy="en" lang="en" hidden>The person held on to what counts as the game</h2>
+              <h2 data-copy="ko">사람의 확인과 판단</h2>
+              <h2 data-copy="en" lang="en" hidden>Human review and decisions</h2>
 
               <p>
-                대화를 통틀어 사람의 역할을 한두 개 직함으로 고정하기는 어렵다. 기술 문제가 달라질
-                때마다 개입하는 지점도 달랐다. 다만 사람이 계속 붙잡은 것은 직접 코드를 얼마나
-                쓰느냐보다 “무엇을 게임으로 받아들일 것인가”였다.
+                사람이 개입한 지점은 문제마다 달랐다. 빠진 장면을 알려 주기도 했고, 번역이나 화면을 고르기도 했다. 기술적으로 실행되는 결과가 원래 의도한 게임과 맞는지 확인하는 일이 많았다.
               </p>
 
-              <h3>작품의 실제 크기와 빠진 장면을 알려 줬다</h3>
+              <h3>게임 분량과 빠진 장면</h3>
               <p>
                 자동 추출이 5층까지만 보였을 때 이 게임은 11층과 지하 4층까지 있다고 알려 줬고,
                 PC-98판에서 스토리 460개는 너무 적다고 지적했다. 두 번째 실패에서만 나오는 힌트, 특정
@@ -1988,7 +1927,7 @@
                 주소 정답이 아니라 조사해야 할 전체 범위와 <span class="term" role="button" tabindex="0" data-term="consumption-path" aria-describedby="glo-consumption-path">소비 경로</span>를 바꾸는 입력이었다.
               </p>
 
-              <h3>게임 지식은 번역표 바깥의 정답지였다</h3>
+              <h3>게임 지식과 번역 검수</h3>
               <p>
                 자연스러운 문장이 항상 맞는 문장은 아니었다. 메가드라이브판에서는 영어판이 비슷한
                 절임을 한 단어로 뭉개도, 실제 게임에는 회복량이 다른 두 아이템이 따로 있었다.
@@ -2026,30 +1965,22 @@
                 </blockquote>
               </figure>
               <p>
-                세 프롬프트가 가져온 근거는 각각 아이템 효과, 들리는 음성과 퍼즐 규칙이었다. 사람은
-                마음에 드는 표현을 고른 데 그치지 않고, 번역 파일 밖에서 그 문장이 맞는지 판정할 자료를
-                제공했다. 에이전트는 그 지점을 원문 위치와 같은 항목의 다른 출현 장면으로 넓혀
-                확인했다. 이때 사람의 역할은 모든 문장을 직접 쓰는 것이 아니라, 그럴듯한 오답과 작품
-                안에서 실제로 성립하는 말을 가르는 데 있었다.
+                세 프롬프트는 아이템 효과, 음성, 퍼즐 규칙을 근거로 번역을 다시 확인하게 했다. 사람은 번역 파일 밖에서 얻은 정보를 제공했고, 에이전트는 원문 위치와 같은 항목이 나오는 다른 장면까지 확인했다. 그럴듯하게 읽히는 문장도 게임 내용과 맞는지 살펴야 했다.
               </p>
 
-              <h3>기술적 우회가 플레이 경험을 바꾸면 멈췄다</h3>
+              <h3>기술적 우회와 플레이 경험</h3>
               <p>
-                캐릭터별 <span class="term" role="button" tabindex="0" data-term="rom" aria-describedby="glo-rom">ROM</span> 세 개가 각각 실행돼도 한 게임으로 배포할 수 없다고 판단했고, 공간이
-                부족하다는 이유로 번역을 줄이기 전에 <span class="term" role="button" tabindex="0" data-term="glyph" aria-describedby="glo-glyph">글리프</span> 공급과 페이지 구조를 더 조사하게 했다.
-                사람이 한 일은 어려운 구현을 대신 푸는 것이 아니라, 기술적으로 편한 결과가 애초 목표를
-                바꾸는 순간을 알아보는 것이었다.
+                캐릭터별 <span class="term" role="button" tabindex="0" data-term="rom" aria-describedby="glo-rom">ROM</span> 세 개가 각각 실행돼도 한 게임으로 배포할 수 없다고 판단했다. 공간이 부족하다는 이유로 번역을 줄이려 할 때는 <span class="term" role="button" tabindex="0" data-term="glyph" aria-describedby="glo-glyph">글리프</span> 공급과 페이지 구조를 더 조사하도록 했다. 구현을 편하게 하려고 원래 목표까지 바꾸고 있지는 않은지 확인한 것이다.
               </p>
 
-              <h3>반복되는 실패에서 공통 금지선을 뽑았다</h3>
+              <h3>반복 실패와 공통 검사 규칙</h3>
               <p>
                 한 번의 충돌을 고치는 데서 멈추지 않고 모든 <span class="term" role="button" tabindex="0" data-term="write" aria-describedby="glo-write">쓰기</span>를 추적하게 했고, 예상한 원본에만
                 쓰도록 <span class="term" role="button" tabindex="0" data-term="expected-write" aria-describedby="glo-expected-write">Expected Write</span>를 붙였다. 수동 <span class="term" role="button" tabindex="0" data-term="hitl" aria-describedby="glo-hitl">HITL</span>이 반복되자 관찰 도구를 만들었고, 한 글자
-                <span class="term" role="button" tabindex="0" data-term="poc" aria-describedby="glo-poc">PoC</span>가 반복되자 가장 어려운 완성 조건과 통합 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>를 <span class="term" role="button" tabindex="0" data-term="skill" aria-describedby="glo-skill">스킬</span>에 넣었다. 사람의 철학이
-                스킬로 갔다는 것은 이런 식으로 국소 수정이 공용 경계로 바뀐 과정을 뜻한다.
+                <span class="term" role="button" tabindex="0" data-term="poc" aria-describedby="glo-poc">PoC</span>가 반복되자 가장 어려운 완성 조건과 통합 <span class="term" role="button" tabindex="0" data-term="build" aria-describedby="glo-build">빌드</span>를 <span class="term" role="button" tabindex="0" data-term="skill" aria-describedby="glo-skill">스킬</span>에 넣었다. 이렇게 여러 게임에서 반복한 요구를 스킬의 공통 규칙으로 정리했다.
               </p>
 
-              <h3>문장과 화면의 선택은 끝까지 사람이 했다</h3>
+              <h3>문장과 화면의 최종 선택</h3>
               <p>
                 자동화는 누락, 폭, <span class="term" role="button" tabindex="0" data-term="control-code" aria-describedby="glo-control-code">제어코드</span>, 원문 불일치와 수정 후보를 전체에서 찾았다. 어떤 말투가
                 인물에게 맞는지, 뜻을 줄일지 페이지를 늘릴지, 한글 그래픽이 원작 화면과 어울리는지는
@@ -2058,7 +1989,7 @@
                 답이 여러 개일 때 플레이 경험을 고르는 일은 끝까지 사람에게 남았다.
               </p>
 
-              <h3>반복 작업은 사람에게 남기지 않았다</h3>
+              <h3>반복 작업의 자동화</h3>
               <p>
                 사람이 1,100개 파일을 하나씩 실행하거나, 매번 메모리 값을 답변 파일에 옮기거나, 어떤
                 주소를 늘려야 하는지 대신 <span class="term" role="button" tabindex="0" data-term="reverse-engineering" aria-describedby="glo-reverse-engineering">역공학</span>하는 것은 목표가 아니었다. 그런 반복은 추출기, 빌드
@@ -2132,8 +2063,8 @@
             </section>
 
             <section id="prompts" data-navigation-section="prompts" class="note-section">
-              <h2 data-copy="ko">다음 프로젝트에서는 이렇게 물으면 된다</h2>
-              <h2 data-copy="en" lang="en" hidden>This is how to ask on the next project</h2>
+              <h2 data-copy="ko">상황별 요청 예시</h2>
+              <h2 data-copy="en" lang="en" hidden>Example requests</h2>
 
               <p>
                 이 기록에서 유용한 프롬프트는 구현 방법을 미리 단정한 문장보다, 사람이 알고 있는 게임의
@@ -2142,77 +2073,77 @@
 
               <div class="note-prompt-grid">
                 <article class="note-prompt-card">
-                  <h3>조사를 시작할 때</h3>
+                  <h3>초기 조사</h3>
                   <blockquote>
                     <p>이 게임에는 적어도 [층·장면·모드·캐릭터]가 있다. 현재 추출 결과가 그 분량과 맞는지 먼저 전체가 몇 개인지 세워 확인해라. 선행 패치는 단서로만 쓰고, 원본에서 포맷·주소·소비 경로를 다시 검증해라.</p>
                   </blockquote>
                 </article>
 
                 <article class="note-prompt-card">
-                  <h3>전체 범위를 셀 때</h3>
+                  <h3>전체 범위 조사</h3>
                   <blockquote>
                     <p>실행 중 발견한 파일을 하나씩 더하지 말고, 화면과 기능의 소비자에서 거꾸로 파일·엔트리의 전체 목록을 만들어라. 같은 선택 규칙과 로더와 렌더러를 쓰는 집단을 나누고, 공통 경로는 대표 사례로 실행하되 각 항목의 소속은 전수 정적 검사로 확인해라. 예외와 미확인 영역은 따로 남겨라.</p>
                   </blockquote>
                 </article>
 
                 <article class="note-prompt-card">
-                  <h3>ROM이나 디스크 쓰기를 추가할 때</h3>
+                  <h3>ROM·디스크 쓰기</h3>
                   <blockquote>
                     <p>최종 빌드의 모든 쓰기를 추적 경로로 모아라. 각 쓰기에 기대하는 원본 바이트나 빈 공간 조건을 선언하고, 기능끼리 겹치거나 미추적 변경이 생기면 실패하게 해라. 실행 코드를 넣는다면 대상 CPU의 typed ISA로 생성하고 다시 해석해 확인해라.</p>
                   </blockquote>
                 </article>
 
                 <article class="note-prompt-card">
-                  <h3>PoC를 정할 때</h3>
+                  <h3>PoC 계획</h3>
                   <blockquote>
                     <p>한글 한 글자가 보이는지보다 완성된 패치에서 가장 어려운 필수 조건이 무엇인지 먼저 찾아라. 그 조건의 실제 규모로 시험하고, 실패하면 바꿀 설계와 성공 뒤에도 남는 위험을 적어라. 이번 PoC가 증명하지 못한 범위도 함께 남겨라.</p>
                   </blockquote>
                 </article>
 
                 <article class="note-prompt-card">
-                  <h3>원본에서 통합 빌드를 만들 때</h3>
+                  <h3>원본 기반 통합 빌드</h3>
                   <blockquote>
                     <p>[원본 리비전·형식·해시]와 프로젝트가 소유한 입력만으로 빌드해라. 번역, 글꼴, 그래픽, 코드 훅과 컨테이너 변경을 한 주 빌드에 넣고, 중간 ROM이나 단발성 스크립트 결과를 숨은 입력으로 쓰지 마라. 같은 경로에서 배포 패치를 만들고, 이를 원본에 적용한 결과가 검증한 ROM과 같은지 확인해라.</p>
                   </blockquote>
                 </article>
 
                 <article class="note-prompt-card">
-                  <h3>실행 장면을 확인할 때</h3>
+                  <h3>실행 장면 확인</h3>
                   <blockquote>
                     <p>[시작 상태]에서 [입력 순서]로 [문제 장면]을 재현해라. JP와 KR의 원본 해시, 빌드, 상태와 입력을 맞춘 뒤 첫 차이를 기록하고, 화면·메모리·이벤트를 같은 실험 기록에 묶어라. 내가 판단할 것은 [장면의 의미·정상 동작·화면 선택]이다.</p>
                   </blockquote>
                 </article>
 
                 <article class="note-prompt-card">
-                  <h3>런타임 자산의 연결을 확인할 때</h3>
+                  <h3>런타임 자산 경로 확인</h3>
                   <blockquote>
                     <p>빌드에 들어간 [글꼴·문장·그래픽]이 어떤 표와 분기로 선택되고, 어디로 적재·변환되며, 어느 RAM·VRAM에서 얼마 동안 남고, 어떤 렌더러가 읽는지 이어서 보여 줘. [캐릭터 전환·재진입·두 번째 로드]가 수명을 바꾸는지 확인하고, 한 사례가 증명하는 소비 경로의 범위를 적어라.</p>
                   </blockquote>
                 </article>
 
                 <article class="note-prompt-card">
-                  <h3>번역을 검수할 때</h3>
+                  <h3>번역 검수</h3>
                   <blockquote>
                     <p>원본 위치, 원문, 제어코드, 현재 번역과 상태를 보존해라. 코드는 누락·폭·매핑·어색한 후보를 전수 검출하고 이유와 제안을 내되 번역문을 자동으로 고치지 마라. 말투·축약·줄바꿈·페이지 분할은 원문과 실제 화면을 본 뒤 내가 선택한다.</p>
                   </blockquote>
                 </article>
 
                 <article class="note-prompt-card">
-                  <h3>문장은 자연스럽지만 게임 내용과 맞지 않을 때</h3>
+                  <h3>게임 내용과 번역의 일치</h3>
                   <blockquote>
                     <p>[아이템 A와 B]는 실제로 별도 항목이고 효과도 다르다. [이 장면의 화자·음성·퍼즐 답]은 [관찰한 내용]이어야 한다. 현재 번역이 자연스럽다는 이유로 통과시키지 말고, 같은 이름이 나온 모든 위치와 실제 사용 결과를 원문에 맞춰 보여 줘. 수정할 표현은 그 비교를 본 뒤 정한다.</p>
                   </blockquote>
                 </article>
 
                 <article class="note-prompt-card">
-                  <h3>화면 글자와 의성어를 고를 때</h3>
+                  <h3>화면 글자와 의성어 선택</h3>
                   <blockquote>
                     <p>이 요소가 본문, 제목, 작은 안내문, 효과음과 장식 중 무엇인지 먼저 구분해라. 실제 배경에서 글꼴·크기·윤곽·자간 후보를 비교하고, 의성어라면 장면의 동작, 반복 횟수, 원본 각도와 셀 배치를 함께 맞춰라. 읽을 수 있는 영문이나 비문자 장식은 무조건 번역하지 말고 바꿀 이유와 남길 이유를 화면에서 보여 줘. 최종 선택은 내가 한다.</p>
                   </blockquote>
                 </article>
 
                 <article class="note-prompt-card">
-                  <h3>프로젝트 경험을 스킬로 옮길 때</h3>
+                  <h3>프로젝트 경험의 스킬 반영</h3>
                   <blockquote>
                     <p>이번 결론이 이 게임의 주소·도구·수치에만 해당하는지, 여러 프로젝트에서 반복된 조건인지 구분해라. 공용 스킬에는 “이 조건이면 반드시 실패하거나 확인해야 한다”는 경계만 올리고, 대상별 사례에는 관찰 범위와 다른 게임으로 옮길 수 없는 부분을 남겨라.</p>
                   </blockquote>
@@ -2220,10 +2151,7 @@
               </div>
 
               <p>
-                이 문장들은 그대로 복사하는 주문보다 빈칸을 채우는 골격에 가깝다. 사람이 게임의 범위와
-                선택 기준을 주면, 에이전트가 거기에 맞는 조사와 도구를 고른다. 2월부터 8월까지 반복
-                조작과 기술적 전수 작업은 시스템으로 옮겨 갔고, 사람만이 제공할 수 있는 게임 지식과
-                선택 기준은 프롬프트에 더 구체적으로 남았다.
+                예시의 빈칸에는 지금 작업하는 게임의 장면과 조건을 넣으면 된다. 무엇을 유지하고 어떤 결과를 원하는지 알려 주면 에이전트가 조사 방법과 도구를 고를 수 있다.
               </p>
             </section>
           </div>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="레트로 게임 한글화와 도구 개발에서 실제로 바뀐 작업 방식을 정리한 기록."
+      content="레트로 게임 한글 패치와 도구를 만들며 남긴 작업 기록."
     />
     <meta name="author" content="mcpads" />
     <meta
@@ -20,7 +20,7 @@
     <meta property="og:title" content="Notes — mcpads" />
     <meta
       property="og:description"
-      content="레트로 게임 한글화와 도구 개발에서 실제로 바뀐 작업 방식을 정리한 기록."
+      content="레트로 게임 한글 패치와 도구를 만들며 남긴 작업 기록."
     />
     <meta property="og:url" content="https://mcpads.dev/notes/" />
     <meta property="og:image" content="https://mcpads.dev/og.png" />
@@ -35,7 +35,7 @@
     <meta name="twitter:title" content="Notes — mcpads" />
     <meta
       name="twitter:description"
-      content="레트로 게임 한글화와 도구 개발에서 실제로 바뀐 작업 방식을 정리한 기록."
+      content="레트로 게임 한글 패치와 도구를 만들며 남긴 작업 기록."
     />
     <meta name="twitter:image" content="https://mcpads.dev/og.png" />
     <meta
@@ -60,7 +60,7 @@
         "@id": "https://mcpads.dev/notes/#blog",
         "url": "https://mcpads.dev/notes/",
         "name": "Notes",
-        "description": "레트로 게임 한글화와 도구 개발에서 실제로 바뀐 작업 방식을 정리한 기록.",
+        "description": "레트로 게임 한글 패치와 도구를 만들며 남긴 작업 기록.",
         "inLanguage": ["ko", "en"],
         "author": { "@id": "https://mcpads.dev/#mcpads" },
         "blogPost": [
@@ -68,7 +68,7 @@
             "@type": "BlogPosting",
             "@id": "https://mcpads.dev/notes/what-you-type/#article",
             "url": "https://mcpads.dev/notes/what-you-type/",
-            "headline": "코드는 몰라도 된다",
+            "headline": "한글 패치 작업의 실제 대화",
             "datePublished": "2026-08-18",
             "inLanguage": "ko"
           },
@@ -76,7 +76,7 @@
             "@type": "BlogPosting",
             "@id": "https://mcpads.dev/notes/work-evolution/#article",
             "url": "https://mcpads.dev/notes/work-evolution/",
-            "headline": "한글화 작업 방식은 여러 갈래로 바뀌었다",
+            "headline": "한글 패치를 만들며 바꾼 작업 방식",
             "datePublished": "2026-08-18",
             "inLanguage": "ko"
           }
@@ -187,10 +187,10 @@
           <h1 data-copy="ko">작업 기록</h1>
           <h1 data-copy="en" lang="en" hidden>Notes</h1>
           <p class="section-intro" data-copy="ko">
-            한글 패치를 만들면서 겪은 문제와 AI에게 작업을 맡기는 방법을 적었습니다.
+            한글 패치와 도구를 만들며 겪은 문제, 고친 과정, AI와 주고받은 대화를 모았습니다.
           </p>
           <p class="section-intro" data-copy="en" lang="en" hidden>
-            Notes on problems encountered while making Korean patches and working with AI agents.
+            Problems, fixes, and conversations with AI from Korean patch and tool development.
           </p>
         </div>
       </section>
@@ -202,22 +202,20 @@
               <article class="note-card">
                 <p class="note-card-meta">
                   <time datetime="2026-08-18">2026-08-18</time>
-                  <span class="note-card-audience" data-copy="ko">시작하기 전에 · 코드를 몰라도 읽힙니다</span>
-                  <span class="note-card-audience" data-copy="en" lang="en" hidden>Before you start · no code needed</span>
+                  <span class="note-card-audience" data-copy="ko">작업 대화</span>
+                  <span class="note-card-audience" data-copy="en" lang="en" hidden>Conversations</span>
                 </p>
                 <h2>
                   <a href="/notes/what-you-type/">
-                    <span data-copy="ko">코드는 몰라도 된다</span>
-                    <span data-copy="en" lang="en" hidden>You do not need to write code</span>
+                    <span data-copy="ko">한글 패치 작업의 실제 대화</span>
+                    <span data-copy="en" lang="en" hidden>Conversations from Korean patch projects</span>
                   </a>
                 </h2>
                 <p data-copy="ko">
-                  한글화에서 사람이 실제로 맡는 몫은 무엇인가. 2026년 2월부터 8월까지 실제로 친
-                  프롬프트 24개로, 코드를 모르는 사람이 할 수 있는 일과 할 수 없는 일을 갈랐습니다.
+                  빠진 대사, 어색한 번역, 글꼴과 화면 배치에 대해 AI에게 보낸 요청 35개입니다. 각 대화에 당시 상황과 사람이 확인한 내용을 덧붙였습니다.
                 </p>
                 <p data-copy="en" lang="en" hidden>
-                  What the person actually contributes to a Korean localization, shown through
-                  twenty-four real prompts sent between February and August 2026.
+                  35 requests to AI about missing dialogue, awkward translations, fonts, and screen layout, with context and notes on what I checked.
                 </p>
                 <p class="note-card-more">
                   <span data-copy="ko">읽기</span>
@@ -230,26 +228,24 @@
               <article class="note-card">
                 <p class="note-card-meta">
                   <time datetime="2026-08-18">2026-08-18</time>
-                  <span class="note-card-audience" data-copy="ko">기술 기록 · 이미 하고 있는 사람용</span>
-                  <span class="note-card-audience" data-copy="en" lang="en" hidden>Technical record · for people already doing this</span>
+                  <span class="note-card-audience" data-copy="ko">개발 기록</span>
+                  <span class="note-card-audience" data-copy="en" lang="en" hidden>Development</span>
                 </p>
                 <h2>
                   <a href="/notes/work-evolution/">
-                    <span data-copy="ko">한글화 작업 방식은 여러 갈래로 바뀌었다</span>
+                    <span data-copy="ko">한글 패치를 만들며 바꾼 작업 방식</span>
                     <span data-copy="en" lang="en" hidden>
-                      Localization work split into several evolving threads
+                      How I changed the way I make Korean patches
                     </span>
                   </a>
                 </h2>
                 <p data-copy="ko">
-                  2026년 2월부터 8월까지 게임 12개와 도구 3개 프로젝트에서, ROM 쓰기·실행
-                  관찰·번역·화면 구성 같은 열 갈래가 각각 다른 실패를 거치며 어떻게 바뀌었는지
-                  정리했습니다.
+                  게임 12개의 한글화와 도구 3개 개발을 거치며 바꾼 작업 방식입니다. ROM 수정부터 실행 확인, 번역과 화면 구성까지 열 가지 주제로 나누어 문제와 수정 과정을 정리했습니다.
                 </p>
                 <p data-copy="en" lang="en" hidden>
-                  Across twelve games and three tool projects between February and August 2026,
-                  ten separate threads—ROM writes, runtime observation, translation, on-screen
-                  typography—each changed through failures of their own.
+                  Changes to my workflow across twelve games and three tools. Ten topics cover
+                  the problems and fixes, from ROM edits and runtime checks to translation
+                  and screen layout.
                 </p>
                 <p class="note-card-more">
                   <span data-copy="ko">읽기</span>
